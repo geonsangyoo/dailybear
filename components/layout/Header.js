@@ -21,14 +21,16 @@ const Header = props => {
             <Text style={ styles.month }>
                 { getMonth }
             </Text>
+            <Text style={ styles.saying }>
+                { `Do not be afraid to give up \n the good to go for the great` }
+            </Text>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        flexDirection: 'column'
+        flex: 1
     },
     year: {
         textAlign: 'center',
@@ -41,10 +43,17 @@ const styles = StyleSheet.create({
     },
     month: {
         textAlign: 'center',
-        top: '16%',
+        top: '15%',
         fontFamily: 'SFProText-Bold',
-        fontWeight: '800',
-        fontSize: 50,
+        fontWeight: '900',
+        fontSize: 45,
+        color: Colors.HeaderTitle_gray
+    },
+    saying: {
+        textAlign: 'center',
+        top: '17%',
+        fontFamily: 'SFProText-Regular',
+        fontSize: 15,
         color: Colors.HeaderTitle_gray
     }
 });
