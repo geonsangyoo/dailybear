@@ -1,4 +1,4 @@
-const colors = {
+const Colors = {
     //Button
     ButtonBackground_white: '#FFFFFF',
     ButtonBackgrond_brown: '#7E5D57',
@@ -6,4 +6,4 @@ const colors = {
     FooterIconBackground_white: '#FFFFFF',
     FooterIconBackground_brown: '#7E5D57'
 }
-export default colors;
+export default Colors;

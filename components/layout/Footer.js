@@ -1,6 +1,6 @@
 // Standard
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 // Custom
 import Colors from '../../constants/Colors';
@@ -8,29 +8,23 @@ import Colors from '../../constants/Colors';
 const Footer = props => {
     return (
         <View style={ styles.container }>
-            <TouchableOpacity onPress={()=>{}}>
-                <View style={{ ...styles.calendar_circle, ...styles.shadow }}>
-                    <Image 
-                        source={ require('../../assets/icons/calender.png') }
-                        style={ styles.icon }
-                    />
-                </View>
+            <TouchableOpacity onPress={()=>{}} style={{ ...styles.calendar_circle, ...styles.shadow }}>
+                <Image 
+                    source={ require('../../assets/icons/calender.png') }
+                    style={ styles.icon }
+                />
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>{}}>
-                <View style={{ ...styles.setting_circle, ...styles.shadow }}>
-                    <Image 
-                        source={ require('../../assets/icons/setting.png') }
-                        style={ styles.icon }
-                    />
-                </View>
+            <TouchableOpacity onPress={()=>{}} style={{ ...styles.setting_circle, ...styles.shadow }}>
+                <Image 
+                    source={ require('../../assets/icons/setting.png') }
+                    style={ styles.icon }
+                />
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>{}}>
-                <View style={{ ...styles.edit_circle, ...styles.shadow }}>
-                    <Image 
-                        source={ require('../../assets/icons/edit_white.png') }
-                        style={ styles.icon }
-                    />
-                </View>
+            <TouchableOpacity onPress={()=>{}} style={{ ...styles.edit_circle, ...styles.shadow }}>
+                <Image 
+                    source={ require('../../assets/icons/edit_white.png') }
+                    style={ styles.icon }
+                />
             </TouchableOpacity>
         </View>
     );
@@ -67,7 +61,7 @@ const styles = StyleSheet.create({
     edit_circle: {
         width: 60,
         height: 60,
-        marginLeft: '55%',
+        marginLeft: '40%',
         borderRadius: 60/2,
         backgroundColor: Colors.FooterIconBackground_brown
     },

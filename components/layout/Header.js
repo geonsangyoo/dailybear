@@ -11,7 +11,7 @@ const Header = props => {
     useEffect(() => {
         let date = new Date();
         setYear(date.getFullYear());
-        setMonth(date.getMonth());
+        setMonth(date.getMonth() + 1);
     }, []);
     return (
         <View style={ styles.container }>

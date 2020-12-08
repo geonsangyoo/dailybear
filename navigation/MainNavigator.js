@@ -15,8 +15,9 @@ const MainContainer = () => {
     return (
         <NavigationContainer>
             <MainNavigatorScreen.Navigator
-                mode='card'
-                headerMode='none'
+                mode="card"
+                headerMode="none"
+                initialRouteName="CalendarView"
             >
                 <MainNavigatorScreen.Screen 
                     name="CalendarView"
