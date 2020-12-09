@@ -5,8 +5,8 @@ export const months = [
 ];
  
 export const weekDays = [
-    "Sun","Mon","Tue","Wed",
-    "Thu","Fri","Sat"
+    "S","M","T","W",
+    "T","F","S"
 ];
 
 export const nDays = [

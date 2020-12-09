@@ -1,10 +1,11 @@
 // Standard
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 // Custom
 import Bear from '../ui/Bear';
 import * as calendarConsts from '../../constants/Calendar';
+import Colors from '../../constants/Colors';
 
 const Calendar = props => {
     const [getDate, setDate] = useState(new Date());
@@ -35,38 +36,60 @@ const Calendar = props => {
         return matrix;
     };
 
-    var matrix = [];
-    var rows = [];
+    let matrix = [];
+    let rows = [];
+    let keyCounter = 1;
 
     matrix = generateDayMatrix();
     rows = matrix.map((row, rowIndex) => {
-        var rowItems = row.map((item, colIndex) => {
+        let rowItems = row.map((item, colIndex) => {
             let isValid;
             isValid = (item == -1) ? false : true;
-            return (
-                <Bear
-                    isValid={ isValid }
-                    onPress={ () => { /* ToDo */ } } 
-                />
-            );
+            if (rowIndex == 0) {
+                return (
+                    <Text key={ keyCounter++ } style={ styles.Days }>{ matrix[rowIndex][colIndex] }</Text>
+                );
+            } else {
+                return (
+                    <Bear
+                        isValid={ isValid }
+                        onPress={ () => { /* ToDo */ } } 
+                        key={ keyCounter++ }
+                    />
+                );
+            }
         });
         return (
-            <View style={{
-                flex: 1,
-                flexDirection: 'row',
-                padding: 15,
-                justifyContent: 'space-around',
-                alignItems: 'center'
-            }}>
+            <View key={ rowIndex } style={ styles.rowConatiner }>
                 { rowItems }
             </View>
         );
     });
     return (
-        <View>
+        <View style={ styles.calendarContainer }>
             { rows }
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    calendarContainer: {
+        flex: 2,
+        top: '5%'
+    },
+    rowConatiner: {
+        flex: 1,
+        flexDirection: 'row',
+        padding: 10,
+        justifyContent: 'space-around',
+        alignItems: 'center'
+    },
+    Days: {
+        fontSize: 11,
+        fontFamily: 'SFProText-Regular',
+        fontWeight: '800',
+        color: Colors.DaysTitle_white
+    }
+});
 
 export default Calendar;

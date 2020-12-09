@@ -5,7 +5,7 @@ const Bear = props => {
     let contents;
     if (props.isValid) {
         contents = (
-            <TouchableOpacity onPress={props.onPress}>
+            <TouchableOpacity onPress={ props.onPress }>
                 <Image 
                     source={ require('../../assets/images/main_bear_1.png') }
                     style={ styles.image }
@@ -14,7 +14,7 @@ const Bear = props => {
         );
     } else {
         contents = (
-            <Text />
+            <Text></Text>
         );
     }
     return (
@@ -26,7 +26,8 @@ const Bear = props => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        padding: 10
     },
     image: {
         width: 38,

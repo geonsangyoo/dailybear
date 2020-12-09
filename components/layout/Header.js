@@ -34,16 +34,16 @@ const styles = StyleSheet.create({
     },
     year: {
         textAlign: 'center',
-        top: '15%',
+        top: '35%',
         fontFamily: 'SFProText-Regular',
         fontStyle: 'normal',
-        fontWeight: "900",
+        fontWeight: '900',
         fontSize: 20,
         color: Colors.HeaderTitle_gray
     },
     month: {
         textAlign: 'center',
-        top: '15%',
+        top: '35%',
         fontFamily: 'SFProText-Bold',
         fontWeight: '900',
         fontSize: 45,
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     },
     saying: {
         textAlign: 'center',
-        top: '17%',
+        top: '40%',
         fontFamily: 'SFProText-Regular',
         fontSize: 15,
         color: Colors.HeaderTitle_gray

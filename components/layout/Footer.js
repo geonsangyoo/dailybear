@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     setting_circle: {
         width: 60,
         height: 60,
-        marginLeft: 15,
+        marginLeft: '6%',
         borderRadius: 60/2,
         backgroundColor: Colors.FooterIconBackground_white
     },
