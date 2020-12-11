@@ -1,5 +1,5 @@
 // Standard
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 // Custom
@@ -8,11 +8,12 @@ import * as calendarConsts from '../../constants/Calendar';
 import Colors from '../../constants/Colors';
 
 const Calendar = props => {
-    const [getDate, setDate] = useState(new Date());
-    const generateDayMatrix = () => {
+    var rows = [];
+
+    const generateDayMatrix = (activeDate) => {
         let matrix = [];
-        let year = getDate.getFullYear();
-        let month = getDate.getMonth();
+        let year = activeDate.getFullYear();
+        let month = activeDate.getMonth();
         let firstDay = new Date(year, month, 1).getDay();
         let maxDays = calendarConsts.nDays[month];
         let counter = 1;
@@ -36,35 +37,42 @@ const Calendar = props => {
         return matrix;
     };
 
-    let matrix = [];
-    let rows = [];
-    let keyCounter = 1;
-
-    matrix = generateDayMatrix();
-    rows = matrix.map((row, rowIndex) => {
-        let rowItems = row.map((item, colIndex) => {
-            let isValid;
-            isValid = (item == -1) ? false : true;
-            if (rowIndex == 0) {
-                return (
-                    <Text key={ keyCounter++ } style={ styles.Days }>{ matrix[rowIndex][colIndex] }</Text>
-                );
-            } else {
-                return (
-                    <Bear
-                        isValid={ isValid }
-                        onPress={ () => { /* ToDo */ } } 
-                        key={ keyCounter++ }
-                    />
-                );
-            }
+    const renderCalendar = (activeDate) => {
+        let matrix = [];
+        let rows = [];
+        let keyCounter = 1;
+    
+        matrix = generateDayMatrix(activeDate);
+        rows = matrix.map((row, rowIndex) => {
+            let rowItems = row.map((item, colIndex) => {
+                let isValid;
+                isValid = (item == -1) ? false : true;
+                if (rowIndex == 0) {
+                    return (
+                        <Text key={ keyCounter++ } style={ styles.Days }>{ matrix[rowIndex][colIndex] }</Text>
+                    );
+                } else {
+                    return (
+                        <Bear
+                            isValid={ isValid }
+                            onPress={ () => { /* ToDo */ } } 
+                            key={ keyCounter++ }
+                        />
+                    );
+                }
+            });
+            return (
+                <View key={ rowIndex } style={ styles.rowConatiner }>
+                    { rowItems }
+                </View>
+            );
         });
-        return (
-            <View key={ rowIndex } style={ styles.rowConatiner }>
-                { rowItems }
-            </View>
-        );
-    });
+
+        return rows;
+    }
+
+    rows = renderCalendar(props.getDate);
+
     return (
         <View style={ styles.calendarContainer }>
             { rows }

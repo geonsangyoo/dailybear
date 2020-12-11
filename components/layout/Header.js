@@ -1,31 +1,25 @@
 // Standard
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 
 // Custom
 import Colors from '../../constants/Colors';
 
 const Header = props => {
-    const [getYear, setYear] = useState(0);
-    const [getMonth, setMonth] = useState(0);
-    useEffect(() => {
-        let date = new Date();
-        setYear(date.getFullYear());
-        setMonth(date.getMonth() + 1);
-    }, []);
     return (
         <View style={ styles.container }>
             <Text style={ styles.year }>
-                { getYear }
+                { props.getDate.getFullYear() }
             </Text>
             <Text style={ styles.month }>
-                { getMonth }
+                { props.getDate.getMonth() + 1 }
             </Text>
             <Text style={ styles.saying }>
                 { `Do not be afraid to give up \n the good to go for the great` }
             </Text>
         </View>
     );
+
 };
 
 const styles = StyleSheet.create({
@@ -34,7 +28,7 @@ const styles = StyleSheet.create({
     },
     year: {
         textAlign: 'center',
-        top: '35%',
+        top: '15%',
         fontFamily: 'SFProText-Regular',
         fontStyle: 'normal',
         fontWeight: '900',
@@ -43,7 +37,7 @@ const styles = StyleSheet.create({
     },
     month: {
         textAlign: 'center',
-        top: '35%',
+        top: '15%',
         fontFamily: 'SFProText-Bold',
         fontWeight: '900',
         fontSize: 45,
@@ -51,7 +45,7 @@ const styles = StyleSheet.create({
     },
     saying: {
         textAlign: 'center',
-        top: '40%',
+        top: '25%',
         fontFamily: 'SFProText-Regular',
         fontSize: 15,
         color: Colors.HeaderTitle_gray

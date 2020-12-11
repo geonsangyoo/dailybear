@@ -7,17 +7,18 @@ import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 
 // Custom
 import MainContainer from './navigation/MainNavigator';
+import calendarReducer from './store/reducers/Calendar';
 
-// const rootReducer = combineReducers({
-// });
-// const middlewareEnhancer = applyMiddleware(ReduxThunk);
-// const store = createStore(rootReducer, composeWithDevTools(middlewareEnhancer));
+const rootReducer = combineReducers({
+  calendar: calendarReducer
+});
+const middlewareEnhancer = applyMiddleware(ReduxThunk);
+const store = createStore(rootReducer, composeWithDevTools(middlewareEnhancer));
 
 export default function App() {
   return (
-    // <Provider store={ store }>
-    //   <MainContainer />
-    // </Provider>
-    <MainContainer />
+    <Provider store={ store }>
+      <MainContainer />
+    </Provider>
   );
 }

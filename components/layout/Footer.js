@@ -35,8 +35,9 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         alignItems: 'flex-end',
-        marginBottom: '15%',
+        marginBottom: '8%',
         marginLeft: '8%',
+        marginRight: '6%'
     },
     shadow: {
         shadowColor: 'black',
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
     setting_circle: {
         width: 60,
         height: 60,
-        marginLeft: '6%',
+        marginLeft: '8%',
         borderRadius: 60/2,
         backgroundColor: Colors.FooterIconBackground_white
     },
