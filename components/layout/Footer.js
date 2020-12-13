@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
         marginBottom: '8%',
         marginLeft: '8%',
-        marginRight: '6%'
+        marginRight: '8%'
     },
     shadow: {
         shadowColor: 'black',
@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
         width: 60,
         height: 60,
         marginLeft: '40%',
+        right: '10%',
         borderRadius: 60/2,
         backgroundColor: Colors.FooterIconBackground_brown
     },
