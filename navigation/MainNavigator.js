@@ -18,12 +18,15 @@ const MainContainer = () => {
             <NavigationContainer>
                 <MainNavigatorScreen.Navigator
                     mode="card"
-                    headerMode="none"
+                    headerMode="screen"
                     initialRouteName="CalendarView"
                 >
                     <MainNavigatorScreen.Screen 
-                        name="CalendarView"
+                        name="Calendar View"
                         component={ CalendarView }
+                        options={{
+                            headerShown: false
+                        }}
                     />
                     <MainNavigatorScreen.Screen 
                         name="StatisticsView"
