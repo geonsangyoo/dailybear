@@ -1,6 +1,6 @@
 // Standard
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 
 // Custom
 import Colors from '../../constants/Colors';
@@ -14,9 +14,11 @@ const Header = props => {
             <Text style={ styles.month }>
                 { props.getDate.getMonth() + 1 }
             </Text>
-            <Text style={ styles.saying }>
-                { `Do not be afraid to give up \n the good to go for the great` }
-            </Text>
+            <TouchableOpacity style={ styles.sayingContainer } onPress={() => {}}>
+                <Text style={ styles.saying }>
+                    { `Do not be afraid to give up \n the good to go for the great` }
+                </Text>
+            </TouchableOpacity>
         </View>
     );
 
@@ -42,6 +44,10 @@ const styles = StyleSheet.create({
         fontWeight: '900',
         fontSize: 45,
         color: Colors.HeaderTitle_gray
+    },
+    sayingContainer: {
+        flex: 1,
+        marginTop: '5%'
     },
     saying: {
         textAlign: 'center',

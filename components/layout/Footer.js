@@ -22,7 +22,7 @@ const Footer = props => {
             </TouchableOpacity>
             <TouchableOpacity onPress={()=>{}} style={{ ...styles.edit_circle, ...styles.shadow }}>
                 <Image 
-                    source={ require('../../assets/icons/edit_white.png') }
+                    source={ require('../../assets/icons/edit.png') }
                     style={ styles.icon }
                 />
             </TouchableOpacity>
