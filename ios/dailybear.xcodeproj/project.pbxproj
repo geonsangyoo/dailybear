@@ -12,7 +12,6 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		13D6B356C07E470089DE9FC9 /* edit_white.png in Resources */ = {isa = PBXBuildFile; fileRef = F764A618C7584066A878247E /* edit_white.png */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -136,7 +135,6 @@
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F3EE6BAA58DA450297D88C02 /* calender.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = calender.png; path = ../assets/icons/calender.png; sourceTree = "<group>"; };
 		F6016CE886A343D99FADBA4A /* splash_title.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = splash_title.png; path = ../assets/images/splash_title.png; sourceTree = "<group>"; };
-		F764A618C7584066A878247E /* edit_white.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = edit_white.png; path = ../assets/icons/edit_white.png; sourceTree = "<group>"; };
 		FC57ABBD699A44D980F5A1AB /* setting.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = setting.png; path = ../assets/icons/setting.png; sourceTree = "<group>"; };
 		FF3FC6DED7CF4D6D83FB112F /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -281,7 +279,6 @@
 				60A733203E7E4C188D3CC77B /* Upload.png */,
 				09FA717B0EF347FDAC856466 /* SFProText-Regular.ttf */,
 				C6AF0DEA8E8646E09730CC90 /* SFProText-Bold.ttf */,
-				F764A618C7584066A878247E /* edit_white.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -494,7 +491,6 @@
 				909A4A8CBF3B4B50BDCF625D /* Upload.png in Resources */,
 				6BCFC7F6CAE84B9194329C9C /* SFProText-Regular.ttf in Resources */,
 				AC5BE42001974E6983425CEC /* SFProText-Bold.ttf in Resources */,
-				13D6B356C07E470089DE9FC9 /* edit_white.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -876,7 +872,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 5D35DF6M3H;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = dailybear/Info.plist;
@@ -901,7 +897,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 5D35DF6M3H;
 				INFOPLIST_FILE = dailybear/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
@@ -920,6 +916,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AC3C56EC4D55774EABDCB305 /* Pods-dailybear-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -947,6 +944,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AB281D941C4665C897AE8978 /* Pods-dailybear-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -974,6 +972,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B91D6623FC19195EF8EEB1E3 /* Pods-dailybear-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1000,6 +999,7 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 542E509EC34A53A26DC8BF5C /* Pods-dailybear-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;

@@ -42,7 +42,7 @@ const CalendarView = props => {
             <Background>
                 <SafeAreaView style={ styles.container }>
                     <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent={ true }/>
-                    <Header getDate={ isDate }/>
+                    <Header getDate={ isDate } parentProps={ props }/>
                     <Calendar getDate={ isDate }/>
                     <Footer />
                 </SafeAreaView>

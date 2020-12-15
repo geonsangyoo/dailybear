@@ -10,6 +10,7 @@ import DayDetail from '../screens/main/DayDetail';
 import ListView from '../screens/main/ListView';
 import SayingDetail from '../screens/main/SayingDetail';
 import StatisticsView from '../screens/main/StatisticsView';
+import Colors from '../constants/Colors';
 
 const MainNavigatorScreen = createStackNavigator();
 const MainContainer = () => {
@@ -39,6 +40,12 @@ const MainContainer = () => {
                     <MainNavigatorScreen.Screen 
                         name="SayingDetail"
                         component={ SayingDetail }
+                        options={{
+                            headerTitle: "이달의 명언",
+                            headerBackTitle: '',
+                            headerTintColor: Colors.HeaderTitle_gray,
+                            headerTransparent: true
+                        }}
                     />
                     <MainNavigatorScreen.Screen 
                         name="DayDetail"
