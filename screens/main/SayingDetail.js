@@ -1,7 +1,6 @@
 // Standard
 import React, { useLayoutEffect } from 'react';
 import { StyleSheet, View, Text, TextInput, Button } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
 
 // Custom
 import Background from '../../components/layout/Background';
