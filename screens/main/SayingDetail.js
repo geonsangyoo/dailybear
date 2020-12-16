@@ -1,13 +1,21 @@
 // Standard
 import React, { useLayoutEffect } from 'react';
-import { StyleSheet, View, Text, TextInput, Button } from 'react-native';
+import { 
+    StyleSheet, 
+    View, 
+    Text, 
+    TextInput,
+    Button, 
+    ScrollView
+} from 'react-native';
+import { useHeaderHeight } from '@react-navigation/stack';
 
 // Custom
 import Background from '../../components/layout/Background';
 import Card from '../../components/ui/Card';
 import Colors from '../../constants/Colors';
 
-const PLACEHOLDER = "Daily Bear sends you a message \n that changes every month.";
+const placeholder = "Please enter a message.";
 
 const SayingDetail = props => {
     useLayoutEffect(() => {
@@ -24,19 +32,23 @@ const SayingDetail = props => {
         })
     });
     return (
-        <Background style={{ flex: 1}}>
-            <View style={{ flex: 1,  justifyContent: 'flex-start', alignItems: 'center' }}>
-                <Text style={ styles.saying }>
-                        { `Do not be afraid to give up \n the good to go for the great` }
-                </Text>
-                <Card style={ styles.description }>
-                    <TextInput 
-                        editable={ true }
-                        multiline={ true }
-                        onChangeText={(text) => { /*ToDo*/ }}
-                        placeholder={ PLACEHOLDER }
-                    />
-                </Card>
+        <Background style={ styles.container }>
+            <View style={ styles.container }>
+                <ScrollView contentContainerStyle={{ ...styles.container, top: useHeaderHeight() }}>
+                    <Text style={ styles.saying }>
+                            { `Do not be afraid to give up \n the good to go for the great` }
+                    </Text>
+                    <Card style={ styles.description }>
+                        <TextInput
+                            style={ styles.input }
+                            editable={ true }
+                            multiline={ true }
+                            onChangeText={(text) => { /*ToDo*/ }}
+                            placeholder={ placeholder }
+                            keyboardType='default'
+                        />
+                    </Card>
+                </ScrollView>
             </View>
         </Background>
     );
@@ -46,21 +58,30 @@ const styles = StyleSheet.create({
     container: {
         flex: 1
     },
+    scrollView: {
+        margin: 5,
+        height: "100%"
+    },
     saying: {
         textAlign: 'center',
-        top: '17%',
+        top: '5%',
         fontFamily: 'SFProText-Regular',
         fontSize: 15,
         color: Colors.HeaderTitle_gray
     },
     description: {
-        top: '20%',
+        alignSelf: 'center',
+        top: '15%',
         width: '80%',
         height: '15%',
-        alignItems: 'center',
-        justifyContent: 'space-between',
         marginTop: 20,
         padding: 10
+    },
+    input: {
+        width: '100%',
+        height: '100%',
+        paddingTop: 0,
+        paddingBottom: 0
     }
 });
 
