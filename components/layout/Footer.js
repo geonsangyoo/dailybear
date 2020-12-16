@@ -8,19 +8,19 @@ import Colors from '../../constants/Colors';
 const Footer = props => {
     return (
         <View style={ styles.container }>
-            <TouchableOpacity onPress={()=>{}} style={{ ...styles.calendar_circle, ...styles.shadow }}>
+            <TouchableOpacity onPress={ () => {} } style={{ ...styles.calendar_circle, ...styles.shadow }}>
                 <Image 
                     source={ require('../../assets/icons/calender.png') }
                     style={ styles.icon }
                 />
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>{}} style={{ ...styles.setting_circle, ...styles.shadow }}>
+            <TouchableOpacity onPress={ () => {} } style={{ ...styles.setting_circle, ...styles.shadow }}>
                 <Image 
                     source={ require('../../assets/icons/setting.png') }
                     style={ styles.icon }
                 />
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>{}} style={{ ...styles.edit_circle, ...styles.shadow }}>
+            <TouchableOpacity onPress={ () => {} } style={{ ...styles.edit_circle, ...styles.shadow }}>
                 <Image 
                     source={ require('../../assets/icons/edit.png') }
                     style={ styles.icon }

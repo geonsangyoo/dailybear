@@ -41,7 +41,7 @@ const MainContainer = () => {
                         name="SayingDetail"
                         component={ SayingDetail }
                         options={{
-                            headerTitle: "이달의 명언",
+                            headerTitle: "A word of this month",
                             headerBackTitle: '',
                             headerTintColor: Colors.HeaderTitle_gray,
                             headerTransparent: true
