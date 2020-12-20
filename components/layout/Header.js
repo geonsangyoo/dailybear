@@ -1,6 +1,6 @@
 // Standard
 import React from 'react';
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, Pressable } from 'react-native';
 
 // Custom
 import Colors from '../../constants/Colors';
@@ -14,14 +14,14 @@ const Header = props => {
             <Text style={ styles.month }>
                 { props.getDate.getMonth() + 1 }
             </Text>
-            <TouchableOpacity 
+            <Pressable 
                 style={ styles.sayingContainer } 
                 onPress={ () => { props.parentProps.navigation.navigate("SayingDetail") } }
             >
                 <Text style={ styles.saying }>
-                    { `Do not be afraid to give up \n the good to go for the great` }
+                    { props.saying ? props.saying : '__' }
                 </Text>
-            </TouchableOpacity>
+            </Pressable>
         </View>
     );
 

@@ -1,6 +1,6 @@
 // Standard
 import React from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { Text, View, StyleSheet, Pressable, Image } from 'react-native';
 
 // Custom
 import Colors from '../../constants/Colors';
@@ -16,13 +16,13 @@ const IconButton = props => {
 
     return (
         <View>
-            <TouchableOpacity onPress={ () => { props.clickHandler(name) }} style={ styles.settingButton }>
+            <Pressable onPress={ () => { props.clickHandler(name) }} style={ styles.settingButton }>
                 <Image 
                     style={ styles.icon }
                     source={ imgPath }
                 />
                 <Text style={ styles.text }>{ name }</Text>
-            </TouchableOpacity>
+            </Pressable>
         </View>
     );
 };

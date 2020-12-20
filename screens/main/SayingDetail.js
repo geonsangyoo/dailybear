@@ -1,5 +1,5 @@
 // Standard
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect, useCallback } from 'react';
 import { 
     StyleSheet, 
     View, 
@@ -8,32 +8,57 @@ import {
     Button,
     ScrollView
 } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHeaderHeight } from '@react-navigation/stack';
 
 // Custom
+import * as sayingActions from '../../store/actions/Saying';
 import Background from '../../components/layout/Background';
 import Card from '../../components/ui/Card';
 import IconButton from '../../components/ui/IconButton';
 import Colors from '../../constants/Colors';
+import { useEffect } from 'react/cjs/react.development';
 
 const SayingDetail = props => {
     
-    const placeholder = "Please enter a message.";
-    const [setting, setSetting] = useState("Random");
+    const placeholder = 'Please enter a message.';
+    const dispatch = useDispatch();
+    const isDate = useSelector(state => state.calendar.activeDate);
+    const sayingSetting = useSelector(state => state.saying.setting);
+    const saying = useSelector(state => state.saying.saying);
+    const [setting, setSetting] = useState('');
+    const [sayingText, setSayingText] = useState('');
 
+    /**
+     * Apply setting values
+     */
+    useEffect(() => {
+        if (sayingSetting.length > 0) {
+            for (let i = 0; i < sayingSetting.length; i++) {
+                if (sayingSetting[i].content === 'mode') {
+                    setSetting(sayingSetting[i].setting_detail);
+                }
+            }
+        }
+    }, [sayingSetting]);
+    
     useLayoutEffect(() => {
         props.navigation.setOptions({
             headerRight: () => (
                 <Button
                     color={ Colors.HeaderTitle_gray }
                     title='Save'
-                    onPress={() => {
-                        // To-Do
-                    }}
+                    onPress={ saveSettingHandler }
                 />
             )
-        })
+        });
     });
+
+    const saveSettingHandler = useCallback(async () => {
+        dispatch(sayingActions.saveSayingSetting('mode', setting));
+        dispatch(sayingActions.saveSaying(isDate.getFullYear(), parseInt(isDate.getMonth()) + 1, sayingText));
+        props.navigation.goBack();
+    }, [setting, sayingText]);
 
     const switchSettingHandler = settingName => {
         setSetting(settingName);
@@ -44,7 +69,7 @@ const SayingDetail = props => {
             <View style={ styles.container }>
                 <ScrollView contentContainerStyle={{ ...styles.container, top: useHeaderHeight() }}>
                     <Text style={ styles.saying }>
-                            { `Do not be afraid to give up \n the good to go for the great` }
+                            { saying ? saying : '__' }
                     </Text>
                     <View style={ styles.sayingSetting }>
                         <IconButton
@@ -63,16 +88,21 @@ const SayingDetail = props => {
                             clickHandler={ switchSettingHandler }
                         />
                     </View>
-                    <Card style={ styles.description }>
-                        <TextInput
-                            style={ styles.input }
-                            editable={ true }
-                            multiline={ true }
-                            onChangeText={(text) => { /*ToDo*/ }}
-                            placeholder={ placeholder }
-                            keyboardType='default'
-                        />
-                    </Card>
+
+                    { (setting !== 'No') ?
+                        <Card style={ styles.description }>
+                                <TextInput
+                                    style={ styles.input }  
+                                    editable={ true }
+                                    multiline={ true }
+                                    onChangeText={(text) => { setSayingText(text); }}
+                                    value={ sayingText }
+                                    placeholder={ placeholder }
+                                    keyboardType='default'
+                                />
+                        </Card>
+                        : <View></View>
+                    }
                 </ScrollView>
             </View>
         </Background>
