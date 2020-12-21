@@ -103,6 +103,7 @@ export const init = async () => {
     /**
      * Schema Init
      */
+    // await dropTables();
     await createTable();
     createTrigger();
 };

@@ -1,5 +1,5 @@
 // Standard
-import React, { useState, useLayoutEffect, useCallback } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useCallback } from 'react';
 import { 
     StyleSheet, 
     View, 
@@ -17,7 +17,6 @@ import Background from '../../components/layout/Background';
 import Card from '../../components/ui/Card';
 import IconButton from '../../components/ui/IconButton';
 import Colors from '../../constants/Colors';
-import { useEffect } from 'react/cjs/react.development';
 
 const SayingDetail = props => {
     

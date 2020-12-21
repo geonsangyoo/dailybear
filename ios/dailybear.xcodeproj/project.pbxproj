@@ -19,6 +19,7 @@
 		302BBB41686044DDA9B8D734 /* oval_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = D0D2B92444D8448EB027BA22 /* oval_blue.png */; };
 		359946BC2FF14AFDB0C5290D /* oval_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E41D38B60EB46CD8AD15DB2 /* oval_green.png */; };
 		4CC3ECADB1C04932AE0FE2AF /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 411D9A78A6134FC6B3DA3267 /* delete.png */; };
+		56F305596A98417492BE5455 /* check_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D756C2C52FF4D808FA4BBF4 /* check_off.png */; };
 		611AA9473C19A869AF7D762D /* libPods-dailybear-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BF1182DF77CD16F45A7EC98 /* libPods-dailybear-tvOS.a */; };
 		678C2AF087E748B09DE79E05 /* splash_title.png in Resources */ = {isa = PBXBuildFile; fileRef = F6016CE886A343D99FADBA4A /* splash_title.png */; };
 		68E3763E19FD43E08041AAB3 /* main_bear_5.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C68B655DD734F9FAED0298F /* main_bear_5.png */; };
@@ -35,6 +36,7 @@
 		909A4A8CBF3B4B50BDCF625D /* Upload.png in Resources */ = {isa = PBXBuildFile; fileRef = 60A733203E7E4C188D3CC77B /* Upload.png */; };
 		988F66B830534C139492A23F /* left.png in Resources */ = {isa = PBXBuildFile; fileRef = A996A6423386494692543D75 /* left.png */; };
 		9B45A0D79EFB4487B8D04B69 /* main_bear_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B39C12232A64498B6540890 /* main_bear_3.png */; };
+		A0FDB5D56C454037ACC71DA9 /* check_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 306C3521CE594C28A896C6FC /* check_on.png */; };
 		A49AB77408904C0BA2B6A08B /* oval_purple.png in Resources */ = {isa = PBXBuildFile; fileRef = 569E50D8A747473B87F475CB /* oval_purple.png */; };
 		A6482906E31DA1DC016C520E /* libPods-dailybear-dailybearTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8A1FBC1F7EC514F5299B18B /* libPods-dailybear-dailybearTests.a */; };
 		AC5BE42001974E6983425CEC /* SFProText-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C6AF0DEA8E8646E09730CC90 /* SFProText-Bold.ttf */; };
@@ -48,8 +50,6 @@
 		E1E261F1D3634237898F0197 /* oval_red.png in Resources */ = {isa = PBXBuildFile; fileRef = DD6AE494EA074D42B23FF7EE /* oval_red.png */; };
 		E4D0B9885A5243FD81C91FF0 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 331A58729E284408A33631D4 /* back.png */; };
 		F6A91FB684B64EA336D9B460 /* libPods-dailybear-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51C7596553489B426A46F476 /* libPods-dailybear-tvOSTests.a */; };
-		56F305596A98417492BE5455 /* check_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D756C2C52FF4D808FA4BBF4 /* check_off.png */; };
-		A0FDB5D56C454037ACC71DA9 /* check_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 306C3521CE594C28A896C6FC /* check_on.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +89,7 @@
 		21EF16D1922648AAAC551EA5 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* dailybear-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "dailybear-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* dailybear-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dailybear-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		306C3521CE594C28A896C6FC /* check_on.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = check_on.png; path = ../assets/icons/check_on.png; sourceTree = "<group>"; };
 		331A58729E284408A33631D4 /* back.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = back.png; path = ../assets/icons/back.png; sourceTree = "<group>"; };
 		349D375C08FB45B7BE10AB87 /* list.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = list.png; path = ../assets/icons/list.png; sourceTree = "<group>"; };
 		411D9A78A6134FC6B3DA3267 /* delete.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = delete.png; path = ../assets/icons/delete.png; sourceTree = "<group>"; };
@@ -107,6 +108,7 @@
 		68A1F95EF36145CAA1EA013A /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		697188659C33431383B4ADFF /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		6C68B655DD734F9FAED0298F /* main_bear_5.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = main_bear_5.png; path = ../assets/images/main_bear_5.png; sourceTree = "<group>"; };
+		6D756C2C52FF4D808FA4BBF4 /* check_off.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = check_off.png; path = ../assets/icons/check_off.png; sourceTree = "<group>"; };
 		72FE35F5E4B742A6AFD540B4 /* splash_bear.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = splash_bear.png; path = ../assets/images/splash_bear.png; sourceTree = "<group>"; };
 		7E41D38B60EB46CD8AD15DB2 /* oval_green.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = oval_green.png; path = ../assets/images/oval_green.png; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = dailybear/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -139,8 +141,6 @@
 		F6016CE886A343D99FADBA4A /* splash_title.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = splash_title.png; path = ../assets/images/splash_title.png; sourceTree = "<group>"; };
 		FC57ABBD699A44D980F5A1AB /* setting.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = setting.png; path = ../assets/icons/setting.png; sourceTree = "<group>"; };
 		FF3FC6DED7CF4D6D83FB112F /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
-		6D756C2C52FF4D808FA4BBF4 /* check_off.png */ = {isa = PBXFileReference; name = "check_off.png"; path = "../assets/icons/check_off.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		306C3521CE594C28A896C6FC /* check_on.png */ = {isa = PBXFileReference; name = "check_on.png"; path = "../assets/icons/check_on.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -880,7 +880,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 5D35DF6M3H;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = dailybear/Info.plist;
@@ -905,7 +905,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 5D35DF6M3H;
 				INFOPLIST_FILE = dailybear/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
@@ -1080,7 +1080,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
@@ -1134,7 +1134,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
