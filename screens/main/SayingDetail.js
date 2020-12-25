@@ -1,5 +1,5 @@
 // Standard
-import React, { useState, useEffect, useLayoutEffect, useCallback } from 'react';
+import React, { useState, useLayoutEffect, useCallback } from 'react';
 import { 
     StyleSheet, 
     View, 
@@ -23,23 +23,9 @@ const SayingDetail = props => {
     const placeholder = 'Please enter a message.';
     const dispatch = useDispatch();
     const isDate = useSelector(state => state.calendar.activeDate);
-    const sayingSetting = useSelector(state => state.saying.setting);
     const saying = useSelector(state => state.saying.saying);
-    const [setting, setSetting] = useState('');
-    const [sayingText, setSayingText] = useState('');
-
-    /**
-     * Apply setting values
-     */
-    useEffect(() => {
-        if (sayingSetting.length > 0) {
-            for (let i = 0; i < sayingSetting.length; i++) {
-                if (sayingSetting[i].content === 'mode') {
-                    setSetting(sayingSetting[i].setting_detail);
-                }
-            }
-        }
-    }, [sayingSetting]);
+    const [mode, setMode] = useState(props.route.params?.mode);
+    const [sayingText, setSayingText] = useState(props.route.params?.saying);
     
     useLayoutEffect(() => {
         props.navigation.setOptions({
@@ -47,20 +33,22 @@ const SayingDetail = props => {
                 <Button
                     color={ Colors.HeaderTitle_gray }
                     title='Save'
-                    onPress={ saveSettingHandler }
+                    onPress={ saveModeHandler }
                 />
             )
         });
     });
 
-    const saveSettingHandler = useCallback(async () => {
-        dispatch(sayingActions.saveSayingSetting('mode', setting));
-        dispatch(sayingActions.saveSaying(isDate.getFullYear(), parseInt(isDate.getMonth()) + 1, sayingText));
+    const saveModeHandler = useCallback(async () => {
+        dispatch(sayingActions.saveSaying(isDate.getFullYear(), parseInt(isDate.getMonth()) + 1, sayingText, mode));
         props.navigation.goBack();
-    }, [setting, sayingText]);
+    }, [mode, sayingText]);
 
-    const switchSettingHandler = settingName => {
-        setSetting(settingName);
+    const switchModeHandler = ModeName => {
+        if (ModeName !== "Write") {
+            setSayingText("");
+        }
+        setMode(ModeName);
     };
 
     return (
@@ -70,25 +58,25 @@ const SayingDetail = props => {
                     <Text style={ styles.saying }>
                             { saying ? saying : '__' }
                     </Text>
-                    <View style={ styles.sayingSetting }>
+                    <View style={ styles.sayingMode }>
                         <IconButton
-                            setting={ setting }
-                            name='Random'
-                            clickHandler={ switchSettingHandler }
+                            setting={ mode }
+                            name="Random"
+                            clickHandler={ switchModeHandler }
                         />
                         <IconButton
-                            setting={ setting }
+                            setting={ mode }
                             name="Write"
-                            clickHandler={ switchSettingHandler }
+                            clickHandler={ switchModeHandler }
                         />
                         <IconButton
-                            setting={ setting }
+                            setting={ mode }
                             name="No"
-                            clickHandler={ switchSettingHandler }
+                            clickHandler={ switchModeHandler }
                         />
                     </View>
 
-                    { (setting !== 'No') ?
+                    { (mode === "Write") ?
                         <Card style={ styles.description }>
                                 <TextInput
                                     style={ styles.input }  
@@ -116,7 +104,7 @@ const styles = StyleSheet.create({
         margin: 5,
         height: "100%"
     },
-    sayingSetting: {
+    sayingMode: {
         top: '20%',
         flexDirection: 'row',
         justifyContent: 'center'

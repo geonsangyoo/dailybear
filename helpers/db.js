@@ -36,6 +36,7 @@ const createTable = async () => {
                 year INTEGER NOT NULL,
                 month INTEGER NOT NULL,
                 saying TEXT,
+                mode VARCHAR(50),
                 created_at TEXT NOT NULL DEFAULT (DATETIME('now', 'localtime')),
                 updated_at TEXT NOT NULL DEFAULT (DATETIME('now', 'localtime')),
                 PRIMARY KEY(year, month)

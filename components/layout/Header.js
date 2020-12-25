@@ -16,7 +16,14 @@ const Header = props => {
             </Text>
             <Pressable 
                 style={ styles.sayingContainer } 
-                onPress={ () => { props.parentProps.navigation.navigate("SayingDetail") } }
+                onPress={ 
+                    () => { 
+                            props.parentProps.navigation.navigate("SayingDetail", {
+                                saying: props.saying,
+                                mode: props.mode
+                        }) 
+                    }
+                }
             >
                 <Text style={ styles.saying }>
                     { props.saying ? props.saying : '__' }

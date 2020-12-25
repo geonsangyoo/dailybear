@@ -16,12 +16,21 @@ import * as sayingAction from '../../store/actions/Saying';
 const CalendarView = props => {
     const isDate = useSelector(state => state.calendar.activeDate);
     const saying = useSelector(state => state.saying.saying);
+    const mode = useSelector(state => state.saying.mode);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(sayingAction.loadSayingSetting());
         dispatch(sayingAction.loadSaying(isDate.getFullYear(), parseInt(isDate.getMonth()) + 1));
     }, [isDate]);
+
+    useEffect(() => {
+        (
+            mode === "Random" &&
+            saying === ""
+        ) ?
+            dispatch(sayingAction.loadSayingFromOuter(isDate.getFullYear(), parseInt(isDate.getMonth()) + 1))
+            : dispatch(sayingAction.loadSaying(isDate.getFullYear(), parseInt(isDate.getMonth()) + 1));
+    }, [mode]);
 
     const loadHandler = useCallback((isDate) => {
         dispatch(calendarAction.setActiveDate(isDate));
@@ -48,8 +57,8 @@ const CalendarView = props => {
         >
             <Background>
                 <SafeAreaView style={ styles.container }>
-                    <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent={ true }/>
-                    <Header getDate={ isDate } parentProps={ props } saying={ saying } />
+                    <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent={ true } />
+                    <Header getDate={ isDate } parentProps={ props } saying={ saying } mode={ mode } />
                     <Calendar getDate={ isDate }/>
                     <Footer />
                 </SafeAreaView>

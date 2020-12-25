@@ -1,33 +1,21 @@
 import SQLite from 'react-native-sqlite-storage';
 import { executeQuery } from './db';
 
-const FUNCTION_NAME = "saying";
-
-export const fetchSetting = async (content) => {
-    let setting = await executeQuery(
+export const fetchMode = async (year, month) => {
+    let mode = await executeQuery(
         `
-            SELECT * FROM setting
-            WHERE function = ?
-            AND content = ?;
+            SELECT mode FROM saying
+            WHERE year = ?
+            AND month = ?;
         `
-    , [FUNCTION_NAME, content]);
-    return setting;
-};
-
-export const upsertSetting = async (content, setting_detail) => {
-    let singleUpsert = await executeQuery(
-        `
-            INSERT OR REPLACE INTO setting (function, content, setting_detail)
-            VALUES (?, ?, ?);
-        `
-    , [FUNCTION_NAME, content, setting_detail]);
-    return singleUpsert;
+    , [year, month]);
+    return mode;
 };
 
 export const fetchSaying = async (year, month) => {
     let saying = await executeQuery(
         `
-            SELECT saying from saying
+            SELECT saying, mode from saying
             WHERE year = ?
             AND month = ?;
         `
@@ -35,12 +23,13 @@ export const fetchSaying = async (year, month) => {
     return saying;
 };
 
-export const upsertSaying = async (year, month, saying) => {
+export const upsertSaying = async (year, month, saying, mode) => {
     let sayingUpsert = await executeQuery(
         `
-            INSERT OR REPLACE INTO saying (year, month, saying)
-            VALUES (?, ?, ?);
+            INSERT INTO saying (year, month, saying, mode)
+            VALUES (?, ?, ?, ?) ON CONFLICT (year, month)
+            DO UPDATE SET saying = excluded.saying, mode = excluded.mode;
         `
-    , [year, month, saying]);
+    , [year, month, saying, mode]);
     return sayingUpsert;
 };
