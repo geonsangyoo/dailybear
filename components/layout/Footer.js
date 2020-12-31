@@ -55,14 +55,14 @@ const styles = StyleSheet.create({
     setting_circle: {
         width: 60,
         height: 60,
-        marginLeft: '8%',
+        marginLeft: '10%',
         borderRadius: 60/2,
         backgroundColor: Colors.FooterIconBackground_white
     },
     edit_circle: {
         width: 60,
         height: 60,
-        marginLeft: '40%',
+        marginLeft: '43%',
         right: '10%',
         borderRadius: 60/2,
         backgroundColor: Colors.FooterIconBackground_brown

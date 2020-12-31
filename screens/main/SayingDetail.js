@@ -5,9 +5,9 @@ import {
     View, 
     Text, 
     TextInput,
-    Button,
     ScrollView
 } from 'react-native';
+import { Button } from 'react-native-elements';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHeaderHeight } from '@react-navigation/stack';
 
@@ -20,6 +20,7 @@ import Colors from '../../constants/Colors';
 
 const SayingDetail = props => {
     
+    const sayingHeader = 'You can write every month\non the main page.'
     const placeholder = 'Please enter a message.';
     const dispatch = useDispatch();
     const isDate = useSelector(state => state.calendar.activeDate);
@@ -31,11 +32,13 @@ const SayingDetail = props => {
         props.navigation.setOptions({
             headerRight: () => (
                 <Button
-                    color={ Colors.HeaderTitle_gray }
                     title='Save'
+                    type='clear'
+                    titleStyle={ styles.headerRightText }
                     onPress={ saveModeHandler }
                 />
-            )
+            ),
+            headerRightContainerStyle: styles.headerRightContainer
         });
     });
 
@@ -56,7 +59,7 @@ const SayingDetail = props => {
             <View style={ styles.container }>
                 <ScrollView contentContainerStyle={{ ...styles.container, top: useHeaderHeight() }}>
                     <Text style={ styles.saying }>
-                            { saying ? saying : '__' }
+                            { sayingHeader }
                     </Text>
                     <View style={ styles.sayingMode }>
                         <IconButton
@@ -100,6 +103,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1
     },
+    headerRightContainer: {
+        marginRight: 14
+    },
     scrollView: {
         margin: 5,
         height: "100%"
@@ -117,17 +123,19 @@ const styles = StyleSheet.create({
         color: Colors.HeaderTitle_gray
     },
     description: {
-        top: '13%',
+        top: '10%',
         width: '80%',
         height: '20%',
-        padding: 10,
+        margin: 20,
         alignSelf: 'center'
     },
     input: {
-        width: '100%',
-        height: '100%',
-        paddingTop: 0,
-        paddingBottom: 0
+        margin: 20,
+        textAlign: 'center'
+    },
+    headerRightText: {
+        color: Colors.HeaderTitle_gray,
+        fontSize: 17
     }
 });
 

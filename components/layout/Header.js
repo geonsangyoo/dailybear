@@ -57,7 +57,9 @@ const styles = StyleSheet.create({
     },
     sayingContainer: {
         flex: 1,
-        marginTop: '5%'
+        marginTop: '5%',
+        marginLeft: 40,
+        marginRight: 40
     },
     saying: {
         textAlign: 'center',

@@ -10,6 +10,7 @@ import DayDetail from '../screens/main/DayDetail';
 import ListView from '../screens/main/ListView';
 import SayingDetail from '../screens/main/SayingDetail';
 import StatisticsView from '../screens/main/StatisticsView';
+import HeaderBackImage from '../components/layout/HeaderBackImage';
 import Colors from '../constants/Colors';
 
 const MainNavigatorScreen = createStackNavigator();
@@ -42,7 +43,8 @@ const MainContainer = () => {
                         component={ SayingDetail }
                         options={{
                             headerTitle: "A word of this month",
-                            headerBackTitle: '',
+                            headerBackImage: HeaderBackImage,
+                            headerBackTitleVisible: false,
                             headerTintColor: Colors.HeaderTitle_gray,
                             headerTransparent: true
                         }}
