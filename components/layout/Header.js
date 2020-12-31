@@ -25,7 +25,10 @@ const Header = props => {
                     }
                 }
             >
-                <Text style={ styles.saying }>
+                <Text
+                    style={ styles.saying } 
+                    numberOfLines={ 4 }
+                >
                     { props.saying ? props.saying : '__' }
                 </Text>
             </Pressable>
