@@ -48,6 +48,9 @@ const CalendarView = props => {
     const swipeUpY = new Value(-height);
     const swipeDownY = new Value(height);
     const swipeNoneY = new Value(0);
+    const renderCalendarCallFg = useValue(1);
+    const offFlag = new Value(0);
+    const onFlag = new Value(1);
     const {
         gestureHandler,
         state,
@@ -56,7 +59,6 @@ const CalendarView = props => {
     } = usePanGestureHandler();
     const snapPoints = [-height, 0, height];
     const to = snapPoint(translateY, velocity.y, snapPoints)
-    const toMain = snapPoint(translateY, velocity.y, [0])
 
     useCode(
         () => [
@@ -73,21 +75,29 @@ const CalendarView = props => {
                     debug("where? :", offsetY),
                     cond(eq(offsetY, swipeUpY), [
                         debug("where in cond up : ", offsetY),
+                        cond(renderCalendarCallFg, [
+                            call([], onSwipeUp),
+                            set(renderCalendarCallFg, offFlag)
+                        ]),
                         set(translateY, swipeDownY),
                         set(translateY, timing({ clock: clock2, duration: 150, from: translateY, to: swipeNoneY, easing: Easing.linear })),
                         cond(not(clockRunning(clock2)), [
-                            call([], onSwipeUp),
                             set(offsetY, translateY),
+                            set(renderCalendarCallFg, onFlag),
                             debug("where in cond up -> after : ", offsetY),
                         ])
                     ], [
                         cond(eq(offsetY, swipeDownY), [
                         debug("where in cond down : ", offsetY),
+                        cond(renderCalendarCallFg, [
+                            call([], onSwipeDown),
+                            set(renderCalendarCallFg, offFlag)
+                        ]),
                         set(translateY, swipeUpY),
                         set(translateY, timing({ clock: clock2, duration: 150, from: translateY, to: swipeNoneY, easing: Easing.linear })),
                         cond(not(clockRunning(clock2)), [
-                                call([], onSwipeDown),
                                 set(offsetY, translateY),
+                                set(renderCalendarCallFg, onFlag),
                                 debug("where in cond down -> after : ", offsetY),
                             ])
                         ])
