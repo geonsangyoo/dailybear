@@ -1,6 +1,6 @@
 // Standard
 import React, { useEffect, useCallback } from 'react';
-import { StyleSheet, Dimensions, StatusBar } from 'react-native';
+import { View, StyleSheet, Dimensions, StatusBar } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { PanGestureHandler, State } from "react-native-gesture-handler";
@@ -77,7 +77,7 @@ const CalendarView = props => {
                             set(renderCalendarCallFg, offFlag)
                         ]),
                         set(translateY, swipeDownY),
-                        set(translateY, timing({ clock: clock2, duration: 150, from: translateY, to: swipeNoneY, easing: Easing.linear })),
+                        set(translateY, timing({ clock: clock2, duration: 130, from: translateY, to: swipeNoneY, easing: Easing.linear })),
                         cond(not(clockRunning(clock2)), [
                             set(offsetY, translateY),
                             set(renderCalendarCallFg, onFlag),
@@ -89,7 +89,7 @@ const CalendarView = props => {
                             set(renderCalendarCallFg, offFlag)
                         ]),
                         set(translateY, swipeUpY),
-                        set(translateY, timing({ clock: clock2, duration: 150, from: translateY, to: swipeNoneY, easing: Easing.linear })),
+                        set(translateY, timing({ clock: clock2, duration: 130, from: translateY, to: swipeNoneY, easing: Easing.linear })),
                         cond(not(clockRunning(clock2)), [
                                 set(offsetY, translateY),
                                 set(renderCalendarCallFg, onFlag),
@@ -136,6 +136,7 @@ const CalendarView = props => {
                         <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent={ true } />
                         <Header getDate={ isDate } parentProps={ props } saying={ saying } mode={ mode } />
                         <Calendar getDate={ isDate }/>
+                        <View style={ styles.leftContainer }/>
                     </Animated.View>
                 </PanGestureHandler>
                 <Footer />
@@ -148,6 +149,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         overflow: 'hidden'
+    },
+    leftContainer: {
+        flex: 1
     },
     animationContainer: {
         flex: 3

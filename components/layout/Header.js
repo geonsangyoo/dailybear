@@ -39,7 +39,7 @@ const Header = props => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 3
     },
     year: {
         textAlign: 'center',
