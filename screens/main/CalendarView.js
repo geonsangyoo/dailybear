@@ -66,15 +66,12 @@ const CalendarView = props => {
                 set(translateY, add(offsetY, translation.y))
             ]),
             cond(eq(state, State.END), [
-                debug('y cord : ', translateY),
                 cond(not(clockRunning(clock2)), [
                     set(translateY, timing({ clock: clock, from: translateY, to: to })),
                     set(offsetY, translateY),
                 ]),
                 cond(not(clockRunning(clock)), [
-                    debug("where? :", offsetY),
                     cond(eq(offsetY, swipeUpY), [
-                        debug("where in cond up : ", offsetY),
                         cond(renderCalendarCallFg, [
                             call([], onSwipeUp),
                             set(renderCalendarCallFg, offFlag)
@@ -84,11 +81,9 @@ const CalendarView = props => {
                         cond(not(clockRunning(clock2)), [
                             set(offsetY, translateY),
                             set(renderCalendarCallFg, onFlag),
-                            debug("where in cond up -> after : ", offsetY),
                         ])
                     ], [
                         cond(eq(offsetY, swipeDownY), [
-                        debug("where in cond down : ", offsetY),
                         cond(renderCalendarCallFg, [
                             call([], onSwipeDown),
                             set(renderCalendarCallFg, offFlag)
@@ -98,7 +93,6 @@ const CalendarView = props => {
                         cond(not(clockRunning(clock2)), [
                                 set(offsetY, translateY),
                                 set(renderCalendarCallFg, onFlag),
-                                debug("where in cond down -> after : ", offsetY),
                             ])
                         ])
                     ]),
