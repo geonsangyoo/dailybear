@@ -82,13 +82,12 @@ const Calendar = props => {
 
 const styles = StyleSheet.create({
     calendarContainer: {
-        flex: 2,
-        top: '5%'
+        flex: 2
     },
     rowConatiner: {
         flex: 1,
         flexDirection: 'row',
-        padding: 10,
+        padding: 15,
         justifyContent: 'space-around',
         alignItems: 'center'
     },
