@@ -2,7 +2,6 @@
 import React, { 
     useReducer, 
     useState, 
-    useEffect, 
     useLayoutEffect, 
     useCallback } from 'react';
 import { 
@@ -71,14 +70,17 @@ const SayingDetail = props => {
                     onPress={ saveModeHandler }
                 />
             ),
-            headerRßightContainerStyle: styles.headerRightContainer
+            headerRightContainerStyle: styles.headerRightContainer
         });
     });
 
     return (
         <Background style={ styles.container }>
             <View style={ styles.container }>
-                <ScrollView contentContainerStyle={{ ...styles.container, top: useHeaderHeight() }}>
+                <ScrollView
+                    contentContainerStyle={{ ...styles.container, top: useHeaderHeight() }}
+                    bounces={ false }
+                >
                     <Text style={ styles.saying }>
                             { sayingHeader }
                     </Text>

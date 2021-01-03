@@ -1,11 +1,18 @@
 // Standard
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Pressable } from 'react-native';
 
 // Custom
 import Colors from '../../constants/Colors';
 
 const Header = props => {
+    const maxLine = 4;
+    const [truncateText, setTruncateText] = useState();
+    
+    useEffect(() => {
+        setTruncateText(null);
+    }, [props.saying]);
+    
     return (
         <View style={ styles.container }>
             <Text style={ styles.year }>
@@ -26,11 +33,29 @@ const Header = props => {
                 }
             >
                 <Text
-                    style={ styles.saying } 
+                    style={ styles.saying }
                     numberOfLines={ 4 }
                     ellipsizeMode='tail'
+                    onTextLayout={ ({ nativeEvent: { lines } }) => {
+                        console.log("Text Layout -> " + lines.length);
+                        if (lines.length === maxLine) {
+                            if (lines[maxLine-1].text.indexOf('\n') !== -1) {
+                                let editedTruncateText = '';
+                                lines[maxLine-1].text = lines[maxLine-1].text.replace('\n', "...");
+                                (async function() {
+                                    for await (let line of lines) {
+                                        editedTruncateText = editedTruncateText.concat(line.text);
+                                        setTruncateText(editedTruncateText);
+                                    }
+                                })();
+                            }
+                        }
+                    }}
                 >
-                    { props.saying ? props.saying : '__' }
+                    {  ( truncateText ) ? 
+                        ( truncateText ) : 
+                        ( props.saying ? props.saying : '__' ) 
+                    }
                 </Text>
             </Pressable>
         </View>
