@@ -24,7 +24,6 @@ const SayingDetail = props => {
     const placeholder = 'Please enter a message.';
     const dispatch = useDispatch();
     const isDate = useSelector(state => state.calendar.activeDate);
-    const saying = useSelector(state => state.saying.saying);
     const [mode, setMode] = useState(props.route.params?.mode);
     const [sayingText, setSayingText] = useState(props.route.params?.saying);
     
