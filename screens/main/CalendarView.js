@@ -136,7 +136,6 @@ const CalendarView = props => {
                         <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent={ true } />
                         <Header getDate={ isDate } parentProps={ props } saying={ saying } mode={ mode } />
                         <Calendar getDate={ isDate }/>
-                        <View style={ styles.leftContainer }/>
                     </Animated.View>
                 </PanGestureHandler>
                 <Footer />
@@ -149,9 +148,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         overflow: 'hidden'
-    },
-    leftContainer: {
-        flex: 1
     },
     animationContainer: {
         flex: 3

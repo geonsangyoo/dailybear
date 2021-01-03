@@ -86,7 +86,7 @@ const Calendar = props => {
 
 const styles = StyleSheet.create({
     calendarContainer: {
-        flex: 6
+        flex: 2
     },
     rowConatiner: {
         flex: 1,

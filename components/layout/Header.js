@@ -28,18 +28,18 @@ const Header = props => {
                 <Text
                     style={ styles.saying } 
                     numberOfLines={ 4 }
+                    ellipsizeMode='tail'
                 >
                     { props.saying ? props.saying : '__' }
                 </Text>
             </Pressable>
         </View>
     );
-
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex: 3
+        flex: 1
     },
     year: {
         textAlign: 'center',

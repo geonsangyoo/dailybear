@@ -1,5 +1,10 @@
 // Standard
-import React, { useState, useLayoutEffect, useCallback } from 'react';
+import React, { 
+    useReducer, 
+    useState, 
+    useEffect, 
+    useLayoutEffect, 
+    useCallback } from 'react';
 import { 
     StyleSheet, 
     View, 
@@ -17,16 +22,42 @@ import Background from '../../components/layout/Background';
 import Card from '../../components/ui/Card';
 import IconButton from '../../components/ui/IconButton';
 import Colors from '../../constants/Colors';
+import Sayings from '../../constants/Saying';
 
 const SayingDetail = props => {
-    
-    const sayingHeader = 'You can write every month\non the main page.'
-    const placeholder = 'Please enter a message.';
-    const dispatch = useDispatch();
+    const INPUT_CHANGE = 'INPUT_CHANGE';
+    const sayingHeader = Sayings.sayingHeader;
+    const placeholder = Sayings.placeholder;
+    const randomTextInfo = Sayings.randomTextInfo;
     const isDate = useSelector(state => state.calendar.activeDate);
     const [mode, setMode] = useState(props.route.params?.mode);
-    const [sayingText, setSayingText] = useState(props.route.params?.saying);
+    const dispatch = useDispatch();
     
+    const inputReducer = (state, action) => {
+        switch (action.type) {
+            case INPUT_CHANGE:
+                return {
+                    ...state,
+                    value: action.value
+                };
+            default:
+                return state;
+        }
+    };
+
+    const [inputState, dispatchInput] = useReducer(inputReducer, {
+       value:  props.route.params?.saying ? props.route.params?.saying : ''
+    });
+
+    const saveModeHandler = useCallback(async () => {
+        dispatch(sayingActions.saveSaying(isDate.getFullYear(), parseInt(isDate.getMonth()) + 1, inputState.value, mode));
+        props.navigation.goBack();
+    }, [mode, inputState.value]);
+
+    const switchModeHandler = ModeName => {
+        setMode(ModeName);
+    };
+
     useLayoutEffect(() => {
         props.navigation.setOptions({
             headerRight: () => (
@@ -40,19 +71,7 @@ const SayingDetail = props => {
             headerRightContainerStyle: styles.headerRightContainer
         });
     });
-
-    const saveModeHandler = useCallback(async () => {
-        dispatch(sayingActions.saveSaying(isDate.getFullYear(), parseInt(isDate.getMonth()) + 1, sayingText, mode));
-        props.navigation.goBack();
-    }, [mode, sayingText]);
-
-    const switchModeHandler = ModeName => {
-        if (ModeName !== "Write") {
-            setSayingText("");
-        }
-        setMode(ModeName);
-    };
-
+    
     return (
         <Background style={ styles.container }>
             <View style={ styles.container }>
@@ -77,20 +96,36 @@ const SayingDetail = props => {
                             clickHandler={ switchModeHandler }
                         />
                     </View>
-
-                    { (mode === "Write") ?
-                        <Card style={ styles.description }>
-                                <TextInput
-                                    style={ styles.input }  
-                                    editable={ true }
-                                    multiline={ true }
-                                    onChangeText={(text) => { setSayingText(text); }}
-                                    value={ sayingText }
-                                    placeholder={ placeholder }
-                                    keyboardType='default'
-                                />
+                    { ( mode === "Random" ) ? 
+                        <Card style={ styles.descriptionRandom }>
+                            <TextInput
+                                style={ styles.input }  
+                                editable={ false }
+                                multiline={ true }
+                                value={ randomTextInfo }
+                                placeholder={ placeholder }
+                            />
                         </Card>
-                        : <View></View>
+                        : null
+                    }
+                    { ( mode === "Write" ) ? 
+                        <Card style={ styles.description }>
+                            <TextInput
+                                style={ styles.input }  
+                                editable={ true }
+                                multiline={ true }
+                                onChangeText={(text) => { 
+                                    dispatchInput({
+                                        type: INPUT_CHANGE,
+                                        value: text
+                                    });
+                                }}
+                                value={ inputState.value }
+                                placeholder={ placeholder }
+                                keyboardType='default'
+                            />
+                        </Card>
+                        : null
                     }
                 </ScrollView>
             </View>
@@ -112,7 +147,7 @@ const styles = StyleSheet.create({
     sayingMode: {
         top: '20%',
         flexDirection: 'row',
-        justifyContent: 'center'
+        marginLeft: 20,
     },
     saying: {
         textAlign: 'center',
@@ -120,6 +155,14 @@ const styles = StyleSheet.create({
         fontFamily: 'SFProText-Regular',
         fontSize: 15,
         color: Colors.HeaderTitle_gray
+    },
+    descriptionRandom: {
+        justifyContent: 'center',
+        top: '10%',
+        width: '80%',
+        height: '20%',
+        margin: 20,
+        alignSelf: 'center'
     },
     description: {
         top: '10%',
@@ -130,7 +173,7 @@ const styles = StyleSheet.create({
     },
     input: {
         margin: 20,
-        textAlign: 'center'
+        textAlign: 'center',
     },
     headerRightText: {
         color: Colors.HeaderTitle_gray,
