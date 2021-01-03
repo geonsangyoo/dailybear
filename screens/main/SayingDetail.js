@@ -50,6 +50,9 @@ const SayingDetail = props => {
     });
 
     const saveModeHandler = useCallback(async () => {
+        if (mode !== Sayings.writeMode) {
+            inputState.value = '';
+        }
         dispatch(sayingActions.saveSaying(isDate.getFullYear(), parseInt(isDate.getMonth()) + 1, inputState.value, mode));
         props.navigation.goBack();
     }, [mode, inputState.value]);
@@ -68,10 +71,10 @@ const SayingDetail = props => {
                     onPress={ saveModeHandler }
                 />
             ),
-            headerRightContainerStyle: styles.headerRightContainer
+            headerRßightContainerStyle: styles.headerRightContainer
         });
     });
-    
+
     return (
         <Background style={ styles.container }>
             <View style={ styles.container }>
@@ -82,21 +85,21 @@ const SayingDetail = props => {
                     <View style={ styles.sayingMode }>
                         <IconButton
                             setting={ mode }
-                            name="Random"
+                            name={ Sayings.randomMode }
                             clickHandler={ switchModeHandler }
                         />
                         <IconButton
                             setting={ mode }
-                            name="Write"
+                            name={ Sayings.writeMode }
                             clickHandler={ switchModeHandler }
                         />
                         <IconButton
                             setting={ mode }
-                            name="No"
+                            name={ Sayings.noneMode }
                             clickHandler={ switchModeHandler }
                         />
                     </View>
-                    { ( mode === "Random" ) ? 
+                    { ( mode === Sayings.randomMode ) ? 
                         <Card style={ styles.descriptionRandom }>
                             <TextInput
                                 style={ styles.input }  
@@ -108,7 +111,7 @@ const SayingDetail = props => {
                         </Card>
                         : null
                     }
-                    { ( mode === "Write" ) ? 
+                    { ( mode === Sayings.writeMode ) ? 
                         <Card style={ styles.description }>
                             <TextInput
                                 style={ styles.input }  

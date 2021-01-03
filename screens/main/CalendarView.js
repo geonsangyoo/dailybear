@@ -32,6 +32,7 @@ import Calendar from '../../components/main/Calendar';
 import Footer from '../../components/layout/Footer';
 import * as calendarAction from '../../store/actions/Calendar';
 import * as sayingAction from '../../store/actions/Saying';
+import Sayings from '../../constants/Saying';
 
 const CalendarView = props => {
     // Calendar Rendering
@@ -107,7 +108,7 @@ const CalendarView = props => {
 
     useEffect(() => {
         (
-            mode === "Random" &&
+            mode === Sayings.randomMode &&
             saying === ""
         ) ?
             dispatch(sayingAction.loadSayingFromOuter(isDate.getFullYear(), parseInt(isDate.getMonth()) + 1))
