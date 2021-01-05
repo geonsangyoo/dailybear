@@ -7,6 +7,6 @@ const Colors = {
 
     //Text
     HeaderTitle_gray: '#4D403E',
-    DaysTitle_white: '#4D403E'
+    DaysTitle_white: 'rgba(77, 64, 62, 0.3)',
 }
 export default Colors;

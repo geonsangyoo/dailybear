@@ -49,7 +49,11 @@ const Calendar = props => {
                 isValid = (item == -1) ? false : true;
                 if (rowIndex == 0) {
                     return (
-                        <Text key={ keyCounter++ } style={ styles.Days }>{ matrix[rowIndex][colIndex] }</Text>
+                        <View key={ keyCounter++ } style={ styles.viewDays }>
+                            <Text style={ styles.Days }>
+                                { matrix[rowIndex][colIndex] }
+                            </Text>
+                        </View>
                     );
                 } else {
                     return (
@@ -82,15 +86,17 @@ const Calendar = props => {
 
 const styles = StyleSheet.create({
     calendarContainer: {
-        flex: 2,
-        top: '5%'
+        flex: 2
     },
     rowConatiner: {
         flex: 1,
         flexDirection: 'row',
-        padding: 10,
+        padding: 15,
         justifyContent: 'space-around',
-        alignItems: 'center'
+        alignItems: 'center',
+    },
+    viewDays: {
+        top: 23
     },
     Days: {
         fontSize: 11,

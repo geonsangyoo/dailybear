@@ -1,0 +1,25 @@
+{
+    "saying" : {
+        "0" : {
+            "saying": "No Pain, No Gain"
+        },
+        "1" : {
+            "saying": "The road to success and the road to failure are almost exactly the same"
+        },
+        "2" : {
+            "saying": "It is better to fail in originality than to succeed in imitation"
+        },
+        "3" : {
+            "saying": "Success is not final; failure is not fatal: It is the courage to continue that counts"
+        },
+        "4" : {
+            "saying": "All progress takes place outside the comfort zone"
+        },
+        "5" : {
+            "saying": "Don't let the fear of losing be greater than the excitement of winning"
+        },
+        "6" : {
+            "saying": "If you really want to do something, you'll find a way. If you don't, you'll find an excuse"
+        }
+    }
+}
