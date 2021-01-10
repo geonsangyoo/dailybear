@@ -136,7 +136,7 @@ const CalendarView = props => {
                     <Animated.View style={[ styles.animationContainer, { transform: [{ translateY }] } ]}>
                         <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent={ true } />
                         <Header getDate={ isDate } parentProps={ props } saying={ saying } mode={ mode } />
-                        <Calendar getDate={ isDate }/>
+                        <Calendar getDate={ isDate } parentProps={ props } />
                     </Animated.View>
                 </PanGestureHandler>
                 <Footer />

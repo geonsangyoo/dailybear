@@ -1,10 +1,12 @@
 // Standard
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 // Custom
 import Bear from '../ui/Bear';
 import * as calendarConsts from '../../constants/Calendar';
+import * as diaryActions from '../../store/actions/Diary';
+import Diary from '../../constants/Diary';
 import Colors from '../../constants/Colors';
 
 const Calendar = props => {
@@ -56,10 +58,19 @@ const Calendar = props => {
                         </View>
                     );
                 } else {
+                    let emotion = diaryActions.loadEmotion(activeDate.getFullYear(), activeDate.getMonth() + 1, matrix[rowIndex][colIndex]);
                     return (
                         <Bear
                             isValid={ isValid }
-                            onPress={ () => { /* ToDo */ } } 
+                            emotionTitle={ emotion ? emotion : Diary.emotionTitle.CALM }
+                            onPress={() => {
+                                diaryActions.loadDiary(activeDate.getFullYear(), activeDate.getMonth() + 1, matrix[rowIndex][colIndex], calendarConsts.weekDaysLong[colIndex]);
+                                if (emotion) {
+                                    props.parentProps.navigation.navigate("DiaryDetail");
+                                } else {
+                                    props.parentProps.navigation.navigate("DiaryIntro");
+                                }
+                            }} 
                             key={ keyCounter++ }
                         />
                     );

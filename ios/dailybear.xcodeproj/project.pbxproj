@@ -50,6 +50,8 @@
 		E1E261F1D3634237898F0197 /* oval_red.png in Resources */ = {isa = PBXBuildFile; fileRef = DD6AE494EA074D42B23FF7EE /* oval_red.png */; };
 		E4D0B9885A5243FD81C91FF0 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 331A58729E284408A33631D4 /* back.png */; };
 		F6A91FB684B64EA336D9B460 /* libPods-dailybear-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51C7596553489B426A46F476 /* libPods-dailybear-tvOSTests.a */; };
+		A9187F20C4EB42DD89F0AE01 /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = EEF3944DAA904564BAA86CDE /* close.png */; };
+		5BBC86BD1FEF4E14AD05CA59 /* upload.png in Resources */ = {isa = PBXBuildFile; fileRef = 7265527775E84BE9BD22370B /* upload.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,6 +143,8 @@
 		F6016CE886A343D99FADBA4A /* splash_title.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = splash_title.png; path = ../assets/images/splash_title.png; sourceTree = "<group>"; };
 		FC57ABBD699A44D980F5A1AB /* setting.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = setting.png; path = ../assets/icons/setting.png; sourceTree = "<group>"; };
 		FF3FC6DED7CF4D6D83FB112F /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
+		EEF3944DAA904564BAA86CDE /* close.png */ = {isa = PBXFileReference; name = "close.png"; path = "../assets/icons/close.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7265527775E84BE9BD22370B /* upload.png */ = {isa = PBXFileReference; name = "upload.png"; path = "../assets/icons/upload.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -285,6 +289,8 @@
 				C6AF0DEA8E8646E09730CC90 /* SFProText-Bold.ttf */,
 				6D756C2C52FF4D808FA4BBF4 /* check_off.png */,
 				306C3521CE594C28A896C6FC /* check_on.png */,
+				EEF3944DAA904564BAA86CDE /* close.png */,
+				7265527775E84BE9BD22370B /* upload.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -499,6 +505,8 @@
 				AC5BE42001974E6983425CEC /* SFProText-Bold.ttf in Resources */,
 				56F305596A98417492BE5455 /* check_off.png in Resources */,
 				A0FDB5D56C454037ACC71DA9 /* check_on.png in Resources */,
+				A9187F20C4EB42DD89F0AE01 /* close.png in Resources */,
+				5BBC86BD1FEF4E14AD05CA59 /* upload.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

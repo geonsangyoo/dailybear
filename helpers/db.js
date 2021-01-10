@@ -44,6 +44,25 @@ const createTable = async () => {
         `
     , []);
     console.log('Table <saying> Creation => ' + result);
+
+    result = await executeQuery(
+        `
+            CREATE TABLE IF NOT EXISTS diary 
+            (
+                year INTEGER NOT NULL,
+                month INTEGER NOT NULL,
+                date INTEGER NOT NULL,
+                day INTEGER NOT NULL,
+                content TEXT,
+                imageUri TEXT,
+                emotion INTEGER NOT NULL,
+                created_at TEXT NOT NULL DEFAULT (DATETIME('now', 'localtime')),
+                updated_at TEXT NOT NULL DEFAULT (DATETIME('now', 'localtime')),
+                PRIMARY KEY(year, month, date)
+            );
+        `
+    , []);
+    console.log('Table <diary> Creation => ' + result);
 };
 
 const createTrigger = async () => {
@@ -71,6 +90,18 @@ const createTrigger = async () => {
         `    
     , []);
     console.log('Trigger <update_saying> Creation => ' + result);
+
+    result = await executeQuery(
+        `
+            CREATE TRIGGER IF NOT EXISTS update_diary
+            AFTER UPDATE ON diary
+            BEGIN
+                UPDATE diary SET updated_at = DATETIME('now', 'localtime')
+                WHERE rowid == NEW.rowid;
+            END;
+        `    
+    , []);
+    console.log('Trigger <update_diary> Creation => ' + result);
 };
 
 const dropTables = async () => {
@@ -88,6 +119,13 @@ const dropTables = async () => {
         `
     , []);
     console.log('TABLE <saying> is dropped! => ' + result);
+
+    result = await executeQuery(
+        `
+            DROP TABLE IF EXISTS diary;
+        `
+    , []);
+    console.log('TABLE <diary> is dropped! => ' + result);
 };
 
 export const fetchSettings = async (functionName) => {

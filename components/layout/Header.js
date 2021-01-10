@@ -28,7 +28,7 @@ const Header = props => {
                             props.parentProps.navigation.navigate("SayingDetail", {
                                 saying: props.saying,
                                 mode: props.mode
-                        }) 
+                        })
                     }
                 }
             >

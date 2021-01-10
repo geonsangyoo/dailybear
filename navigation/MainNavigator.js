@@ -11,9 +11,13 @@ import ListView from '../screens/main/ListView';
 import SayingDetail from '../screens/main/SayingDetail';
 import StatisticsView from '../screens/main/StatisticsView';
 import HeaderBackImage from '../components/layout/HeaderBackImage';
+import DiaryIntro from '../screens/main/DiaryIntro';
 import Colors from '../constants/Colors';
 
 const MainNavigatorScreen = createStackNavigator();
+const SayingDetailBackImage = require('../assets/icons/back.png');
+const DiaryIntroBackImage = require('../assets/icons/close.png');
+
 const MainContainer = () => {
     return (
         <SafeAreaProvider>
@@ -24,10 +28,32 @@ const MainContainer = () => {
                     initialRouteName="CalendarView"
                 >
                     <MainNavigatorScreen.Screen 
-                        name="Calendar View"
+                        name="CalendarView"
                         component={ CalendarView }
                         options={{
                             headerShown: false
+                        }}
+                    />
+                    <MainNavigatorScreen.Screen 
+                        name="DiaryIntro"
+                        component={ DiaryIntro }
+                        options={{
+                            headerTitle: () => {},
+                            headerBackImage: () => <HeaderBackImage imagePath={ DiaryIntroBackImage } />,
+                            headerBackTitleVisible: false,
+                            headerTintColor: Colors.HeaderTitle_gray,
+                            headerTransparent: true
+                        }}
+                    />
+                    <MainNavigatorScreen.Screen 
+                        name="DiaryDetail"
+                        component={ DiaryDetail }
+                        options={{
+                            headerTitle: () => {},
+                            headerBackImage: () => <HeaderBackImage imagePath={ DiaryIntroBackImage } />,
+                            headerBackTitleVisible: false,
+                            headerTintColor: Colors.HeaderTitle_gray,
+                            headerTransparent: true
                         }}
                     />
                     <MainNavigatorScreen.Screen 
@@ -43,7 +69,7 @@ const MainContainer = () => {
                         component={ SayingDetail }
                         options={{
                             headerTitle: "A word of this month",
-                            headerBackImage: HeaderBackImage,
+                            headerBackImage: () => <HeaderBackImage imagePath={ SayingDetailBackImage } />,
                             headerBackTitleVisible: false,
                             headerTintColor: Colors.HeaderTitle_gray,
                             headerTransparent: true

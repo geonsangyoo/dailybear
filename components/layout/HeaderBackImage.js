@@ -6,7 +6,7 @@ const HeaderBackImage = props => {
     return (
         <Image 
             source={
-                require('../../assets/icons/back.png')
+                props.imagePath
             }
             style={ styles.HeaderImage }
         />

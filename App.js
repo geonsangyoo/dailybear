@@ -10,6 +10,7 @@ import SQLite from 'react-native-sqlite-storage';
 import MainContainer from './navigation/MainNavigator';
 import calendarReducer from './store/reducers/Calendar';
 import sayingReducer from './store/reducers/Saying';
+import diaryReducer from './store/reducers/Diary';
 import { init } from './helpers/db';
 
 // DB
@@ -30,7 +31,8 @@ global.db = SQLite.openDatabase(
 // Redux
 const rootReducer = combineReducers({
   calendar: calendarReducer,
-  saying: sayingReducer
+  saying: sayingReducer,
+  diary: diaryReducer
 });
 const middlewareEnhancer = applyMiddleware(ReduxThunk);
 const store = createStore(rootReducer, composeWithDevTools(middlewareEnhancer));
