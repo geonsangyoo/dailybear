@@ -37,7 +37,6 @@ const Header = props => {
                     numberOfLines={ 4 }
                     ellipsizeMode='tail'
                     onTextLayout={ ({ nativeEvent: { lines } }) => {
-                        console.log("Text Layout -> " + lines.length);
                         if (lines.length === maxLine) {
                             if (lines[maxLine-1].text.indexOf('\n') !== -1) {
                                 let editedTruncateText = '';

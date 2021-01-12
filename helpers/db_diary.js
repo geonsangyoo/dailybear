@@ -12,25 +12,24 @@ export const fetchDiary = async (year, month, date) => {
     return diary;
 };
 
-export const fetchEmotion = async (year, month, date) => {
-    let emotion = await executeQuery(
+export const fetchEmotions = async (year, month) => {
+    let emotions = await executeQuery(
         `
-            SELECT emotion FROM diary
+            SELECT date, emotion FROM diary
             WHERE year = ?
-            AND month = ?
-            AND date = ?;
+            AND month = ?;
         `
-    , [year, month, date]);
-    return emotion;
+    , [year, month]);
+    return emotions;
 };
 
-export const upsertDiary = async (year, month, date, content, emotion) => {
+export const upsertDiary = async (year, month, date, day, content, emotion) => {
     let diaryUpsert = await executeQuery(
         `
-            INSERT INTO diary (year, month, date, content, emotion)
-            VALUES (?, ?, ?, ?) ON CONFLICT (year, month, date)
+            INSERT INTO diary (year, month, date, day, content, emotion)
+            VALUES (?, ?, ?, ?, ?, ?) ON CONFLICT (year, month, date)
             DO UPDATE SET content = excluded.content, emotion = excluded.emotion;
         `
-    , [year, month, date, content, emotion]);
+    , [year, month, date, day, content, emotion]);
     return diaryUpsert;
 };

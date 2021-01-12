@@ -53,10 +53,13 @@ const Diary = {
         }
     },
     convertDate: (year, month, date, day) => {
-        return year + '.' +
-            month.padStart(2, '0') + '.' +
-            date.padStart(2, '0'), + '  ' +
-            day;
+        return String(year)
+            .concat('.')
+            .concat(String(month).padStart(2, '0'))
+            .concat('.')
+            .concat(String(date).padStart(2, '0'))
+            .concat('  ')
+            .concat(day);
     }
 };
 export default Diary;

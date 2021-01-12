@@ -1,23 +1,47 @@
 // Standard
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { View, Text, StyleSheet, Pressable, Image } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // Custom
+import * as diaryActions from '../../store/actions/Diary';
 import Diary from '../../constants/Diary';
 import Background from '../../components/layout/Background';
+import HeaderBackImage from '../../components/layout/HeaderBackImage';
 import RectangleBox from '../../components/ui/RectangleBox';
 import Colors from '../../constants/Colors';
 
+const DiaryIntroBackImage = require('../../assets/icons/close.png');
+
 const DiaryIntro = props => {
+    const dispatch = useDispatch();
     const date = useSelector(status => status.diary.date);
-    const dateString = Diary.convertDate(date.year, date.month, date.date, date.day);
+    const dateString = ( Object.keys(date).length ) > 0 ?
+                Diary.convertDate(date.year, date.month, date.date, date.day) :
+                '';
+
     const navigateDetail = emotion => {
         props.navigation.navigate("DiaryDetail", {
             dateString: dateString,
             emotion: emotion
         })
-    }
+    };
+    
+    useLayoutEffect(() => {
+        props.navigation.setOptions({
+            headerLeft: () => (
+                <Pressable onPress={() => {
+                    dispatch(diaryActions.initDiary());
+                    props.navigation.goBack();
+                }}>
+                    <HeaderBackImage
+                        imagePath={ DiaryIntroBackImage }
+                    />
+                </Pressable>
+            )
+        });
+    });
+    
     return (
         <Background style={ styles.container }>
             <View style={ styles.container }>

@@ -1,25 +1,34 @@
 // Standard
-import React, { useCallback, useLayoutEffect, useReducer } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState, useCallback, useLayoutEffect, useReducer } from 'react';
+import { Text, TextInput, View, StyleSheet, Image, TouchableOpacity, ActivityIndicator, Pressable } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { Button } from 'react-native-elements';
 
 // Custom
 import * as diaryActions from '../../store/actions/Diary';
 import Diary from '../../constants/Diary';
 import Background from '../../components/layout/Background';
+import HeaderBackImage from '../../components/layout/HeaderBackImage';
 import RectangleBox from '../../components/ui/RectangleBox';
 import Colors from '../../constants/Colors';
+
+const DiaryIntroBackImage = require('../../assets/icons/close.png');
 
 const DiaryDetail = props => {
     const INPUT_CHANGE = 'INPUT_CHANGE';
     const placeholder = Diary.placeholder;
     const dispatch = useDispatch();
-    const diary = {
-        content: useSelector(state => state.diary.content),
-        emotion: useSelector(state => state.diary.emotion),
-        date: useSelector(state => state.diary.date),
-        day: useSelector(state => state.diary.day)
-    };
+    const [isValueInit, setIsValueInit] = useState(true);
+    const diary = {};
+    
+    diary.content = useSelector(state => state.diary.content);
+    diary.emotion = useSelector(state => state.diary.emotion);
+    diary.date = useSelector(state => state.diary.date);
+
+    const editfg = ( diary.emotion ) !== '' ? true : false;
+    if ((diary.emotion !== props.route.params?.emotion) && (props.route.params?.emotion !== undefined)) {
+        diary.emotion = props.route.params?.emotion;
+    }
     const dateString = Diary.convertDate(diary.date.year, diary.date.month, diary.date.date, diary.date.day);
     
     const inputReducer = (state, action) => {
@@ -35,16 +44,40 @@ const DiaryDetail = props => {
     };
 
     const [inputState, dispatchInput] = useReducer(inputReducer, {
-        value: diary.content ? diary.content : ''
-    })
+        value: diary.content
+    });
+
+    // if content data exists, it is replaced with init textinput
+    if (isValueInit && diary.content !== '') {
+        inputState.value = diary.content;
+        setIsValueInit(false);
+    }
 
     const saveModeHandler = useCallback(() => {
-        dispatch(diaryActions.saveDiary(date.year, date.month, date.date, inputState.value, diary.emotion));
+        dispatch(diaryActions.saveDiary(
+                                diary.date.year,
+                                diary.date.month,
+                                diary.date.date,
+                                diary.date.day,
+                                inputState.value,
+                                diary.emotion
+                            ));
+        dispatch(diaryActions.initDiary());
         props.navigation.navigate("CalendarView");
-    }, [mode, inputState.value]);
+    }, [inputState.value, diary.emotion]);
 
     useLayoutEffect(() => {
         props.navigation.setOptions({
+            headerLeft: () => (
+                <Pressable onPress={() => {
+                    dispatch(diaryActions.initDiary());
+                    props.navigation.goBack();
+                }}>
+                    <HeaderBackImage
+                        imagePath={ DiaryIntroBackImage }
+                    />
+                </Pressable>
+            ),
             headerRight: () => (
                 <Button
                     title='Save'
@@ -57,14 +90,32 @@ const DiaryDetail = props => {
         });
     });
 
+    if (diary.emotion === '') {
+        return (
+            <Background style={ styles.container }>
+                <View style={ styles.centered }>
+                    <ActivityIndicator size='large' color={ Colors.HeaderTitle_gray } />
+                </View>
+            </Background>
+        );
+    }
+
     return (
         <Background style={ styles.container }>
             <RectangleBox style={ styles.rectangleBoxContainer }>
                 <View style={ styles.contentContainer }>
-                    <Image 
-                        style={ styles.image }
-                        source={ Diary.emotionBears[(diary.emotion) ? (diary.emotion) : (props.route.params?.emotion)].imgPath }
-                    />
+                    <TouchableOpacity
+                        style={ styles.imageContainer }
+                        onPress={
+                            () => { 
+                                props.navigation.navigate("DiaryIntro");
+                        }}
+                    >
+                        <Image
+                            style={ styles.image }
+                            source={ Diary.emotionBears[diary.emotion].imgPath }
+                        />
+                    </TouchableOpacity>
                     <Text style={ styles.dateTextStyle }>
                         { dateString }
                     </Text>
@@ -87,11 +138,11 @@ const DiaryDetail = props => {
                 </View>
             </RectangleBox>
             { 
-                diary.emotion ?
+                editfg ?
                     <View style={ styles.footerContainer }>
                         <TouchableOpacity onPress={ () => {} } style={{ ...styles.diary_edit }}>
                             <Image 
-                                source={ Diary.footerIcons.UPLOAD.imgPath }
+                                source={ Diary.footerIcons.EDIT.imgPath }
                                 style={ styles.icon }
                             />
                         </TouchableOpacity>
@@ -130,14 +181,25 @@ const styles = StyleSheet.create({
     container: {
         flex: 1
     },
+    contentContainer: {
+        flex: 1
+    },
+    imageContainer: {
+    },
     rectangleBoxContainer: {
-        flex: 4,
         alignSelf: 'center',
-        marginTop: 15
+        top: '12%',
+        width: 335,
+        height: 340,
+        borderRadius: 1
     },
     footerContainer: {
         flex: 1,
-        marginTop: 24
+        flexDirection: 'row',
+        alignItems: 'flex-end',
+        marginBottom: '8%',
+        marginLeft: '8%',
+        marginRight: '8%'
     },
     textContainer: {
         flex: 1,
@@ -151,6 +213,11 @@ const styles = StyleSheet.create({
         fontWeight: '900',
         textAlign: 'center'
     },
+    description: {
+        alignSelf: 'center',
+        width: 295,
+        height: 134
+    },
     diaryTextContainer: {
         top: '10%',
         width: '80%',
@@ -163,8 +230,11 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     image: {
-        width: 76,
-        height: 70,
+        width: 95,
+        height: 87.5,
+        alignSelf: 'center',
+        marginTop: 55,
+        marginBottom: 18,
         marginHorizontal: 18
     },
     headerRightContainer: {
@@ -188,24 +258,21 @@ const styles = StyleSheet.create({
     diary_right: {
     },
     setting_circle: {
-        width: 60,
-        height: 60,
-        marginLeft: 20,
-        borderRadius: 60/2,
-        backgroundColor: Colors.FooterIconBackground_white
+        marginLeft: 20
     },
     edit_circle: {
-        width: 60,
-        height: 60,
-        marginLeft: '40%',
-        borderRadius: 60/2,
-        backgroundColor: Colors.FooterIconBackground_brown
+        marginLeft: '40%'
     },
     icon: {
-        width: 30,
-        height: 30,
+        width: 24,
+        height: 24,
         marginTop: 15,
         marginLeft: 15
+    },
+    centered: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });
 

@@ -1,12 +1,7 @@
 import * as diaryActions from '../actions/Diary';
 
 const initialState = {
-    date: {
-        year: '',
-        month: '',
-        date: '',
-        day: ''
-    },
+    date: {},
     content: '',
     emotion: ''
 };
@@ -14,27 +9,23 @@ const initialState = {
 const diaryReducer = (state = initialState, action) => {
     switch (action.type) {
         case diaryActions.LOAD_DIARY:
-            if (action.emotion) {
-                return {
-                    ...state,
-                    date: action.date,
-                    content: action.content,
-                    emotion: action.emotion
-                }
-            } else {
-                console.log('Error occurred!');
-                return initialState;
-            }
+            return {
+                date: action.date,
+                content: action.content,
+                emotion: action.emotion
+            };
+        case diaryActions.INIT_DIARY:
+            return initialState;
         case diaryActions.SAVE_DIARY:
-            if (action.emotion) {
+            if (action.emotion !== null) {
                 return {
                     ...state,
                     content: action.content,
                     emotion: action.emotion
-                }
+                };
             } else {
-                console.log('No row updated!');
-                return initialState;
+                console.log('No rows updated!');
+                return state;
             }
         default:
             return state;

@@ -6,17 +6,16 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 // Custom
 import CalendarView from '../screens/main/CalendarView';
-import DayDetail from '../screens/main/DayDetail';
 import ListView from '../screens/main/ListView';
 import SayingDetail from '../screens/main/SayingDetail';
 import StatisticsView from '../screens/main/StatisticsView';
 import HeaderBackImage from '../components/layout/HeaderBackImage';
 import DiaryIntro from '../screens/main/DiaryIntro';
+import DiaryDetail from '../screens/main/DiaryDetail';
 import Colors from '../constants/Colors';
 
 const MainNavigatorScreen = createStackNavigator();
 const SayingDetailBackImage = require('../assets/icons/back.png');
-const DiaryIntroBackImage = require('../assets/icons/close.png');
 
 const MainContainer = () => {
     return (
@@ -39,7 +38,6 @@ const MainContainer = () => {
                         component={ DiaryIntro }
                         options={{
                             headerTitle: () => {},
-                            headerBackImage: () => <HeaderBackImage imagePath={ DiaryIntroBackImage } />,
                             headerBackTitleVisible: false,
                             headerTintColor: Colors.HeaderTitle_gray,
                             headerTransparent: true
@@ -50,7 +48,6 @@ const MainContainer = () => {
                         component={ DiaryDetail }
                         options={{
                             headerTitle: () => {},
-                            headerBackImage: () => <HeaderBackImage imagePath={ DiaryIntroBackImage } />,
                             headerBackTitleVisible: false,
                             headerTintColor: Colors.HeaderTitle_gray,
                             headerTransparent: true
@@ -74,10 +71,6 @@ const MainContainer = () => {
                             headerTintColor: Colors.HeaderTitle_gray,
                             headerTransparent: true
                         }}
-                    />
-                    <MainNavigatorScreen.Screen 
-                        name="DayDetail"
-                        component={ DayDetail }
                     />
                 </MainNavigatorScreen.Navigator>
             </NavigationContainer>

@@ -1,6 +1,6 @@
 // Standard
-import React, { useEffect, useCallback } from 'react';
-import { View, StyleSheet, Dimensions, StatusBar } from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { StyleSheet, Dimensions, StatusBar, ActivityIndicator } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { PanGestureHandler, State } from "react-native-gesture-handler";
@@ -30,17 +30,21 @@ import Background from '../../components/layout/Background';
 import Header from '../../components/layout/Header';
 import Calendar from '../../components/main/Calendar';
 import Footer from '../../components/layout/Footer';
-import * as calendarAction from '../../store/actions/Calendar';
-import * as sayingAction from '../../store/actions/Saying';
-import Sayings from '../../constants/Saying';
+import * as calendarActions from '../../store/actions/Calendar';
+import * as sayingActions from '../../store/actions/Saying';
+import * as sayingConsts from '../../constants/Saying';
+import * as funcs from '../../helpers/funcs';
 
 const CalendarView = props => {
+
     // Calendar Rendering
     const isDate = useSelector(state => state.calendar.activeDate);
     const saying = useSelector(state => state.saying.saying);
     const mode = useSelector(state => state.saying.mode);
+    const checkEmotionChanged = useSelector(state => state.diary.emotion);
+    const maxDays = funcs.getMaxDays(isDate.getFullYear(), isDate.getMonth());
     const dispatch = useDispatch();
-    
+
     // Animation
     const { height } = Dimensions.get('window');
     const [clock, clock2] = useClocks(2);
@@ -60,6 +64,41 @@ const CalendarView = props => {
     } = usePanGestureHandler();
     const snapPoints = [-height, 0, height];
     const to = snapPoint(translateY, velocity.y, snapPoints)
+
+    useEffect(() => {
+        // Load Saying
+        dispatch(sayingActions.loadSaying(isDate.getFullYear(), parseInt(isDate.getMonth()) + 1));
+        // Load Emotions
+        dispatch(calendarActions.loadEmotions(isDate.getFullYear(), isDate.getMonth() + 1, maxDays));
+    }, [isDate]);
+
+    useEffect(() => {
+        // Load Emotions when changed
+        dispatch(calendarActions.loadEmotions(isDate.getFullYear(), isDate.getMonth() + 1, maxDays));
+    }, [checkEmotionChanged]);
+
+    useEffect(() => {
+        (
+            mode === sayingConsts.randomMode &&
+            saying === ""
+        ) ?
+            dispatch(sayingActions.loadSayingFromOuter(isDate.getFullYear(), parseInt(isDate.getMonth()) + 1))
+            : dispatch(sayingActions.loadSaying(isDate.getFullYear(), parseInt(isDate.getMonth()) + 1));
+    }, [mode]);
+
+    const loadHandler = useCallback((isDate) => {
+        dispatch(calendarActions.setActiveDate(isDate));
+    }, [dispatch, isDate]);
+
+    const onSwipeUp = () => {
+        isDate.setMonth(isDate.getMonth()+1);
+        loadHandler(new Date(+isDate));
+    };
+
+    const onSwipeDown = () => {
+        isDate.setMonth(isDate.getMonth()-1);
+        loadHandler(new Date(+isDate));
+    };
 
     useCode(
         () => [
@@ -102,33 +141,6 @@ const CalendarView = props => {
         ], [state]
     );
 
-    useEffect(() => {
-        dispatch(sayingAction.loadSaying(isDate.getFullYear(), parseInt(isDate.getMonth()) + 1));
-    }, [isDate]);
-
-    useEffect(() => {
-        (
-            mode === Sayings.randomMode &&
-            saying === ""
-        ) ?
-            dispatch(sayingAction.loadSayingFromOuter(isDate.getFullYear(), parseInt(isDate.getMonth()) + 1))
-            : dispatch(sayingAction.loadSaying(isDate.getFullYear(), parseInt(isDate.getMonth()) + 1));
-    }, [mode]);
-
-    const loadHandler = useCallback((isDate) => {
-        dispatch(calendarAction.setActiveDate(isDate));
-    }, [dispatch, isDate]);
-
-    const onSwipeUp = () => {
-        isDate.setMonth(isDate.getMonth()+1);
-        loadHandler(new Date(+isDate));
-    };
-
-    const onSwipeDown = () => {
-        isDate.setMonth(isDate.getMonth()-1);
-        loadHandler(new Date(+isDate));
-    };
-
     return (
         <Background>
             <SafeAreaView style={ styles.container }>
@@ -143,12 +155,18 @@ const CalendarView = props => {
             </SafeAreaView>
         </Background>
     );
+
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         overflow: 'hidden'
+    },
+    centered: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     animationContainer: {
         flex: 3

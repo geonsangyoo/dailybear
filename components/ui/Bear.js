@@ -17,9 +17,7 @@ const Bear = props => {
             </TouchableOpacity>
         );
     } else {
-        contents = (
-            <Text></Text>
-        );
+        contents = null;
     }
     return (
         <View style={ styles.container }>

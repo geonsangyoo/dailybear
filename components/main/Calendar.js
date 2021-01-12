@@ -1,30 +1,31 @@
 // Standard
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 // Custom
 import Bear from '../ui/Bear';
 import * as calendarConsts from '../../constants/Calendar';
 import * as diaryActions from '../../store/actions/Diary';
+import * as funcs from '../../helpers/funcs';
 import Diary from '../../constants/Diary';
 import Colors from '../../constants/Colors';
 
 const Calendar = props => {
     var rows = [];
+    const emotions = useSelector(state => state.calendar.emotions);
+    const maxDays = funcs.getMaxDays(props.getDate.getFullYear(), props.getDate.getMonth());
+    const dispatch = useDispatch();
 
     const generateDayMatrix = (activeDate) => {
         let matrix = [];
         let year = activeDate.getFullYear();
         let month = activeDate.getMonth();
         let firstDay = new Date(year, month, 1).getDay();
-        let maxDays = calendarConsts.nDays[month];
         let counter = 1;
+        
         matrix[0] = calendarConsts.weekDays;
-        if (month == 1) { // February
-            if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
-              maxDays += 1;
-            }
-        }
+
         for (let row = 1; row < 7; row++) {
             matrix[row] = [];
             for (let col = 0; col < 7; col++) {
@@ -36,6 +37,7 @@ const Calendar = props => {
                 }
             }
         }
+
         return matrix;
     };
 
@@ -43,8 +45,10 @@ const Calendar = props => {
         let matrix = [];
         let rows = [];
         let keyCounter = 1;
-    
+        let emotion;
+
         matrix = generateDayMatrix(activeDate);
+
         rows = matrix.map((row, rowIndex) => {
             let rowItems = row.map((item, colIndex) => {
                 let isValid;
@@ -58,14 +62,24 @@ const Calendar = props => {
                         </View>
                     );
                 } else {
-                    let emotion = diaryActions.loadEmotion(activeDate.getFullYear(), activeDate.getMonth() + 1, matrix[rowIndex][colIndex]);
+                    if (isValid) {
+                        emotion = emotions[matrix[rowIndex][colIndex] - 1].emotion;
+                        emotion = (emotion === -1) ? Diary.emotionTitle.CALM : emotion;
+                    } else {
+                        emotion = Diary.emotionTitle.CALM;
+                    }
                     return (
                         <Bear
                             isValid={ isValid }
-                            emotionTitle={ emotion ? emotion : Diary.emotionTitle.CALM }
+                            emotionTitle={ emotion }
                             onPress={() => {
-                                diaryActions.loadDiary(activeDate.getFullYear(), activeDate.getMonth() + 1, matrix[rowIndex][colIndex], calendarConsts.weekDaysLong[colIndex]);
-                                if (emotion) {
+                                dispatch(diaryActions.loadDiary(
+                                    activeDate.getFullYear(),
+                                    activeDate.getMonth() + 1,
+                                    matrix[rowIndex][colIndex],
+                                    calendarConsts.weekDaysLong[colIndex]
+                                ));
+                                if (emotions[matrix[rowIndex][colIndex] - 1].emotion !== -1) {
                                     props.parentProps.navigation.navigate("DiaryDetail");
                                 } else {
                                     props.parentProps.navigation.navigate("DiaryIntro");
@@ -84,15 +98,18 @@ const Calendar = props => {
         });
 
         return rows;
-    }
+    };
 
-    rows = renderCalendar(props.getDate);
+    if (emotions.length === maxDays) {
+        rows = renderCalendar(props.getDate);
+    }
 
     return (
         <View style={ styles.calendarContainer }>
             { rows }
         </View>
     );
+
 };
 
 const styles = StyleSheet.create({

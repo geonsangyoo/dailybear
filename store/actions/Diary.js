@@ -1,10 +1,10 @@
 import { 
     fetchDiary,
-    fetchEmotion,
     upsertDiary
 } from '../../helpers/db_diary';
 
 export const LOAD_DIARY = 'LOAD_DIARY';
+export const INIT_DIARY = 'INIT_DIARY';
 export const SAVE_DIARY = 'SAVE_DIARY';
 
 export const loadDiary = (year, month, date, day) => {
@@ -23,12 +23,12 @@ export const loadDiary = (year, month, date, day) => {
                         date: date,
                         day: day
                     },
-                    content: saying.rows.item(0).content,
-                    emotion: saying.rows.item(0).emotion
+                    content: diary.rows.item(0).content,
+                    emotion: diary.rows.item(0).emotion
                 })
             } else {
                 dispatch({
-                    type: LOAD_SAYING,
+                    type: LOAD_DIARY,
                     date: {
                         year: year,
                         month: month,
@@ -45,28 +45,26 @@ export const loadDiary = (year, month, date, day) => {
     };
 };
 
-export const loadEmotion = async (year, month, date) => {
-    emotion = await fetchEmotion(year, month, date);
-    if (emotion.rows.length > 0) {
-        return emotion.rows.item(0).emotion;
-    } else {
-        return '';
-    }
-}
+export const initDiary = () => {
+    console.log("init Diary!!");
+    return {
+        type: INIT_DIARY
+    };
+};
 
-export const saveDiary = (year, month, date, content, emotion) => {
+export const saveDiary = (year, month, date, day, content, emotion) => {
     return async dispatch => {
         let dbResult;
         let diary;
         try {
             console.log('Save Diary...');
-            dbResult = await upsertDiary(year, month, date, content, emotion);
+            dbResult = await upsertDiary(year, month, date, day, content, emotion);
             diary = await fetchDiary(year, month, date);
             console.log('fetch -> ' + JSON.stringify(diary.rows.item(0)));
             dispatch({
                 type: SAVE_DIARY,
-                content: saying.rows.item(0).content,
-                emotion: saying.rows.item(0).emotion
+                content: diary.rows.item(0).content,
+                emotion: diary.rows.item(0).emotion
             });
         } catch (err) {
             throw err;
