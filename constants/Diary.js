@@ -37,10 +37,10 @@ const Diary = {
     ],
     footerIcons: {
         EDIT: {
-            imgPath: require('../assets/icons/edit.png')
+            imgPath: require('../assets/icons/diary_edit.png')
         },
-        UPLOAD: {
-            imgPath: require('../assets/icons/upload.png')
+        SHARE: {
+            imgPath: require('../assets/icons/share.png')
         },
         DELETE: {
             imgPath: require('../assets/icons/delete.png')

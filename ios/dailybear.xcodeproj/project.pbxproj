@@ -9,9 +9,11 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* dailybearTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* dailybearTests.m */; };
 		02A8F6287A364F41BBB390CD /* list.png in Resources */ = {isa = PBXBuildFile; fileRef = 349D375C08FB45B7BE10AB87 /* list.png */; };
+		10D5CB9EECB84A66894E7674 /* share.png in Resources */ = {isa = PBXBuildFile; fileRef = CCBACC6BC15F47228C1D42A2 /* share.png */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		29E882303DA646BF92B7C699 /* diary_edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 51AC34DCD0E64CC58F3DD22F /* diary_edit.png */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -33,12 +35,12 @@
 		8468A9FE7B2640B187904163 /* splash_bear.png in Resources */ = {isa = PBXBuildFile; fileRef = 72FE35F5E4B742A6AFD540B4 /* splash_bear.png */; };
 		8B04EA08257C71B600A94C8D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8EEB3DCDA0521745C32842AB /* libPods-dailybear.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8721B47666DD4CC9C093FDC1 /* libPods-dailybear.a */; };
-		909A4A8CBF3B4B50BDCF625D /* Upload.png in Resources */ = {isa = PBXBuildFile; fileRef = 60A733203E7E4C188D3CC77B /* Upload.png */; };
 		988F66B830534C139492A23F /* left.png in Resources */ = {isa = PBXBuildFile; fileRef = A996A6423386494692543D75 /* left.png */; };
 		9B45A0D79EFB4487B8D04B69 /* main_bear_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B39C12232A64498B6540890 /* main_bear_3.png */; };
 		A0FDB5D56C454037ACC71DA9 /* check_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 306C3521CE594C28A896C6FC /* check_on.png */; };
 		A49AB77408904C0BA2B6A08B /* oval_purple.png in Resources */ = {isa = PBXBuildFile; fileRef = 569E50D8A747473B87F475CB /* oval_purple.png */; };
 		A6482906E31DA1DC016C520E /* libPods-dailybear-dailybearTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8A1FBC1F7EC514F5299B18B /* libPods-dailybear-dailybearTests.a */; };
+		A9187F20C4EB42DD89F0AE01 /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = EEF3944DAA904564BAA86CDE /* close.png */; };
 		AC5BE42001974E6983425CEC /* SFProText-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C6AF0DEA8E8646E09730CC90 /* SFProText-Bold.ttf */; };
 		AD8B940E1A944DDC8913403C /* main_bear_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D8901DEA6FC486997B87404 /* main_bear_2.png */; };
 		B71FB38B8E0C4A55B420C11C /* calender.png in Resources */ = {isa = PBXBuildFile; fileRef = F3EE6BAA58DA450297D88C02 /* calender.png */; };
@@ -50,8 +52,6 @@
 		E1E261F1D3634237898F0197 /* oval_red.png in Resources */ = {isa = PBXBuildFile; fileRef = DD6AE494EA074D42B23FF7EE /* oval_red.png */; };
 		E4D0B9885A5243FD81C91FF0 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 331A58729E284408A33631D4 /* back.png */; };
 		F6A91FB684B64EA336D9B460 /* libPods-dailybear-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51C7596553489B426A46F476 /* libPods-dailybear-tvOSTests.a */; };
-		A9187F20C4EB42DD89F0AE01 /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = EEF3944DAA904564BAA86CDE /* close.png */; };
-		5BBC86BD1FEF4E14AD05CA59 /* upload.png in Resources */ = {isa = PBXBuildFile; fileRef = 7265527775E84BE9BD22370B /* upload.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,13 +97,13 @@
 		411D9A78A6134FC6B3DA3267 /* delete.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = delete.png; path = ../assets/icons/delete.png; sourceTree = "<group>"; };
 		4EDF56C9325F42A0B6E5EFD7 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		514BE1C5EF92445997185742 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		51AC34DCD0E64CC58F3DD22F /* diary_edit.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = diary_edit.png; path = ../assets/icons/diary_edit.png; sourceTree = "<group>"; };
 		51C7596553489B426A46F476 /* libPods-dailybear-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dailybear-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		53626931B0A0452CAFFCA90C /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		5410BC8D6F3F4861B8D47F5E /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		542E509EC34A53A26DC8BF5C /* Pods-dailybear-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dailybear-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-dailybear-tvOSTests/Pods-dailybear-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		569E50D8A747473B87F475CB /* oval_purple.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = oval_purple.png; path = ../assets/images/oval_purple.png; sourceTree = "<group>"; };
 		5BF1182DF77CD16F45A7EC98 /* libPods-dailybear-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dailybear-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		60A733203E7E4C188D3CC77B /* Upload.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Upload.png; path = ../assets/icons/Upload.png; sourceTree = "<group>"; };
 		6224883672AC4822ACDE333E /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		653AB68C54B94D0F9A49C4C7 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		662006DE0B16B685CB93309F /* Pods-dailybear.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dailybear.release.xcconfig"; path = "Target Support Files/Pods-dailybear/Pods-dailybear.release.xcconfig"; sourceTree = "<group>"; };
@@ -133,18 +133,18 @@
 		BE68E647952A47128E169852 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		C6AF0DEA8E8646E09730CC90 /* SFProText-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFProText-Bold.ttf"; path = "../assets/fonts/SFProText-Bold.ttf"; sourceTree = "<group>"; };
 		C8A1FBC1F7EC514F5299B18B /* libPods-dailybear-dailybearTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dailybear-dailybearTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCBACC6BC15F47228C1D42A2 /* share.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = share.png; path = ../assets/icons/share.png; sourceTree = "<group>"; };
 		D0D2B92444D8448EB027BA22 /* oval_blue.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = oval_blue.png; path = ../assets/images/oval_blue.png; sourceTree = "<group>"; };
 		DD6AE494EA074D42B23FF7EE /* oval_red.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = oval_red.png; path = ../assets/images/oval_red.png; sourceTree = "<group>"; };
 		E07AEFBE54604DA2B663B4AA /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		E548AA93B49847F388E9B751 /* right.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = right.png; path = ../assets/icons/right.png; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		EEF3944DAA904564BAA86CDE /* close.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = close.png; path = ../assets/icons/close.png; sourceTree = "<group>"; };
 		F3EE6BAA58DA450297D88C02 /* calender.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = calender.png; path = ../assets/icons/calender.png; sourceTree = "<group>"; };
 		F6016CE886A343D99FADBA4A /* splash_title.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = splash_title.png; path = ../assets/images/splash_title.png; sourceTree = "<group>"; };
 		FC57ABBD699A44D980F5A1AB /* setting.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = setting.png; path = ../assets/icons/setting.png; sourceTree = "<group>"; };
 		FF3FC6DED7CF4D6D83FB112F /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
-		EEF3944DAA904564BAA86CDE /* close.png */ = {isa = PBXFileReference; name = "close.png"; path = "../assets/icons/close.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		7265527775E84BE9BD22370B /* upload.png */ = {isa = PBXFileReference; name = "upload.png"; path = "../assets/icons/upload.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -284,13 +284,13 @@
 				349D375C08FB45B7BE10AB87 /* list.png */,
 				E548AA93B49847F388E9B751 /* right.png */,
 				FC57ABBD699A44D980F5A1AB /* setting.png */,
-				60A733203E7E4C188D3CC77B /* Upload.png */,
 				09FA717B0EF347FDAC856466 /* SFProText-Regular.ttf */,
 				C6AF0DEA8E8646E09730CC90 /* SFProText-Bold.ttf */,
 				6D756C2C52FF4D808FA4BBF4 /* check_off.png */,
 				306C3521CE594C28A896C6FC /* check_on.png */,
 				EEF3944DAA904564BAA86CDE /* close.png */,
-				7265527775E84BE9BD22370B /* upload.png */,
+				51AC34DCD0E64CC58F3DD22F /* diary_edit.png */,
+				CCBACC6BC15F47228C1D42A2 /* share.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -500,13 +500,13 @@
 				02A8F6287A364F41BBB390CD /* list.png in Resources */,
 				C1B1F17A4EAF4788A5A6312C /* right.png in Resources */,
 				7418B7F2E94343908E4DA7CA /* setting.png in Resources */,
-				909A4A8CBF3B4B50BDCF625D /* Upload.png in Resources */,
 				6BCFC7F6CAE84B9194329C9C /* SFProText-Regular.ttf in Resources */,
 				AC5BE42001974E6983425CEC /* SFProText-Bold.ttf in Resources */,
 				56F305596A98417492BE5455 /* check_off.png in Resources */,
 				A0FDB5D56C454037ACC71DA9 /* check_on.png in Resources */,
 				A9187F20C4EB42DD89F0AE01 /* close.png in Resources */,
-				5BBC86BD1FEF4E14AD05CA59 /* upload.png in Resources */,
+				29E882303DA646BF92B7C699 /* diary_edit.png in Resources */,
+				10D5CB9EECB84A66894E7674 /* share.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -888,7 +888,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = 5D35DF6M3H;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = dailybear/Info.plist;
@@ -913,7 +913,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = 5D35DF6M3H;
 				INFOPLIST_FILE = dailybear/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;

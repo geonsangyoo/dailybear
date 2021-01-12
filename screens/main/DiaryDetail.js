@@ -25,7 +25,8 @@ const DiaryDetail = props => {
     diary.emotion = useSelector(state => state.diary.emotion);
     diary.date = useSelector(state => state.diary.date);
 
-    const editfg = ( diary.emotion ) !== '' ? true : false;
+    // const editfg = ( diary.emotion ) !== '' ? true : false;
+    const editfg = false;
     if ((diary.emotion !== props.route.params?.emotion) && (props.route.params?.emotion !== undefined)) {
         diary.emotion = props.route.params?.emotion;
     }
@@ -102,77 +103,79 @@ const DiaryDetail = props => {
 
     return (
         <Background style={ styles.container }>
-            <RectangleBox style={ styles.rectangleBoxContainer }>
-                <View style={ styles.contentContainer }>
-                    <TouchableOpacity
-                        style={ styles.imageContainer }
-                        onPress={
-                            () => { 
-                                props.navigation.navigate("DiaryIntro");
-                        }}
-                    >
-                        <Image
-                            style={ styles.image }
-                            source={ Diary.emotionBears[diary.emotion].imgPath }
-                        />
-                    </TouchableOpacity>
-                    <Text style={ styles.dateTextStyle }>
-                        { dateString }
-                    </Text>
-                    <View style={ styles.description }>
-                            <TextInput
-                                style={ styles.input }  
-                                editable={ true }
-                                multiline={ true }
-                                onChangeText={(text) => { 
-                                    dispatchInput({
-                                        type: INPUT_CHANGE,
-                                        value: text
-                                    });
-                                }}
-                                value={ inputState.value }
-                                placeholder={ placeholder }
-                                keyboardType='default'
+            <View style={ styles.rectangleContainer }>
+                <RectangleBox style={ styles.rectangleBoxContainer }>
+                    <View style={ styles.contentContainer }>
+                        <TouchableOpacity
+                            style={ styles.imageContainer }
+                            onPress={
+                                () => { 
+                                    props.navigation.navigate("DiaryIntro");
+                            }}
+                        >
+                            <Image
+                                style={ styles.image }
+                                source={ Diary.emotionBears[diary.emotion].imgPath }
                             />
+                        </TouchableOpacity>
+                        <Text style={ styles.dateTextStyle }>
+                            { dateString }
+                        </Text>
+                        <View style={ styles.description }>
+                                <TextInput
+                                    style={ styles.input }  
+                                    editable={ true }
+                                    multiline={ true }
+                                    onChangeText={(text) => { 
+                                        dispatchInput({
+                                            type: INPUT_CHANGE,
+                                            value: text
+                                        });
+                                    }}
+                                    value={ inputState.value }
+                                    placeholder={ placeholder }
+                                    keyboardType='default'
+                                />
+                        </View>
                     </View>
-                </View>
-            </RectangleBox>
+                </RectangleBox>
             { 
                 editfg ?
                     <View style={ styles.footerContainer }>
-                        <TouchableOpacity onPress={ () => {} } style={{ ...styles.diary_edit }}>
+                        <Pressable onPress={ () => {} } style={{ ...styles.diary_edit }}>
                             <Image 
                                 source={ Diary.footerIcons.EDIT.imgPath }
                                 style={ styles.icon }
                             />
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={ () => {} } style={{ ...styles.diary_upload }}>
+                        </Pressable>
+                        <Pressable onPress={ () => {} } style={{ ...styles.diary_share }}>
                             <Image 
-                                source={ Diary.footerIcons.UPLOAD.imgPath }
+                                source={ Diary.footerIcons.SHARE.imgPath }
                                 style={ styles.icon }
                             />
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={ () => {} } style={{ ...styles.diary_delete }}>
+                        </Pressable>
+                        <Pressable onPress={ () => {} } style={{ ...styles.diary_delete }}>
                             <Image 
                                 source={ Diary.footerIcons.DELETE.imgPath }
                                 style={ styles.icon }
                             />
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={ () => {} } style={{ ...styles.diary_left }}>
+                        </Pressable>
+                        <Pressable onPress={ () => {} } style={{ ...styles.diary_left }}>
                             <Image 
                                 source={ Diary.footerIcons.LEFT.imgPath }
                                 style={ styles.icon }
                             />
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={ () => {} } style={{ ...styles.diary_right }}>
+                        </Pressable>
+                        <Pressable onPress={ () => {} } style={{ ...styles.diary_right }}>
                             <Image 
                                 source={ Diary.footerIcons.RIGHT.imgPath }
                                 style={ styles.icon }
                             />
-                        </TouchableOpacity>
+                        </Pressable>
                     </View>
                 : null
             }
+            </View>
         </Background>
     );
 };
@@ -186,18 +189,19 @@ const styles = StyleSheet.create({
     },
     imageContainer: {
     },
+    rectangleContainer: {
+        flex: 1
+    },
     rectangleBoxContainer: {
         alignSelf: 'center',
+        justifyContent: 'center',
         top: '12%',
         width: 335,
-        height: 340,
+        height: 400,
         borderRadius: 1
     },
     footerContainer: {
-        flex: 1,
         flexDirection: 'row',
-        alignItems: 'flex-end',
-        marginBottom: '8%',
         marginLeft: '8%',
         marginRight: '8%'
     },
@@ -246,28 +250,22 @@ const styles = StyleSheet.create({
     },
     diary_edit: {
     },
-    diary_upload: {
-        marginLeft: 30
-    },
-    diary_delete: {
-        marginLeft: 30
-    },
-    diary_left: {
-        marginRight: 30
-    },
-    diary_right: {
-    },
-    setting_circle: {
+    diary_share: {
         marginLeft: 20
     },
-    edit_circle: {
-        marginLeft: '40%'
+    diary_delete: {
+        marginLeft: 20
+    },
+    diary_left: {
+        marginLeft: '45%'
+    },
+    diary_right: {
+        marginLeft: 30
     },
     icon: {
+        marginTop: 15,
         width: 24,
         height: 24,
-        marginTop: 15,
-        marginLeft: 15
     },
     centered: {
         flex: 1,

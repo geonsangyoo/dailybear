@@ -12,6 +12,45 @@ export const executeQuery = (sql, params = []) => new Promise((resolve, reject) 
     });
 });
 
+const createTrigger = async () => {
+    let result;
+    result = await executeQuery(
+        `
+            CREATE TRIGGER IF NOT EXISTS update_setting
+            AFTER UPDATE ON setting
+            BEGIN
+                UPDATE setting SET updated_at = DATETIME('now', 'localtime')
+                WHERE rowid == NEW.rowid;
+            END;
+        `    
+    , []);
+    console.log('Trigger <update_setting> Creation => ' + result);
+
+    result = await executeQuery(
+        `
+            CREATE TRIGGER IF NOT EXISTS update_saying
+            AFTER UPDATE ON saying
+            BEGIN
+                UPDATE saying SET updated_at = DATETIME('now', 'localtime')
+                WHERE rowid == NEW.rowid;
+            END;
+        `    
+    , []);
+    console.log('Trigger <update_saying> Creation => ' + result);
+
+    result = await executeQuery(
+        `
+            CREATE TRIGGER IF NOT EXISTS update_diary
+            AFTER UPDATE ON diary
+            BEGIN
+                UPDATE diary SET updated_at = DATETIME('now', 'localtime')
+                WHERE rowid == NEW.rowid;
+            END;
+        `    
+    , []);
+    console.log('Trigger <update_diary> Creation => ' + result);
+};
+
 const createTable = async () => {
     let result;
     result = await executeQuery(
@@ -63,45 +102,7 @@ const createTable = async () => {
         `
     , []);
     console.log('Table <diary> Creation => ' + result);
-};
-
-const createTrigger = async () => {
-    let result;
-    result = await executeQuery(
-        `
-            CREATE TRIGGER IF NOT EXISTS update_setting
-            AFTER UPDATE ON setting
-            BEGIN
-                UPDATE saying SET updated_at = DATETIME('now', 'localtime')
-                WHERE rowid == NEW.rowid;
-            END;
-        `    
-    , []);
-    console.log('Trigger <update_setting> Creation => ' + result);
-
-    result = await executeQuery(
-        `
-            CREATE TRIGGER IF NOT EXISTS update_saying
-            AFTER UPDATE ON saying
-            BEGIN
-                UPDATE saying SET updated_at = DATETIME('now', 'localtime')
-                WHERE rowid == NEW.rowid;
-            END;
-        `    
-    , []);
-    console.log('Trigger <update_saying> Creation => ' + result);
-
-    result = await executeQuery(
-        `
-            CREATE TRIGGER IF NOT EXISTS update_diary
-            AFTER UPDATE ON diary
-            BEGIN
-                UPDATE diary SET updated_at = DATETIME('now', 'localtime')
-                WHERE rowid == NEW.rowid;
-            END;
-        `    
-    , []);
-    console.log('Trigger <update_diary> Creation => ' + result);
+    createTrigger();
 };
 
 const dropTables = async () => {
@@ -142,7 +143,6 @@ export const init = async () => {
     /**
      * Schema Init
      */
-    // await dropTables();
+    await dropTables();
     await createTable();
-    createTrigger();
 };
