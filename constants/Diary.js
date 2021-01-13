@@ -1,6 +1,7 @@
 const Diary = {
     diaryIntro: "How was your day?",
     placeholder: "Write down how you felt today.\nIt's okay though you don't :)",
+    cancelMessage: "Your story is not saved.\nAre you sure to close?",
     emotionTitle: {
         ANGRY: 0,
         CALM: 1,

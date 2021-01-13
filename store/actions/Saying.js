@@ -10,6 +10,7 @@ const RANDOM_MODE = 'Random';
 
 export const loadSayingFromOuter = (year, month) => {
     return async dispatch => {
+        console.log("sdfsdf!!");
         let response = await fetch(OUTER_DB_API_PATH);
         let resData, randIdx, dbResult;
         if (!response.ok) {

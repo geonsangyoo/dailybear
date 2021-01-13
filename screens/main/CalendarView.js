@@ -1,6 +1,6 @@
 // Standard
-import React, { useState, useEffect, useCallback } from 'react';
-import { StyleSheet, Dimensions, StatusBar, ActivityIndicator } from 'react-native';
+import React, { useEffect, useCallback } from 'react';
+import { StyleSheet, Dimensions, StatusBar } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { PanGestureHandler, State } from "react-native-gesture-handler";
@@ -32,7 +32,7 @@ import Calendar from '../../components/main/Calendar';
 import Footer from '../../components/layout/Footer';
 import * as calendarActions from '../../store/actions/Calendar';
 import * as sayingActions from '../../store/actions/Saying';
-import * as sayingConsts from '../../constants/Saying';
+import sayingConsts from '../../constants/Saying';
 import * as funcs from '../../helpers/funcs';
 
 const CalendarView = props => {
@@ -42,6 +42,7 @@ const CalendarView = props => {
     const saying = useSelector(state => state.saying.saying);
     const mode = useSelector(state => state.saying.mode);
     const checkEmotionChanged = useSelector(state => state.diary.emotion);
+    const emotions = useSelector(state => state.calendar.emotions);
     const maxDays = funcs.getMaxDays(isDate.getFullYear(), isDate.getMonth());
     const dispatch = useDispatch();
 
@@ -144,14 +145,14 @@ const CalendarView = props => {
     return (
         <Background>
             <SafeAreaView style={ styles.container }>
-                <PanGestureHandler { ...gestureHandler } >
+                <PanGestureHandler { ...gestureHandler }>
                     <Animated.View style={[ styles.animationContainer, { transform: [{ translateY }] } ]}>
-                        <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent={ true } />
-                        <Header getDate={ isDate } parentProps={ props } saying={ saying } mode={ mode } />
-                        <Calendar getDate={ isDate } parentProps={ props } />
+                        <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent={ true }/>
+                        <Header getDate={ isDate } parentProps={ props } saying={ saying } mode={ mode }/>
+                        <Calendar getDate={ isDate } parentProps={ props }/>
                     </Animated.View>
                 </PanGestureHandler>
-                <Footer />
+                <Footer parentProps={ props } emotions={ emotions }/>
             </SafeAreaView>
         </Background>
     );

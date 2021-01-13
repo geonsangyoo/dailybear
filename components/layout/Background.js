@@ -4,7 +4,7 @@ import { ImageBackground, StyleSheet, View } from 'react-native';
 
 const Background = props => {
     return (
-        <View style={ styles.container }>
+        <View style={{ ...props.style, ...styles.container }} >
             <ImageBackground
                 source={ require('../../assets/images/background.png') }
                 style={ styles.image }

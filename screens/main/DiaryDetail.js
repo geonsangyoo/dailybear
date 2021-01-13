@@ -12,6 +12,7 @@ import HeaderBackImage from '../../components/layout/HeaderBackImage';
 import RectangleBox from '../../components/ui/RectangleBox';
 import Colors from '../../constants/Colors';
 
+const OPACITY = 0.2;
 const DiaryIntroBackImage = require('../../assets/icons/close.png');
 
 const DiaryDetail = props => {
@@ -19,6 +20,7 @@ const DiaryDetail = props => {
     const placeholder = Diary.placeholder;
     const dispatch = useDispatch();
     const [isValueInit, setIsValueInit] = useState(true);
+    const [isCancelModalOpened, setIsCancelModalOpened] = useState(false);
     const diary = {};
     
     diary.content = useSelector(state => state.diary.content);
@@ -71,9 +73,11 @@ const DiaryDetail = props => {
         props.navigation.setOptions({
             headerLeft: () => (
                 <Pressable onPress={() => {
-                    dispatch(diaryActions.initDiary());
-                    props.navigation.goBack();
-                }}>
+                    setIsCancelModalOpened(true);
+                }}
+                    style={{ opacity: isCancelModalOpened ? OPACITY : 1 }}
+                    disabled={ isCancelModalOpened ? true : false }
+                >
                     <HeaderBackImage
                         imagePath={ DiaryIntroBackImage }
                     />
@@ -85,6 +89,8 @@ const DiaryDetail = props => {
                     type='clear'
                     titleStyle={ styles.headerRightText }
                     onPress={ saveModeHandler }
+                    disabled={ isCancelModalOpened ? true : false }
+                    style={{ opacity: isCancelModalOpened ? OPACITY : 1 }}
                 />
             ),
             headerRightContainerStyle: styles.headerRightContainer
@@ -102,81 +108,110 @@ const DiaryDetail = props => {
     }
 
     return (
-        <Background style={ styles.container }>
-            <View style={ styles.rectangleContainer }>
-                <RectangleBox style={ styles.rectangleBoxContainer }>
-                    <View style={ styles.contentContainer }>
-                        <TouchableOpacity
-                            style={ styles.imageContainer }
-                            onPress={
-                                () => { 
-                                    props.navigation.navigate("DiaryIntro");
-                            }}
-                        >
-                            <Image
-                                style={ styles.image }
-                                source={ Diary.emotionBears[diary.emotion].imgPath }
-                            />
-                        </TouchableOpacity>
-                        <Text style={ styles.dateTextStyle }>
-                            { dateString }
-                        </Text>
-                        <View style={ styles.description }>
-                                <TextInput
-                                    style={ styles.input }  
-                                    editable={ true }
-                                    multiline={ true }
-                                    onChangeText={(text) => { 
-                                        dispatchInput({
-                                            type: INPUT_CHANGE,
-                                            value: text
-                                        });
-                                    }}
-                                    value={ inputState.value }
-                                    placeholder={ placeholder }
-                                    keyboardType='default'
+        <View style={{ flex: 1 }}>
+            <Background style={{ ...styles.container, opacity: isCancelModalOpened ? OPACITY : 1 }}>
+                <View style={ styles.rectangleContainer }>
+                    <RectangleBox style={ styles.rectangleBoxContainer }>
+                        <View style={ styles.contentContainer }>
+                            <TouchableOpacity
+                                style={ styles.imageContainer }
+                                disabled={ isCancelModalOpened ? true : false }
+                                onPress={
+                                    () => { 
+                                        props.navigation.navigate("DiaryIntro");
+                                }}
+                            >
+                                <Image
+                                    style={ styles.image }
+                                    source={ Diary.emotionBears[diary.emotion].imgPath }
                                 />
+                            </TouchableOpacity>
+                            <Text style={ styles.dateTextStyle }>
+                                { dateString }
+                            </Text>
+                            <View style={ styles.description }>
+                                    <TextInput
+                                        style={ styles.input }  
+                                        editable={ true }
+                                        multiline={ true }
+                                        onChangeText={(text) => { 
+                                            dispatchInput({
+                                                type: INPUT_CHANGE,
+                                                value: text
+                                            });
+                                        }}
+                                        value={ inputState.value }
+                                        placeholder={ placeholder }
+                                        keyboardType='default'
+                                    />
+                            </View>
                         </View>
-                    </View>
-                </RectangleBox>
-            { 
-                editfg ?
-                    <View style={ styles.footerContainer }>
-                        <Pressable onPress={ () => {} } style={{ ...styles.diary_edit }}>
-                            <Image 
-                                source={ Diary.footerIcons.EDIT.imgPath }
-                                style={ styles.icon }
-                            />
-                        </Pressable>
-                        <Pressable onPress={ () => {} } style={{ ...styles.diary_share }}>
-                            <Image 
-                                source={ Diary.footerIcons.SHARE.imgPath }
-                                style={ styles.icon }
-                            />
-                        </Pressable>
-                        <Pressable onPress={ () => {} } style={{ ...styles.diary_delete }}>
-                            <Image 
-                                source={ Diary.footerIcons.DELETE.imgPath }
-                                style={ styles.icon }
-                            />
-                        </Pressable>
-                        <Pressable onPress={ () => {} } style={{ ...styles.diary_left }}>
-                            <Image 
-                                source={ Diary.footerIcons.LEFT.imgPath }
-                                style={ styles.icon }
-                            />
-                        </Pressable>
-                        <Pressable onPress={ () => {} } style={{ ...styles.diary_right }}>
-                            <Image 
-                                source={ Diary.footerIcons.RIGHT.imgPath }
-                                style={ styles.icon }
-                            />
-                        </Pressable>
-                    </View>
+                    </RectangleBox>
+                { 
+                    editfg ?
+                        <View style={ styles.footerContainer }>
+                            <Pressable onPress={ () => {} } style={{ ...styles.diary_edit }}>
+                                <Image 
+                                    source={ Diary.footerIcons.EDIT.imgPath }
+                                    style={ styles.icon }
+                                />
+                            </Pressable>
+                            <Pressable onPress={ () => {} } style={{ ...styles.diary_share }}>
+                                <Image 
+                                    source={ Diary.footerIcons.SHARE.imgPath }
+                                    style={ styles.icon }
+                                />
+                            </Pressable>
+                            <Pressable onPress={ () => {} } style={{ ...styles.diary_delete }}>
+                                <Image 
+                                    source={ Diary.footerIcons.DELETE.imgPath }
+                                    style={ styles.icon }
+                                />
+                            </Pressable>
+                            <Pressable onPress={ () => {} } style={{ ...styles.diary_left }}>
+                                <Image 
+                                    source={ Diary.footerIcons.LEFT.imgPath }
+                                    style={ styles.icon }
+                                />
+                            </Pressable>
+                            <Pressable onPress={ () => {} } style={{ ...styles.diary_right }}>
+                                <Image 
+                                    source={ Diary.footerIcons.RIGHT.imgPath }
+                                    style={ styles.icon }
+                                />
+                            </Pressable>
+                        </View>
+                    : null
+                }
+                </View>
+            </Background>
+            {
+                isCancelModalOpened ?
+                    <RectangleBox style={ styles.rectangleBoxCloseModalContainer }>
+                        <View style={ styles.cancelMessageContainer }>
+                            <Text style={ styles.cancelModalTextStyle }>
+                                { Diary.cancelMessage }
+                            </Text>
+                        </View>
+                        <View style={ styles.cancelModalContainer }>
+                            <Text onPress={() => {
+                                setIsCancelModalOpened(false);
+                            }}
+                                style={ styles.cancelModalButtonTextStyle }>
+                                Cancel
+                            </Text>
+                            <Text onPress={() => {
+                                dispatch(diaryActions.initDiary());
+                                props.navigation.goBack();
+                            }} 
+                                style={ styles.cancelModalButtonTextStyle }>
+                                Close
+                            </Text>
+                        </View>
+                    </RectangleBox>
                 : null
             }
-            </View>
-        </Background>
+        </View>
     );
 };
 
@@ -185,7 +220,18 @@ const styles = StyleSheet.create({
         flex: 1
     },
     contentContainer: {
-        flex: 1
+        flex: 1,
+    },
+    cancelMessageContainer: {
+        flex: 1,
+        marginTop: 47
+    },
+    cancelModalContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'flex-end',
+        justifyContent: 'space-around',
+        marginBottom: 17
     },
     imageContainer: {
     },
@@ -195,10 +241,17 @@ const styles = StyleSheet.create({
     rectangleBoxContainer: {
         alignSelf: 'center',
         justifyContent: 'center',
-        top: '12%',
+        top: '15%',
         width: 335,
         height: 400,
         borderRadius: 1
+    },
+    rectangleBoxCloseModalContainer: {
+        position: 'absolute',
+        alignSelf: 'center',
+        top: '35%',
+        width: 315,
+        height: 166
     },
     footerContainer: {
         flexDirection: 'row',
@@ -214,7 +267,24 @@ const styles = StyleSheet.create({
         fontSize: 13,
         fontFamily: 'SFProText-Bold',
         fontStyle: 'normal',
-        fontWeight: '900',
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
+    cancelModalButtonTextStyle: {
+        color: Colors.HeaderTitle_gray,
+        fontSize: 14,
+        fontFamily: 'SFProText-Bold',
+        fontStyle: 'normal',
+        fontWeight: 'bold',
+        lineHeight: 22,
+        textAlign: 'center'
+    },
+    cancelModalTextStyle: {
+        color: Colors.HeaderTitle_gray,
+        fontSize: 15,
+        fontFamily: 'SFProText-Regular',
+        fontStyle: 'normal',
+        fontWeight: '400',
         textAlign: 'center'
     },
     description: {

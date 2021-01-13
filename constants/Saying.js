@@ -6,4 +6,5 @@ const Sayings = {
     placeholder: "Please enter a message.",
     randomTextInfo: "Daily Bear sends you a message\nthat changes every month."
 };
+
 export default Sayings;
