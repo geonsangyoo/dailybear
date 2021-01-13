@@ -127,6 +127,7 @@ const styles = StyleSheet.create({
         top: 23
     },
     Days: {
+        paddingLeft: 6,
         fontSize: 11,
         fontFamily: 'SFProText-Regular',
         fontWeight: '800',

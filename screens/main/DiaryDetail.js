@@ -1,6 +1,6 @@
 // Standard
 import React, { useState, useCallback, useLayoutEffect, useReducer } from 'react';
-import { Text, TextInput, View, StyleSheet, Image, TouchableOpacity, ActivityIndicator, Pressable } from 'react-native';
+import { Text, TextInput, View, StyleSheet, Image, TouchableOpacity, ActivityIndicator, Pressable, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-native-elements';
 
@@ -129,22 +129,24 @@ const DiaryDetail = props => {
                             <Text style={ styles.dateTextStyle }>
                                 { dateString }
                             </Text>
-                            <View style={ styles.description }>
-                                    <TextInput
-                                        style={ styles.input }  
-                                        editable={ true }
-                                        multiline={ true }
-                                        onChangeText={(text) => { 
-                                            dispatchInput({
-                                                type: INPUT_CHANGE,
-                                                value: text
-                                            });
-                                        }}
-                                        value={ inputState.value }
-                                        placeholder={ placeholder }
-                                        keyboardType='default'
-                                    />
-                            </View>
+                            <ScrollView  bounces={ false }>
+                                <View style={ styles.description }>
+                                        <TextInput
+                                            style={ styles.input }  
+                                            editable={ true }
+                                            multiline={ true }
+                                            onChangeText={(text) => { 
+                                                dispatchInput({
+                                                    type: INPUT_CHANGE,
+                                                    value: text
+                                                });
+                                            }}
+                                            value={ inputState.value }
+                                            placeholder={ placeholder }
+                                            keyboardType='default'
+                                        />
+                                </View>
+                            </ScrollView>
                         </View>
                     </RectangleBox>
                 { 
@@ -241,7 +243,7 @@ const styles = StyleSheet.create({
     rectangleBoxContainer: {
         alignSelf: 'center',
         justifyContent: 'center',
-        top: '15%',
+        top: '13%',
         width: 335,
         height: 400,
         borderRadius: 1
