@@ -203,7 +203,6 @@ const DiaryDetail = props => {
                                 Cancel
                             </Text>
                             <Text onPress={() => {
-                                dispatch(diaryActions.initDiary());
                                 props.navigation.goBack();
                             }} 
                                 style={ styles.cancelModalButtonTextStyle }>

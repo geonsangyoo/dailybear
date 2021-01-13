@@ -30,6 +30,7 @@ import Background from '../../components/layout/Background';
 import Header from '../../components/layout/Header';
 import Calendar from '../../components/main/Calendar';
 import Footer from '../../components/layout/Footer';
+import * as diaryActions from '../../store/actions/Diary';
 import * as calendarActions from '../../store/actions/Calendar';
 import * as sayingActions from '../../store/actions/Saying';
 import sayingConsts from '../../constants/Saying';
@@ -65,6 +66,12 @@ const CalendarView = props => {
     } = usePanGestureHandler();
     const snapPoints = [-height, 0, height];
     const to = snapPoint(translateY, velocity.y, snapPoints)
+
+    useEffect(() => {
+        props.navigation.addListener('focus', () => {
+            dispatch(diaryActions.initDiary());
+        });
+    }, []);
 
     useEffect(() => {
         // Load Saying
