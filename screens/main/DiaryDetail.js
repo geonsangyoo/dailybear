@@ -32,8 +32,10 @@ const DiaryDetail = props => {
     if ((diary.emotion !== props.route.params?.emotion) && (props.route.params?.emotion !== undefined)) {
         diary.emotion = props.route.params?.emotion;
     }
-    const dateString = Diary.convertDate(diary.date.year, diary.date.month, diary.date.date, diary.date.day);
-    
+    const dateString = (Object.keys(diary.date).length > 0) 
+                        ? Diary.convertDate(diary.date.year, diary.date.month, diary.date.date, diary.date.day)
+                        : '';
+
     const inputReducer = (state, action) => {
         switch (action.type) {
             case INPUT_CHANGE:
@@ -65,7 +67,6 @@ const DiaryDetail = props => {
                                 inputState.value,
                                 diary.emotion
                             ));
-        dispatch(diaryActions.initDiary());
         props.navigation.navigate("CalendarView");
     }, [inputState.value, diary.emotion]);
 
