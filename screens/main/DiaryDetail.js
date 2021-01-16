@@ -12,7 +12,6 @@ import HeaderBackImage from '../../components/layout/HeaderBackImage';
 import RectangleBox from '../../components/ui/RectangleBox';
 import Colors from '../../constants/Colors';
 
-const OPACITY = 0.2;
 const DiaryIntroBackImage = require('../../assets/icons/close.png');
 
 const DiaryDetail = props => {
@@ -76,7 +75,7 @@ const DiaryDetail = props => {
                 <Pressable onPress={() => {
                     setIsCancelModalOpened(true);
                 }}
-                    style={{ opacity: isCancelModalOpened ? OPACITY : 1 }}
+                    style={{ opacity: isCancelModalOpened ? Diary.opacity : 1 }}
                     disabled={ isCancelModalOpened ? true : false }
                 >
                     <HeaderBackImage
@@ -91,7 +90,7 @@ const DiaryDetail = props => {
                     titleStyle={ styles.headerRightText }
                     onPress={ saveModeHandler }
                     disabled={ isCancelModalOpened ? true : false }
-                    style={{ opacity: isCancelModalOpened ? OPACITY : 1 }}
+                    style={{ opacity: isCancelModalOpened ? Diary.opacity : 1 }}
                 />
             ),
             headerRightContainerStyle: styles.headerRightContainer
@@ -110,7 +109,7 @@ const DiaryDetail = props => {
 
     return (
         <View style={{ flex: 1 }}>
-            <Background style={{ ...styles.container, opacity: isCancelModalOpened ? OPACITY : 1 }}>
+            <Background style={{ ...styles.container, opacity: isCancelModalOpened ? Diary.opacity : 1 }}>
                 <View style={ styles.rectangleContainer }>
                     <RectangleBox style={ styles.rectangleBoxContainer }>
                         <View style={ styles.contentContainer }>
@@ -130,7 +129,7 @@ const DiaryDetail = props => {
                             <Text style={ styles.dateTextStyle }>
                                 { dateString }
                             </Text>
-                            <ScrollView  bounces={ false }>
+                            <ScrollView bounces={ false }>
                                 <View style={ styles.description }>
                                         <TextInput
                                             style={ styles.input }  

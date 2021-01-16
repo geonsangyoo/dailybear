@@ -1,6 +1,6 @@
 // Standard
-import React, { useEffect, useCallback } from 'react';
-import { StyleSheet, Dimensions, StatusBar } from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, StyleSheet, Text, StatusBar, Dimensions, ScrollView, Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { PanGestureHandler, State } from "react-native-gesture-handler";
@@ -33,10 +33,15 @@ import Footer from '../../components/layout/Footer';
 import * as diaryActions from '../../store/actions/Diary';
 import * as calendarActions from '../../store/actions/Calendar';
 import * as sayingActions from '../../store/actions/Saying';
-import sayingConsts from '../../constants/Saying';
 import * as funcs from '../../helpers/funcs';
+import sayingConsts from '../../constants/Saying';
+import RectangleBox from '../../components/ui/RectangleBox';
+import Diary from '../../constants/Diary';
+import Colors from '../../constants/Colors';
 
 const CalendarView = props => {
+    // State
+    const [isDiaryDetailOpened, setIsDiaryDetailOpened] = useState(false);
 
     // Calendar Rendering
     const isDate = useSelector(state => state.calendar.activeDate);
@@ -46,6 +51,14 @@ const CalendarView = props => {
     const emotions = useSelector(state => state.calendar.emotions);
     const maxDays = funcs.getMaxDays(isDate.getFullYear(), isDate.getMonth());
     const dispatch = useDispatch();
+    const diary = {};
+    
+    diary.content = useSelector(state => state.diary.content);
+    diary.emotion = useSelector(state => state.diary.emotion);
+    diary.date = useSelector(state => state.diary.date);
+    const dateString = (Object.keys(diary.date).length > 0) 
+                        ? Diary.convertDate(diary.date.year, diary.date.month, diary.date.date, diary.date.day)
+                        : '';
 
     // Animation
     const { height } = Dimensions.get('window');
@@ -149,19 +162,59 @@ const CalendarView = props => {
         ], [state]
     );
 
+    const diaryHandler = (date, day, emotion) => {
+        dispatch(diaryActions.loadDiary(
+            isDate.getFullYear(),
+            isDate.getMonth() + 1,
+            date,
+            day
+        ));
+        if (emotion !== -1) {
+            setIsDiaryDetailOpened(true);
+        } else {
+            props.navigation.navigate("DiaryIntro");
+        }
+    };
+
     return (
-        <Background>
-            <SafeAreaView style={ styles.container }>
-                <PanGestureHandler { ...gestureHandler }>
-                    <Animated.View style={[ styles.animationContainer, { transform: [{ translateY }] } ]}>
-                        <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent={ true }/>
-                        <Header getDate={ isDate } parentProps={ props } saying={ saying } mode={ mode }/>
-                        <Calendar getDate={ isDate } parentProps={ props }/>
-                    </Animated.View>
-                </PanGestureHandler>
-                <Footer parentProps={ props } emotions={ emotions }/>
-            </SafeAreaView>
-        </Background>
+        <View style={{ flex: 1 }}>
+            <Background style={{ ...styles.container, opacity: isDiaryDetailOpened ? Diary.opacity : 1 }}>
+                <SafeAreaView style={ styles.container }>
+                    <PanGestureHandler { ...gestureHandler }>
+                        <Animated.View style={[ styles.animationContainer, { transform: [{ translateY }] } ]}>
+                            <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent={ true }/>
+                            <Header getDate={ isDate } parentProps={ props } saying={ saying } mode={ mode }/>
+                            <Calendar getDate={ isDate } diaryHandler={ diaryHandler } parent={ this }/>
+                        </Animated.View>
+                    </PanGestureHandler>
+                    <Footer parentProps={ props } emotions={ emotions }/>
+                </SafeAreaView>
+            </Background>
+            {
+                (isDiaryDetailOpened && diary.emotion !== '') ?
+                    <RectangleBox style={ styles.diaryDetailContainer }>
+                        <View style={ styles.contentContainer }>
+                            <View style={ styles.imageContainer }>
+                                <Image
+                                    style={ styles.image }
+                                    source={ Diary.emotionBears[diary.emotion].imgPath }
+                                />
+                            </View>
+                            <Text style={ styles.dateTextStyle }>
+                                { dateString }
+                            </Text>
+                            <ScrollView bounces={ false }>
+                                <View style={ styles.description }>
+                                        <Text>
+                                            { diary.content }
+                                        </Text>
+                                </View>
+                            </ScrollView>
+                        </View>
+                    </RectangleBox>
+                : null
+            }
+        </View>
     );
 
 }
@@ -170,6 +223,39 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         overflow: 'hidden'
+    },
+    contentContainer: {
+        flex: 1,
+    },
+    diaryDetailContainer: {
+        position: 'absolute',
+        alignSelf: 'center',
+        top: '20%',
+        width: 335,
+        height: 400
+    },
+    imageContainer: {
+    },
+    image: {
+        width: 95,
+        height: 87.5,
+        alignSelf: 'center',
+        marginTop: 55,
+        marginBottom: 18,
+        marginHorizontal: 18
+    },
+    dateTextStyle: {
+        color: Colors.HeaderTitle_gray,
+        fontSize: 13,
+        fontFamily: 'SFProText-Bold',
+        fontStyle: 'normal',
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
+    description: {
+        alignSelf: 'center',
+        width: 295,
+        height: 192
     },
     centered: {
         flex: 1,

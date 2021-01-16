@@ -73,18 +73,12 @@ const Calendar = props => {
                             isValid={ isValid }
                             emotionTitle={ emotion }
                             onPress={() => {
-                                dispatch(diaryActions.loadDiary(
-                                    activeDate.getFullYear(),
-                                    activeDate.getMonth() + 1,
+                                props.diaryHandler.call(props.parent,
                                     matrix[rowIndex][colIndex],
-                                    calendarConsts.weekDaysLong[colIndex]
-                                ));
-                                if (emotions[matrix[rowIndex][colIndex] - 1].emotion !== -1) {
-                                    props.parentProps.navigation.navigate("DiaryDetail");
-                                } else {
-                                    props.parentProps.navigation.navigate("DiaryIntro");
-                                }
-                            }} 
+                                    calendarConsts.weekDaysLong[colIndex],
+                                    emotions[matrix[rowIndex][colIndex] - 1].emotion
+                                );
+                            }}
                             key={ keyCounter++ }
                         />
                     );

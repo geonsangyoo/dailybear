@@ -1,4 +1,5 @@
 const Diary = {
+    opacity: 0.2,
     diaryIntro: "How was your day?",
     placeholder: "Write down how you felt today.\nIt's okay though you don't :)",
     cancelMessage: "Your story is not saved.\nAre you sure to close?",
