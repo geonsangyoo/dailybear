@@ -33,3 +33,15 @@ export const upsertDiary = async (year, month, date, day, content, emotion) => {
     , [year, month, date, day, content, emotion]);
     return diaryUpsert;
 };
+
+export const deleteDiary = async (year, month, date) => {
+    let diaryDelete = await executeQuery(
+        `
+            DELETE FROM diary
+            WHERE year = ?
+            AND month = ?
+            AND date = ?;
+        `
+    , [year, month, date]);
+    return diaryDelete;
+};

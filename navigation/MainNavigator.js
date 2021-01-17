@@ -30,7 +30,10 @@ const MainContainer = () => {
                         name="CalendarView"
                         component={ CalendarView }
                         options={{
-                            headerShown: false
+                            headerTitle: () => {},
+                            headerBackTitleVisible: false,
+                            headerTintColor: Colors.HeaderTitle_gray,
+                            headerTransparent: true
                         }}
                     />
                     <MainNavigatorScreen.Screen 

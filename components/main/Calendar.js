@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 // Custom
 import Bear from '../ui/Bear';
 import * as calendarConsts from '../../constants/Calendar';
-import * as diaryActions from '../../store/actions/Diary';
 import * as funcs from '../../helpers/funcs';
 import Diary from '../../constants/Diary';
 import Colors from '../../constants/Colors';
@@ -15,7 +14,6 @@ const Calendar = props => {
     var rows = [];
     const emotions = useSelector(state => state.calendar.emotions);
     const maxDays = funcs.getMaxDays(props.getDate.getFullYear(), props.getDate.getMonth());
-    const dispatch = useDispatch();
 
     const generateDayMatrix = (activeDate) => {
         let matrix = [];
@@ -73,7 +71,10 @@ const Calendar = props => {
                             isValid={ isValid }
                             emotionTitle={ emotion }
                             onPress={() => {
-                                props.diaryHandler.call(props.parent,
+                                props.diaryHandler.call(
+                                    props.parent,
+                                    activeDate.getFullYear(),
+                                    activeDate.getMonth() + 1,
                                     matrix[rowIndex][colIndex],
                                     calendarConsts.weekDaysLong[colIndex],
                                     emotions[matrix[rowIndex][colIndex] - 1].emotion

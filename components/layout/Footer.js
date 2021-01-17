@@ -1,7 +1,7 @@
 // Standard
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // Custom
 import * as diaryActions from '../../store/actions/Diary';
@@ -11,6 +11,28 @@ import Colors from '../../constants/Colors';
 const Footer = props => {
     const today = new Date();
     const dispatch = useDispatch();
+    const [isClicked, setIsClicked] = useState(false);
+    const emotion = useSelector(state => state.diary.emotion);
+    const date = useSelector(state => state.diary.date);
+
+    useEffect(() => {
+        if (isClicked) {
+            if (emotion !== "") {
+                props.diaryHandler.call(
+                    props.parent,
+                    today.getFullYear(),
+                    today.getMonth() + 1,
+                    today.getDate(),
+                    calendarConsts.weekDaysLong[today.getDay()],
+                    emotion
+                );
+            } else {
+                props.parentProps.navigation.navigate("DiaryIntro");
+            }
+            setIsClicked(false);
+        }
+    }, [date])
+
     return (
         <View style={ styles.container }>
             <TouchableOpacity onPress={() => {} } style={{ ...styles.calendar_circle, ...styles.shadow }}>
@@ -32,11 +54,7 @@ const Footer = props => {
                     today.getDate(),
                     calendarConsts.weekDaysLong[today.getDay()]
                 ));
-                if (props.emotions[today.getDate() - 1].emotion !== -1) {
-                    props.parentProps.navigation.navigate("DiaryDetail");
-                } else {
-                    props.parentProps.navigation.navigate("DiaryIntro");
-                }
+                setIsClicked(true);
             }} style={{ ...styles.edit_circle, ...styles.shadow }}>
                 <Image 
                     source={ require('../../assets/icons/edit.png') }

@@ -3,7 +3,8 @@ import * as calendarAction from '../actions/Calendar';
 
 const initialState = {
     activeDate: new Date(),
-    emotions: []
+    emotions: [],
+    isDiaryDetailed: false
 };
 
 const calendarReducer = (state = initialState, action) => {
@@ -17,6 +18,11 @@ const calendarReducer = (state = initialState, action) => {
             return {
                 ...state,
                 emotions: action.emotions
+            }
+        case calendarAction.SET_ISDIARYDETAILED:
+            return {
+                ...state,
+                isDiaryDetailed: action.isDiaryDetailed
             }
     }
     return state;

@@ -1,11 +1,13 @@
 import { 
     fetchDiary,
-    upsertDiary
+    upsertDiary,
+    deleteDiary
 } from '../../helpers/db_diary';
 
 export const LOAD_DIARY = 'LOAD_DIARY';
 export const INIT_DIARY = 'INIT_DIARY';
 export const SAVE_DIARY = 'SAVE_DIARY';
+export const DELETE_DIARY = 'DELETE_DIARY';
 
 export const loadDiary = (year, month, date, day) => {
     return async dispatch => {
@@ -65,6 +67,22 @@ export const saveDiary = (year, month, date, day, content, emotion) => {
                 type: SAVE_DIARY,
                 content: diary.rows.item(0).content,
                 emotion: diary.rows.item(0).emotion
+            });
+        } catch (err) {
+            throw err;
+        }
+    };
+};
+
+export const removeDiary = (year, month, date) => {
+    return async dispatch => {
+        let dbResult;
+        try {
+            console.log('Delete Diary...');
+            dbResult = await deleteDiary(year, month, date);
+            console.log("diary is deleted... ", year, month, date);
+            dispatch({
+                type: DELETE_DIARY
             });
         } catch (err) {
             throw err;

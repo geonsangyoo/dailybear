@@ -5,6 +5,7 @@ import {
 
 export const SET_DATE = 'SET_DATE';
 export const LOAD_EMOTION = 'LOAD_EMOTION';
+export const SET_ISDIARYDETAILED = 'SET_ISDIARYDETAILED';
 
 export const setActiveDate = activeDate => {
     return  {
@@ -51,4 +52,11 @@ export const loadEmotions = (year, month, maxDays) => {
             
         }
     }
+};
+
+export const setIsDiaryDetailed = isDiaryDetailed => {
+    return {
+        type: SET_ISDIARYDETAILED,
+        isDiaryDetailed: isDiaryDetailed
+    };
 };

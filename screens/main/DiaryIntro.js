@@ -1,10 +1,11 @@
 // Standard
 import React, { useLayoutEffect } from 'react';
 import { View, Text, StyleSheet, Pressable, Image } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // Custom
 import Diary from '../../constants/Diary';
+import * as diaryActions from '../../store/actions/Diary';
 import Background from '../../components/layout/Background';
 import HeaderBackImage from '../../components/layout/HeaderBackImage';
 import RectangleBox from '../../components/ui/RectangleBox';
@@ -14,6 +15,7 @@ const DiaryIntroBackImage = require('../../assets/icons/close.png');
 
 const DiaryIntro = props => {
     const date = useSelector(status => status.diary.date);
+    const dispatch = useDispatch();
     const dateString = ( Object.keys(date).length ) > 0 ?
                 Diary.convertDate(date.year, date.month, date.date, date.day) :
                 '';
@@ -29,6 +31,7 @@ const DiaryIntro = props => {
         props.navigation.setOptions({
             headerLeft: () => (
                 <Pressable onPress={() => {
+                    dispatch(diaryActions.initDiary());
                     props.navigation.goBack();
                 }}>
                     <HeaderBackImage

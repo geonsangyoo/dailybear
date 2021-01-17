@@ -27,6 +27,8 @@ const diaryReducer = (state = initialState, action) => {
                 console.log('No rows updated!');
                 return state;
             }
+        case diaryActions.DELETE_DIARY:
+            return initialState;
         default:
             return state;
     }
