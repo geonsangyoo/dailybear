@@ -1,7 +1,7 @@
 // Standard
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 // Custom
 import Bear from '../ui/Bear';

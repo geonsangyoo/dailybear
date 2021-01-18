@@ -1,6 +1,6 @@
 // Standard
-import React, { useState, useEffect, useLayoutEffect, useCallback } from 'react';
-import { View, StyleSheet, Text, StatusBar, Dimensions, ScrollView, Image, Pressable } from 'react-native';
+import React, { useEffect, useLayoutEffect, useCallback } from 'react';
+import { View, StyleSheet, Text, StatusBar, Dimensions, ScrollView, Image, Pressable, Alert } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { PanGestureHandler, State } from "react-native-gesture-handler";
@@ -34,6 +34,7 @@ import * as diaryActions from '../../store/actions/Diary';
 import * as calendarActions from '../../store/actions/Calendar';
 import * as sayingActions from '../../store/actions/Saying';
 import * as funcs from '../../helpers/funcs';
+import * as calendarConsts from '../../constants/Calendar';
 import sayingConsts from '../../constants/Saying';
 import RectangleBox from '../../components/ui/RectangleBox';
 import HeaderBackImage from '../../components/layout/HeaderBackImage';
@@ -90,7 +91,10 @@ const CalendarView = props => {
 
     useEffect(() => {
         // Load Emotions when any changes occurred
-        dispatch(calendarActions.loadEmotions(isDate.getFullYear(), isDate.getMonth() + 1, maxDays));
+        if (!isDiaryDetailed) {
+            dispatch(calendarActions.loadEmotions(isDate.getFullYear(), isDate.getMonth() + 1, maxDays));
+
+        }
     }, [checkEmotionChanged]);
 
     useEffect(() => {
@@ -188,6 +192,28 @@ const CalendarView = props => {
         }
     };
 
+    const deleteAlertDialog = () => {
+        Alert.alert(
+            "Delete diary",
+            Diary.deleteMessage,
+            [
+                {
+                    text: "Cancel",
+                    style: "cancel"
+                },
+                {
+                    text: "Delete",
+                    onPress: () => { 
+                        dispatch(diaryActions.removeDiary(diary.date.year, diary.date.month, diary.date.date));
+                        dispatch(calendarActions.setIsDiaryDetailed(false));
+                        dispatch(diaryActions.initDiary());
+                    }
+                }
+            ],
+            { cancelable: true }
+        );
+    };
+
     return (
         <View style={{ flex: 1 }}>
             <Background style={{ ...styles.container, opacity: isDiaryDetailed ? Diary.opacity : 1 }}>
@@ -203,14 +229,14 @@ const CalendarView = props => {
                 </SafeAreaView>
             </Background>
             {
-                (isDiaryDetailed && diary.emotion !== "") ?
+                (isDiaryDetailed && Object.keys(diary.date).length > 0) ?
                     <View style={ styles.diaryDetailContainer }>
                         <RectangleBox style={ styles.diaryDetailRectangleContainer }>
                             <View style={ styles.contentContainer }>
                                 <View style={ styles.imageContainer }>
                                     <Image
                                         style={ styles.image }
-                                        source={ Diary.emotionBears[diary.emotion].imgPath }
+                                        source={ diary.emotion !== "" ? Diary.emotionBears[diary.emotion].imgPath : Diary.emotionBears[Diary.emotionTitle.CALM].imgPath }
                                     />
                                 </View>
                                 <Text style={ styles.dateTextStyle }>
@@ -219,7 +245,7 @@ const CalendarView = props => {
                                 <ScrollView bounces={ false }>
                                     <View style={ styles.description }>
                                             <Text style={ styles.input }>
-                                                { diary.content }
+                                                { diary.emotion !== "" ? diary.content : Diary.diaryNotExists }
                                             </Text>
                                     </View>
                                 </ScrollView>
@@ -227,45 +253,66 @@ const CalendarView = props => {
                         </RectangleBox>
                         <View style={ styles.footerContainer }>
                             <Pressable onPress={ () => {
-                                props.navigation.navigate("DiaryDetail");
+                                if (diary.emotion !== "") {
+                                    props.navigation.navigate("DiaryDetail");
+                                } else {
+                                    props.navigation.navigate("DiaryIntro");
+                                }
                             }} style={{ ...styles.diary_edit }}>
                                 <Image 
                                     source={ Diary.footerIcons.EDIT.imgPath }
                                     style={ styles.icon }
                                 />
                             </Pressable>
-                            <Pressable onPress={ () => {} } style={{ ...styles.diary_share }}>
+                            <Pressable onPress={ () => {} }
+                                    disabled={ diary.emotion === "" ? true : false }
+                                    style={{ ...styles.diary_share, display: diary.emotion === "" ? 'none' : 'flex' }}>
                                 <Image 
                                     source={ Diary.footerIcons.SHARE.imgPath }
                                     style={ styles.icon }
                                 />
                             </Pressable>
-                            <Pressable onPress={ () => {
-                                dispatch(diaryActions.removeDiary(diary.date.year, diary.date.month, diary.date.date));
-                                dispatch(calendarActions.setIsDiaryDetailed(false));
-                                dispatch(diaryActions.initDiary());
-                            }} style={{ ...styles.diary_delete }}>
+                            <Pressable onPress={ deleteAlertDialog }
+                                    disabled={ diary.emotion === "" ? true : false }
+                                    style={{ ...styles.diary_delete, display: diary.emotion === "" ? 'none' : 'flex' }}>
                                 <Image 
                                     source={ Diary.footerIcons.DELETE.imgPath }
                                     style={ styles.icon }
                                 />
                             </Pressable>
                             <Pressable onPress={ () => {
-                                // let ytd = new Date(`${ diary.date.year }-${ diary.date.month }-${ diary.date.date }`);
-                                // ytd.setDate(ytd.getDate() - 1);
-                                // dispatch(diaryActions.loadDiary(
-                                //     diary.date.year,
-                                //     diary.date.month,
-                                //     diary.date.date,
-                                //     diary.date.day
-                                // ));
+                                let ytd = new Date(`${ diary.date.year }-${ diary.date.month }-${ diary.date.date }`);
+                                ytd.setDate(ytd.getDate() - 1);
+                                dispatch(diaryActions.loadDiary(
+                                    ytd.getFullYear(),
+                                    ytd.getMonth() + 1,
+                                    ytd.getDate(),
+                                    calendarConsts.weekDaysLong[ytd.getDay()]
+                                ));
+                                if (ytd.getMonth() !== isDate.getMonth()) {
+                                    isDate.setMonth(isDate.getMonth() - 1);
+                                    loadHandler(new Date(+isDate));
+                                }
                             }} style={{ ...styles.diary_left }}>
                                 <Image 
                                     source={ Diary.footerIcons.LEFT.imgPath }
                                     style={ styles.icon }
                                 />
                             </Pressable>
-                            <Pressable onPress={ () => {} } style={{ ...styles.diary_right }}>
+                            <Pressable onPress={ () => {
+                                let ytd = new Date(`${ diary.date.year }-${ diary.date.month }-${ diary.date.date }`);
+                                ytd.setDate(ytd.getDate() + 1);
+                                dispatch(diaryActions.loadDiary(
+                                    ytd.getFullYear(),
+                                    ytd.getMonth() + 1,
+                                    ytd.getDate(),
+                                    calendarConsts.weekDaysLong[ytd.getDay()]
+                                ));
+                                if (ytd.getMonth() !== isDate.getMonth()) {
+                                    isDate.setMonth(isDate.getMonth() + 1);
+                                    loadHandler(new Date(+isDate));
+                                }
+                            }} style={{ ...styles.diary_right }}>
                                 <Image 
                                     source={ Diary.footerIcons.RIGHT.imgPath }
                                     style={ styles.icon }

@@ -14,6 +14,8 @@ import Colors from '../../constants/Colors';
 const DiaryIntroBackImage = require('../../assets/icons/close.png');
 
 const DiaryIntro = props => {
+    
+    const isDiaryDetailed = useSelector(state => state.calendar.isDiaryDetailed);
     const date = useSelector(status => status.diary.date);
     const dispatch = useDispatch();
     const dateString = ( Object.keys(date).length ) > 0 ?
@@ -31,7 +33,9 @@ const DiaryIntro = props => {
         props.navigation.setOptions({
             headerLeft: () => (
                 <Pressable onPress={() => {
-                    dispatch(diaryActions.initDiary());
+                    if (!isDiaryDetailed) {
+                        dispatch(diaryActions.initDiary());
+                    }
                     props.navigation.goBack();
                 }}>
                     <HeaderBackImage
