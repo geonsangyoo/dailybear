@@ -281,7 +281,8 @@ const CalendarView = props => {
                                 />
                             </Pressable>
                             <Pressable onPress={ () => {
-                                let ytd = new Date(`${ diary.date.year }-${ diary.date.month }-${ diary.date.date }`);
+                                let ytd = new Date();
+                                ytd.setFullYear(diary.date.year, diary.date.month - 1, diary.date.date);
                                 ytd.setDate(ytd.getDate() - 1);
                                 dispatch(diaryActions.loadDiary(
                                     ytd.getFullYear(),
@@ -300,7 +301,8 @@ const CalendarView = props => {
                                 />
                             </Pressable>
                             <Pressable onPress={ () => {
-                                let ytd = new Date(`${ diary.date.year }-${ diary.date.month }-${ diary.date.date }`);
+                                let ytd = new Date();
+                                ytd.setFullYear(diary.date.year, diary.date.month - 1, diary.date.date);
                                 ytd.setDate(ytd.getDate() + 1);
                                 dispatch(diaryActions.loadDiary(
                                     ytd.getFullYear(),
