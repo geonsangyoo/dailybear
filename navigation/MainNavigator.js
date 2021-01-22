@@ -2,7 +2,7 @@
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 
 // Custom
 import CalendarView from '../screens/main/CalendarView';
@@ -23,7 +23,7 @@ const MainContainer = () => {
             <NavigationContainer>
                 <MainNavigatorScreen.Navigator
                     mode="card"
-                    headerMode="screen"
+                    headerMode="float"
                     initialRouteName="CalendarView"
                 >
                     <MainNavigatorScreen.Screen 
@@ -53,7 +53,8 @@ const MainContainer = () => {
                             headerTitle: () => {},
                             headerBackTitleVisible: false,
                             headerTintColor: Colors.HeaderTitle_gray,
-                            headerTransparent: true
+                            headerTransparent: true,
+                            ...TransitionPresets.FadeFromBottomAndroid,
                         }}
                     />
                     <MainNavigatorScreen.Screen 
