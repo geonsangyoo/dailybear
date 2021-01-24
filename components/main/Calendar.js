@@ -1,28 +1,29 @@
 // Standard
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
 
 // Custom
 import Bear from '../ui/Bear';
 import * as calendarConsts from '../../constants/Calendar';
+import * as funcs from '../../helpers/funcs';
+import Diary from '../../constants/Diary';
 import Colors from '../../constants/Colors';
 
 const Calendar = props => {
     var rows = [];
+    const emotions = useSelector(state => state.calendar.emotions);
+    const maxDays = funcs.getMaxDays(props.getDate.getFullYear(), props.getDate.getMonth());
 
     const generateDayMatrix = (activeDate) => {
         let matrix = [];
         let year = activeDate.getFullYear();
         let month = activeDate.getMonth();
         let firstDay = new Date(year, month, 1).getDay();
-        let maxDays = calendarConsts.nDays[month];
         let counter = 1;
+        
         matrix[0] = calendarConsts.weekDays;
-        if (month == 1) { // February
-            if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
-              maxDays += 1;
-            }
-        }
+
         for (let row = 1; row < 7; row++) {
             matrix[row] = [];
             for (let col = 0; col < 7; col++) {
@@ -34,6 +35,7 @@ const Calendar = props => {
                 }
             }
         }
+
         return matrix;
     };
 
@@ -41,8 +43,10 @@ const Calendar = props => {
         let matrix = [];
         let rows = [];
         let keyCounter = 1;
-    
+        let emotion;
+
         matrix = generateDayMatrix(activeDate);
+
         rows = matrix.map((row, rowIndex) => {
             let rowItems = row.map((item, colIndex) => {
                 let isValid;
@@ -56,10 +60,26 @@ const Calendar = props => {
                         </View>
                     );
                 } else {
+                    if (isValid) {
+                        emotion = emotions[matrix[rowIndex][colIndex] - 1].emotion;
+                        emotion = (emotion === -1) ? Diary.emotionTitle.CALM : emotion;
+                    } else {
+                        emotion = Diary.emotionTitle.CALM;
+                    }
                     return (
                         <Bear
                             isValid={ isValid }
-                            onPress={ () => { /* ToDo */ } } 
+                            emotionTitle={ emotion }
+                            onPress={() => {
+                                props.diaryHandler.call(
+                                    props.parent,
+                                    activeDate.getFullYear(),
+                                    activeDate.getMonth() + 1,
+                                    matrix[rowIndex][colIndex],
+                                    calendarConsts.weekDaysLong[colIndex],
+                                    emotions[matrix[rowIndex][colIndex] - 1].emotion
+                                );
+                            }}
                             key={ keyCounter++ }
                         />
                     );
@@ -73,32 +93,39 @@ const Calendar = props => {
         });
 
         return rows;
-    }
+    };
 
-    rows = renderCalendar(props.getDate);
+    if (emotions.length === maxDays) {
+        rows = renderCalendar(props.getDate);
+    }
 
     return (
         <View style={ styles.calendarContainer }>
             { rows }
         </View>
     );
+
 };
 
 const styles = StyleSheet.create({
     calendarContainer: {
-        flex: 2
+        flex: 2,
+        marginTop: 15,
     },
     rowConatiner: {
         flex: 1,
         flexDirection: 'row',
-        padding: 15,
+        marginHorizontal: 15,
+        marginVertical: 12,
         justifyContent: 'space-around',
         alignItems: 'center',
     },
     viewDays: {
-        top: 23
+        top: 20,
+        marginBottom: 15
     },
     Days: {
+        paddingLeft: 10,
         fontSize: 11,
         fontFamily: 'SFProText-Regular',
         fontWeight: '800',

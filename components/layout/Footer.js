@@ -1,26 +1,61 @@
 // Standard
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 // Custom
+import * as diaryActions from '../../store/actions/Diary';
+import * as calendarConsts from '../../constants/Calendar';
 import Colors from '../../constants/Colors';
 
 const Footer = props => {
+    const today = new Date();
+    const dispatch = useDispatch();
+    const [isClicked, setIsClicked] = useState(false);
+    const emotion = useSelector(state => state.diary.emotion);
+    const date = useSelector(state => state.diary.date);
+
+    useEffect(() => {
+        if (isClicked) {
+            if (emotion !== "") {
+                props.diaryHandler.call(
+                    props.parent,
+                    today.getFullYear(),
+                    today.getMonth() + 1,
+                    today.getDate(),
+                    calendarConsts.weekDaysLong[today.getDay()],
+                    emotion
+                );
+            } else {
+                props.parentProps.navigation.navigate("DiaryIntro");
+            }
+            setIsClicked(false);
+        }
+    }, [date])
+
     return (
         <View style={ styles.container }>
-            <TouchableOpacity onPress={ () => {} } style={{ ...styles.calendar_circle, ...styles.shadow }}>
+            <TouchableOpacity onPress={() => {} } style={{ ...styles.calendar_circle, ...styles.shadow }}>
                 <Image 
                     source={ require('../../assets/icons/calender.png') }
                     style={ styles.icon }
                 />
             </TouchableOpacity>
-            <TouchableOpacity onPress={ () => {} } style={{ ...styles.setting_circle, ...styles.shadow }}>
+            <TouchableOpacity onPress={() => {} } style={{ ...styles.setting_circle, ...styles.shadow }}>
                 <Image 
                     source={ require('../../assets/icons/setting.png') }
                     style={ styles.icon }
                 />
             </TouchableOpacity>
-            <TouchableOpacity onPress={ () => {} } style={{ ...styles.edit_circle, ...styles.shadow }}>
+            <TouchableOpacity onPress={() => {
+                dispatch(diaryActions.loadDiary(
+                    today.getFullYear(),
+                    today.getMonth() + 1,
+                    today.getDate(),
+                    calendarConsts.weekDaysLong[today.getDay()]
+                ));
+                setIsClicked(true);
+            }} style={{ ...styles.edit_circle, ...styles.shadow }}>
                 <Image 
                     source={ require('../../assets/icons/edit.png') }
                     style={ styles.icon }

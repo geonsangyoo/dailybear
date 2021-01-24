@@ -9,6 +9,11 @@ export const weekDays = [
     "T","F","S"
 ];
 
+export const weekDaysLong = [
+    "SUN","MON","TUE","WED",
+    "THU","FRI","SAT"
+];
+
 export const nDays = [
     31, 28, 31, 30, 
     31, 30, 31, 31, 

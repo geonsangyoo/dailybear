@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
     },
     input: {
         margin: 20,
-        textAlign: 'center',
+        textAlign: 'center'
     },
     headerRightText: {
         color: Colors.HeaderTitle_gray,

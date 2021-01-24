@@ -1,5 +1,9 @@
+// Standard
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+
+// Custom
+import Diary from '../../constants/Diary';
 
 const Bear = props => {
     let contents;
@@ -7,15 +11,13 @@ const Bear = props => {
         contents = (
             <TouchableOpacity onPress={ props.onPress }>
                 <Image 
-                    source={ require('../../assets/images/main_bear_1.png') }
+                    source={ Diary.emotionBears[props.emotionTitle].imgPath }
                     style={ styles.image }
                 />
             </TouchableOpacity>
         );
     } else {
-        contents = (
-            <Text></Text>
-        );
+        contents = null;
     }
     return (
         <View style={ styles.container }>
@@ -27,7 +29,7 @@ const Bear = props => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 11,
+        marginHorizontal: 14,
     },
     image: {
         width: 38,

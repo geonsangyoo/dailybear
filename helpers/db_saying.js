@@ -1,4 +1,3 @@
-import SQLite from 'react-native-sqlite-storage';
 import { executeQuery } from './db';
 
 export const fetchMode = async (year, month) => {

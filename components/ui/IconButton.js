@@ -11,7 +11,7 @@ const IconButton = props => {
     const { name } = props;
     const imgPath =
          ( setting === name) ?
-         require('../../assets/icons/check_on.png') :
+         require('../../assets/icons/check_on.png'):
          require('../../assets/icons/check_off.png');
 
     return (

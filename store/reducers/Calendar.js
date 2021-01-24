@@ -1,7 +1,10 @@
+// Custom
 import * as calendarAction from '../actions/Calendar';
 
 const initialState = {
-    activeDate: new Date()
+    activeDate: new Date(),
+    emotions: [],
+    isDiaryDetailed: false
 };
 
 const calendarReducer = (state = initialState, action) => {
@@ -11,6 +14,16 @@ const calendarReducer = (state = initialState, action) => {
                 ...state,
                 activeDate: action.activeDate
             };
+        case calendarAction.LOAD_EMOTION:
+            return {
+                ...state,
+                emotions: action.emotions
+            }
+        case calendarAction.SET_ISDIARYDETAILED:
+            return {
+                ...state,
+                isDiaryDetailed: action.isDiaryDetailed
+            }
     }
     return state;
 };
