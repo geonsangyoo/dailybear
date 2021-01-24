@@ -1,29 +1,8 @@
 // Standard
-import React, { useEffect, useLayoutEffect, useCallback } from 'react';
-import { View, StyleSheet, Text, StatusBar, Dimensions, ScrollView, Image, Pressable, Alert } from 'react-native';
+import React, { useEffect, useRef, useLayoutEffect, useCallback } from 'react';
+import { View, StyleSheet, Text, StatusBar, ScrollView, Image, Pressable, Alert, Animated, Dimensions } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { PanGestureHandler, State } from "react-native-gesture-handler";
-import Animated, {
-  add,
-  clockRunning,
-  cond,
-  debug,
-  eq,
-  not,
-  set,
-  call,
-  useCode,
-  Value,
-  Easing,
-} from "react-native-reanimated";
-import {
-  snapPoint,
-  timing,
-  useClocks,
-  usePanGestureHandler,
-  useValue,
-} from "react-native-redash/lib/module/v1";
 
 // Custom
 import Background from '../../components/layout/Background';
@@ -63,25 +42,13 @@ const CalendarView = props => {
                         : '';
     
     // Animation
-    const { height } = Dimensions.get('window');
-    const [clock, clock2] = useClocks(2);
-    const offsetY = useValue(0);
-    const translateY = useValue(0);
-    const swipeUpY = new Value(-height);
-    const swipeDownY = new Value(height);
-    const swipeNoneY = new Value(0);
-    const renderCalendarCallFg = useValue(1);
-    const offFlag = new Value(0);
-    const onFlag = new Value(1);
-    const {
-        gestureHandler,
-        state,
-        velocity,
-        translation
-    } = usePanGestureHandler();
-    const snapPoints = [-height, 0, height];
-    const to = snapPoint(translateY, velocity.y, snapPoints)
-
+    const animationDelay = 200;
+    const animationThreshold = 0;
+    const scrollY = useRef(new Animated.Value(0)).current;
+    const yPositionMin = new Animated.Value(-1 * Dimensions.get("screen").height);
+    const yPositionMax = new Animated.Value(Dimensions.get("screen").height);
+    const yPositionInit = new Animated.Value(0);
+    
     useEffect(() => {
         // Load Saying
         dispatch(sayingActions.loadSaying(isDate.getFullYear(), parseInt(isDate.getMonth()) + 1));
@@ -93,7 +60,6 @@ const CalendarView = props => {
         // Load Emotions when any changes occurred
         if (!isDiaryDetailed) {
             dispatch(calendarActions.loadEmotions(isDate.getFullYear(), isDate.getMonth() + 1, maxDays));
-
         }
     }, [checkEmotionChanged]);
 
@@ -126,57 +92,6 @@ const CalendarView = props => {
     const loadHandler = useCallback((isDate) => {
         dispatch(calendarActions.setActiveDate(isDate));
     }, [dispatch, isDate]);
-
-    const onSwipeUp = () => {
-        isDate.setMonth(isDate.getMonth()+1);
-        loadHandler(new Date(+isDate));
-    };
-
-    const onSwipeDown = () => {
-        isDate.setMonth(isDate.getMonth()-1);
-        loadHandler(new Date(+isDate));
-    };
-
-    useCode(
-        () => [
-            cond(eq(state, State.ACTIVE), [
-                set(translateY, add(offsetY, translation.y))
-            ]),
-            cond(eq(state, State.END), [
-                cond(not(clockRunning(clock2)), [
-                    set(translateY, timing({ clock: clock, from: translateY, to: to })),
-                    set(offsetY, translateY),
-                ]),
-                cond(not(clockRunning(clock)), [
-                    cond(eq(offsetY, swipeUpY), [
-                        cond(renderCalendarCallFg, [
-                            call([], onSwipeUp),
-                            set(renderCalendarCallFg, offFlag)
-                        ]),
-                        set(translateY, swipeDownY),
-                        set(translateY, timing({ clock: clock2, duration: 130, from: translateY, to: swipeNoneY, easing: Easing.linear })),
-                        cond(not(clockRunning(clock2)), [
-                            set(offsetY, translateY),
-                            set(renderCalendarCallFg, onFlag),
-                        ])
-                    ], [
-                        cond(eq(offsetY, swipeDownY), [
-                        cond(renderCalendarCallFg, [
-                            call([], onSwipeDown),
-                            set(renderCalendarCallFg, offFlag)
-                        ]),
-                        set(translateY, swipeUpY),
-                        set(translateY, timing({ clock: clock2, duration: 130, from: translateY, to: swipeNoneY, easing: Easing.linear })),
-                        cond(not(clockRunning(clock2)), [
-                                set(offsetY, translateY),
-                                set(renderCalendarCallFg, onFlag),
-                            ])
-                        ])
-                    ]),
-                ]),
-            ]),
-        ], [state]
-    );
 
     const diaryHandler = (year, month, date, day, emotion) => {
         dispatch(diaryActions.loadDiary(
@@ -214,17 +129,73 @@ const CalendarView = props => {
         );
     };
 
+    const swipeUpAnimationAfter = () => {
+        isDate.setMonth(isDate.getMonth() + 1);
+        loadHandler(new Date(+isDate));
+        scrollY.setValue(yPositionMax);
+        Animated.spring(scrollY, {
+            toValue: yPositionInit,
+            speed: 10,
+            bounciness: 5,
+            useNativeDriver: true
+        }).start();
+    };
+
+    const swipeDownAnimationAfter = () => {
+        isDate.setMonth(isDate.getMonth() - 1);
+        loadHandler(new Date(+isDate));
+        scrollY.setValue(yPositionMin);
+        Animated.spring(scrollY, {
+            toValue: yPositionInit,
+            speed: 10,
+            bounciness: 5,
+            useNativeDriver: true
+        }).start();
+    };
+
     return (
         <View style={{ flex: 1 }}>
             <Background style={{ ...styles.container, opacity: isDiaryDetailed ? Diary.opacity : 1 }}>
                 <SafeAreaView style={ styles.container }>
-                    <PanGestureHandler { ...gestureHandler }>
-                        <Animated.View style={[ styles.animationContainer, { transform: [{ translateY }] } ]}>
-                            <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent={ true }/>
-                            <Header getDate={ isDate } parentProps={ props } saying={ saying } mode={ mode }/>
-                            <Calendar getDate={ isDate } diaryHandler={ diaryHandler } parent={ this }/>
-                        </Animated.View>
-                    </PanGestureHandler>
+                    <Animated.ScrollView
+                        style={{ ...styles.gestureHandler, transform: [{ translateY: scrollY }] }}
+                        onScroll={
+                            Animated.event(
+                                [{ nativeEvent: { contentOffset: { y: scrollY }}}],
+                                { listener: (event) => {
+                                    if (event.nativeEvent.contentOffset.y > animationThreshold) {
+                                        Animated.spring(scrollY, {
+                                            toValue: yPositionMin,
+                                            speed: 10,
+                                            bounciness: 15,
+                                            useNativeDriver: true
+                                        }).start();
+                                        setTimeout(() => {
+                                            scrollY.stopAnimation(swipeUpAnimationAfter)
+                                        }, animationDelay);
+                                    }
+                                    if (event.nativeEvent.contentOffset.y < (-1 * animationThreshold)) {
+                                        Animated.spring(scrollY, {
+                                            toValue: yPositionMax,
+                                            speed: 10,
+                                            bounciness: 15,
+                                            useNativeDriver: true
+                                        }).start();
+                                        setTimeout(() => {
+                                            scrollY.stopAnimation(swipeDownAnimationAfter)
+                                        }, animationDelay);
+                                    }
+                                },
+                                    useNativeDriver: true
+                                }
+                            )
+                        }
+                        scrollEventThrottle={ 0 }
+                    >
+                        <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent={ true }/>
+                        <Header getDate={ isDate } parentProps={ props } saying={ saying } mode={ mode }/>
+                        <Calendar getDate={ isDate } diaryHandler={ diaryHandler } parent={ this }/>
+                    </Animated.ScrollView>
                     <Footer parentProps={ props } parent={ this } diaryHandler={ diaryHandler }/>
                 </SafeAreaView>
             </Background>
@@ -334,6 +305,9 @@ const styles = StyleSheet.create({
         flex: 1,
         overflow: 'hidden'
     },
+    gestureHandler: {
+        height: '100%',
+    },
     contentContainer: {
         flex: 1,
     },
@@ -380,9 +354,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
-    },
-    animationContainer: {
-        flex: 3
     },
     footerContainer: {
         flexDirection: 'row',

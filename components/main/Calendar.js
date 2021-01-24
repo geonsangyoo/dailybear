@@ -109,20 +109,23 @@ const Calendar = props => {
 
 const styles = StyleSheet.create({
     calendarContainer: {
-        flex: 2
+        flex: 2,
+        marginTop: 15,
     },
     rowConatiner: {
         flex: 1,
         flexDirection: 'row',
-        padding: 15,
+        marginHorizontal: 15,
+        marginVertical: 12,
         justifyContent: 'space-around',
         alignItems: 'center',
     },
     viewDays: {
-        top: 23
+        top: 20,
+        marginBottom: 15
     },
     Days: {
-        paddingLeft: 6,
+        paddingLeft: 10,
         fontSize: 11,
         fontFamily: 'SFProText-Regular',
         fontWeight: '800',
