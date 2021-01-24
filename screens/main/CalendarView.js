@@ -207,7 +207,7 @@ const CalendarView = props => {
                                 <View style={ styles.imageContainer }>
                                     <Image
                                         style={ styles.image }
-                                        source={ diary.emotion !== "" ? Diary.emotionBears[diary.emotion].imgPath : Diary.emotionBears[Diary.emotionTitle.CALM].imgPath }
+                                        source={ diary.emotion !== "" ? Diary.emotionBears[diary.emotion].imgPath : null }
                                     />
                                 </View>
                                 <Text style={ styles.dateTextStyle }>
@@ -216,7 +216,7 @@ const CalendarView = props => {
                                 <ScrollView bounces={ false }>
                                     <View style={ styles.description }>
                                             <Text style={ styles.input }>
-                                                { diary.emotion !== "" ? diary.content : Diary.diaryNotExists }
+                                                { diary.emotion !== "" ? diary.content : '' }
                                             </Text>
                                     </View>
                                 </ScrollView>
