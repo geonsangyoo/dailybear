@@ -45,8 +45,8 @@ const CalendarView = props => {
     const animationDelay = 200;
     const animationThreshold = 0;
     const scrollY = useRef(new Animated.Value(0)).current;
-    const yPositionMin = new Animated.Value(-1 * Dimensions.get("screen").height);
-    const yPositionMax = new Animated.Value(Dimensions.get("screen").height);
+    const yPositionMin = Dimensions.get("screen").height * -1;
+    const yPositionMax = Dimensions.get("screen").height;
     const yPositionInit = new Animated.Value(0);
     
     useEffect(() => {
