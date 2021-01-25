@@ -1,8 +1,7 @@
 // Standard
 import React, { useEffect, useRef, useLayoutEffect, useCallback } from 'react';
-import { View, StyleSheet, Text, StatusBar, ScrollView, Image, Pressable, Alert, Animated, Dimensions } from 'react-native';
+import { View, StyleSheet, Text, StatusBar, ScrollView, Image, Pressable, Alert, Animated, Dimensions, SafeAreaView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Custom
 import Background from '../../components/layout/Background';
@@ -37,6 +36,7 @@ const CalendarView = props => {
     diary.content = useSelector(state => state.diary.content);
     diary.emotion = useSelector(state => state.diary.emotion);
     diary.date = useSelector(state => state.diary.date);
+    
     const dateString = (Object.keys(diary.date).length > 0) 
                         ? Diary.convertDate(diary.date.year, diary.date.month, diary.date.date, diary.date.day)
                         : '';
@@ -135,7 +135,7 @@ const CalendarView = props => {
         scrollY.setValue(yPositionMax);
         Animated.spring(scrollY, {
             toValue: yPositionInit,
-            speed: 10,
+            speed: 5,
             bounciness: 5,
             useNativeDriver: true
         }).start();
@@ -147,7 +147,7 @@ const CalendarView = props => {
         scrollY.setValue(yPositionMin);
         Animated.spring(scrollY, {
             toValue: yPositionInit,
-            speed: 10,
+            speed: 5,
             bounciness: 5,
             useNativeDriver: true
         }).start();
@@ -166,8 +166,8 @@ const CalendarView = props => {
                                     if (event.nativeEvent.contentOffset.y > animationThreshold) {
                                         Animated.spring(scrollY, {
                                             toValue: yPositionMin,
-                                            speed: 10,
-                                            bounciness: 15,
+                                            speed: 5,
+                                            bounciness: 5,
                                             useNativeDriver: true
                                         }).start();
                                         setTimeout(() => {
@@ -177,8 +177,8 @@ const CalendarView = props => {
                                     if (event.nativeEvent.contentOffset.y < (-1 * animationThreshold)) {
                                         Animated.spring(scrollY, {
                                             toValue: yPositionMax,
-                                            speed: 10,
-                                            bounciness: 15,
+                                            speed: 5,
+                                            bounciness: 5,
                                             useNativeDriver: true
                                         }).start();
                                         setTimeout(() => {
