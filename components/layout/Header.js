@@ -14,7 +14,7 @@ const Header = props => {
     }, [props.saying]);
     
     return (
-        <View style={ styles.container }>
+        <View style={{ ...styles.container, ...props.style }}>
             <Text style={ styles.year }>
                 { props.getDate.getFullYear() }
             </Text>

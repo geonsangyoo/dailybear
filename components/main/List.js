@@ -33,12 +33,11 @@ const List = props => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         marginHorizontal: 30,
     },
     contents: {
         flexDirection: 'row',
-        marginVertical: 30,
+        marginVertical: 20,
     },
     line: {
         marginHorizontal: 'auto',
@@ -51,11 +50,13 @@ const styles = StyleSheet.create({
         fontStyle: 'normal',
         fontWeight: '400',
         fontSize: 12,
-        color: Colors.ListView_text
+        color: Colors.ListView_text,
+        marginVertical: 5,
     },
     image: {
         width: 28.5,
-        height: 26.25
+        height: 26.25,
+        marginHorizontal: 15,
     }
 });
 

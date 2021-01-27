@@ -1,5 +1,5 @@
 // Standard
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, StatusBar, SafeAreaView, ScrollView, FlatList } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -13,7 +13,6 @@ import * as diaryActions from '../../store/actions/Diary';
 import * as sayingActions from '../../store/actions/Saying';
 import * as funcs from '../../helpers/funcs';
 import sayingConsts from '../../constants/Saying';
-import Colors from '../../constants/Colors';
 
 const ListView = props => {
 
@@ -58,16 +57,13 @@ const diaryHandler = (year, month, date, day, emotion) => {
         <View style={{ flex: 1 }}>
             <Background style={ styles.container }>
                 <SafeAreaView style={ styles.container }>
-                    <ScrollView
-                        style={ styles.mainContentContainer }
-                        bounces={ false }
-                    >
-                        <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent={ true }/>
-                        <Header getDate={ isDate } parentProps={ props } saying={ saying } mode={ mode }/>
-                        { ( contents.length > 0 ) ?
+                    <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent={ true }/>
+                    <Header style={ styles.headerStyle } getDate={ isDate } parentProps={ props } saying={ saying } mode={ mode }/>
+                    { ( contents.length > 0 ) ?
+                        <View style={ styles.listContainer }>
                             <FlatList
                                 data={ emotions }
-                                keyExtractor={ item => item.date }
+                                keyExtractor={ item => String(item.date) }
                                 renderItem={ itemData => (
                                     <List
                                         date={ itemData.item.date }
@@ -75,9 +71,9 @@ const diaryHandler = (year, month, date, day, emotion) => {
                                         content={ contents[itemData.index].content }
                                     />
                                 )}
-                            /> : null
-                        }
-                    </ScrollView>
+                            />
+                        </View> : null
+                    }
                     <Footer parentProps={ props } parent={ this } diaryHandler={ diaryHandler }/>
                 </SafeAreaView>
             </Background>
@@ -88,11 +84,14 @@ const diaryHandler = (year, month, date, day, emotion) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        overflow: 'hidden'
     },
-    mainContentContainer: {
-        height: '100%'
+    headerStyle: {
+        flex: 3
     },
+    listContainer: {
+        flex: 8,
+        marginVertical: '11%',
+    }
 });
 
 export default ListView;
