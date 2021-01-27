@@ -9,11 +9,30 @@ import * as calendarConsts from '../../constants/Calendar';
 import Colors from '../../constants/Colors';
 
 const Footer = props => {
+
     const today = new Date();
     const dispatch = useDispatch();
     const [isClicked, setIsClicked] = useState(false);
+    const [viewMode, setViewMode] = useState(null);
+    const [viewModeImgPath, setViewModeImgPath] = useState(null);
     const emotion = useSelector(state => state.diary.emotion);
     const date = useSelector(state => state.diary.date);
+
+    useEffect(() => {
+        console.log("route -> ", props.parentProps.route.name);
+        switch (props.parentProps.route.name) {
+            case "CalendarView":
+                setViewMode("StatisticsView");
+                setViewModeImgPath(require('../../assets/icons/calender.png'));
+                break;
+            case "StatisticsView":
+                setViewMode("CalendarView");
+                setViewModeImgPath(require('../../assets/icons/graph.png'));
+                break;
+            default:
+                break;
+        };
+    }, [props.parentProps]);
 
     useEffect(() => {
         if (isClicked) {
@@ -31,13 +50,15 @@ const Footer = props => {
             }
             setIsClicked(false);
         }
-    }, [date])
+    }, [date]);
 
     return (
         <View style={ styles.container }>
-            <TouchableOpacity onPress={() => {} } style={{ ...styles.calendar_circle, ...styles.shadow }}>
+            <TouchableOpacity onPress={() => {
+                props.parentProps.navigation.navigate(viewMode);
+            }} style={{ ...styles.viewMode_circle, ...styles.shadow }}>
                 <Image 
-                    source={ require('../../assets/icons/calender.png') }
+                    source={ viewModeImgPath }
                     style={ styles.icon }
                 />
             </TouchableOpacity>
@@ -63,6 +84,7 @@ const Footer = props => {
             </TouchableOpacity>
         </View>
     );
+
 };
 
 const styles = StyleSheet.create({
@@ -81,7 +103,7 @@ const styles = StyleSheet.create({
         shadowRadius: 8,
         elevation: 5
     },
-    calendar_circle: {
+    viewMode_circle: {
         width: 60,
         height: 60,
         borderRadius: 60/2,
