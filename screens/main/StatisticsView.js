@@ -39,8 +39,8 @@ const StatisticsView = props => {
                 res.push({
                     top: Math.floor(Math.random() * emotionHeightRange),
                     left: Math.floor(Math.random() * emotionWidthRange),
-                    width: Math.floor(Statistics.emotionMinWidthSize + (( Statistics.emotionMaxWidthSize - Statistics.emotionMinWidthSize ) * number / maxDays)),
-                    height: Math.floor(Statistics.emotionMinHeightSize + (( Statistics.emotionMaxHeightSize - Statistics.emotionMinHeightSize ) * number / maxDays)),
+                    width: Math.floor(Statistics.emotionMinWidthSize + (( Statistics.emotionMaxWidthSize) * number / maxDays)),
+                    height: Math.floor(Statistics.emotionMinHeightSize + (( Statistics.emotionMaxHeightSize) * number / maxDays)),
                 });
             }
             setEmotionLocation(res);

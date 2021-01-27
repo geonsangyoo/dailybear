@@ -1,8 +1,8 @@
 const Statistics = {
-    emotionMinWidthSize: 46,
-    emotionMinHeightSize: 40,
-    emotionMaxWidthSize: 96,
-    emotionMaxHeightSize: 90,
+    emotionMinWidthSize: 26,
+    emotionMinHeightSize: 20,
+    emotionMaxWidthSize: 206,
+    emotionMaxHeightSize: 200,
 };
 
 export default Statistics;
