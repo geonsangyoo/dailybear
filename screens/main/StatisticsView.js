@@ -18,7 +18,7 @@ import Colors from '../../constants/Colors';
 
 const StatisticsView = props => {
 
-    // Calendar Rendering
+    // Statistic View Rendering
     const isDate = useSelector(state => state.calendar.activeDate);
     const saying = useSelector(state => state.saying.saying);
     const mode = useSelector(state => state.saying.mode);
@@ -32,24 +32,19 @@ const StatisticsView = props => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // Load Saying
-        dispatch(sayingActions.loadSaying(isDate.getFullYear(), parseInt(isDate.getMonth()) + 1));
-        // Load Emotions
-        dispatch(calendarActions.loadEmotions(isDate.getFullYear(), isDate.getMonth() + 1, maxDays));
-    }, [isDate]);
-
-    useEffect(() => {
         let res = [];
-        for (let val in Diary.emotionTitle) {
-            let rank = getEmotionRank(Diary.emotionBears[Diary.emotionTitle[val]].name);
-            res.push({
-                top: Math.floor(Math.random() * emotionHeightRange),
-                left: Math.floor(Math.random() * emotionWidthRange),
-                width: Math.floor(Statistics.emotionMaxWidthSize / rank),
-                height: Math.floor(Statistics.emotionMaxHeightSize / rank)
-            });
+        if (numberOfEmotionsSorted.length > 0) {
+            for (let val in Diary.emotionTitle) {
+                let number = numberOfEmotionsSorted[Diary.emotionTitle[val]].number;
+                res.push({
+                    top: Math.floor(Math.random() * emotionHeightRange),
+                    left: Math.floor(Math.random() * emotionWidthRange),
+                    width: Math.floor(Statistics.emotionMinWidthSize + (( Statistics.emotionMaxWidthSize) * number / maxDays)),
+                    height: Math.floor(Statistics.emotionMinHeightSize + (( Statistics.emotionMaxHeightSize) * number / maxDays)),
+                });
+            }
+            setEmotionLocation(res);
         }
-        setEmotionLocation(res);
     }, [numberOfEmotionsSorted]);
 
     useEffect(() => {
@@ -311,7 +306,7 @@ const styles = StyleSheet.create({
     emotionNumberContainer: {
         flexDirection: 'column',
         marginLeft: '8%',
-        marginTop: '30%',
+        marginTop: '25%',
     },
     emotionNumberItem: {
         flexDirection: 'row',

@@ -110,12 +110,13 @@ const Calendar = props => {
 const styles = StyleSheet.create({
     calendarContainer: {
         flex: 2,
-        marginTop: 15,
+        marginTop: '5%',
     },
     rowConatiner: {
         flex: 1,
         flexDirection: 'row',
-        marginHorizontal: 15,
+        marginLeft: 10,
+        marginRight: 25,
         marginVertical: 12,
         justifyContent: 'space-around',
         alignItems: 'center',

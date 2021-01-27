@@ -43,7 +43,7 @@ const CalendarView = props => {
     
     // Animation
     const animationDelay = 200;
-    const animationThreshold = 0;
+    const animationThreshold = 1;
     const scrollY = useRef(new Animated.Value(0)).current;
     const yPositionMin = Dimensions.get("screen").height * -1;
     const yPositionMax = Dimensions.get("screen").height;
@@ -135,8 +135,8 @@ const CalendarView = props => {
         scrollY.setValue(yPositionMax);
         Animated.spring(scrollY, {
             toValue: yPositionInit,
-            speed: 5,
-            bounciness: 5,
+            speed: 6,
+            bounciness: 1,
             useNativeDriver: true
         }).start();
     };
@@ -148,7 +148,7 @@ const CalendarView = props => {
         Animated.spring(scrollY, {
             toValue: yPositionInit,
             speed: 5,
-            bounciness: 5,
+            bounciness: 1,
             useNativeDriver: true
         }).start();
     };
@@ -163,11 +163,11 @@ const CalendarView = props => {
                             Animated.event(
                                 [{ nativeEvent: { contentOffset: { y: scrollY }}}],
                                 { listener: (event) => {
+                                    event.is
                                     if (event.nativeEvent.contentOffset.y > animationThreshold) {
                                         Animated.spring(scrollY, {
                                             toValue: yPositionMin,
                                             speed: 5,
-                                            bounciness: 5,
                                             useNativeDriver: true
                                         }).start();
                                         setTimeout(() => {
@@ -178,7 +178,6 @@ const CalendarView = props => {
                                         Animated.spring(scrollY, {
                                             toValue: yPositionMax,
                                             speed: 5,
-                                            bounciness: 5,
                                             useNativeDriver: true
                                         }).start();
                                         setTimeout(() => {
