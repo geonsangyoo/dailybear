@@ -110,7 +110,7 @@ const Calendar = props => {
 const styles = StyleSheet.create({
     calendarContainer: {
         flex: 2,
-        marginTop: 20,
+        marginTop: '5%',
     },
     rowConatiner: {
         flex: 1,

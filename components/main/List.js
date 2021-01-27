@@ -9,6 +9,9 @@ import Colors from '../../constants/Colors';
 const List = props => {
     return (
         <View style={ styles.container }>
+            { (props.date === 1) ?
+                <View style={ styles.line } /> : null
+            }
             <View style={ styles.contents }>
                 <Text style={ styles.listViewText }>
                     { String(props.date).padStart(2, '0') }
@@ -41,7 +44,7 @@ const styles = StyleSheet.create({
     },
     line: {
         marginHorizontal: 'auto',
-        borderBottomWidth: 1,
+        borderBottomWidth: 2,
         opacity: 0.1,
         borderBottomColor: Colors.ListView_gray
     },

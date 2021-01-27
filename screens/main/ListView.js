@@ -1,5 +1,5 @@
 // Standard
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet, StatusBar, SafeAreaView, ScrollView, FlatList } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -58,7 +58,7 @@ const diaryHandler = (year, month, date, day, emotion) => {
             <Background style={ styles.container }>
                 <SafeAreaView style={ styles.container }>
                     <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent={ true }/>
-                    <Header style={ styles.headerStyle } getDate={ isDate } parentProps={ props } saying={ saying } mode={ mode }/>
+                    <Header getDate={ isDate } parentProps={ props } saying={ saying } mode={ mode }/>
                     { ( contents.length > 0 ) ?
                         <View style={ styles.listContainer }>
                             <FlatList
@@ -85,12 +85,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    headerStyle: {
-        flex: 3
-    },
     listContainer: {
-        flex: 8,
-        marginVertical: '11%',
+        marginTop: '10%',
+        height: '50%'
     }
 });
 

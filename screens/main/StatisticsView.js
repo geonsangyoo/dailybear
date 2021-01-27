@@ -306,7 +306,7 @@ const styles = StyleSheet.create({
     emotionNumberContainer: {
         flexDirection: 'column',
         marginLeft: '8%',
-        marginTop: '20%',
+        marginTop: '25%',
     },
     emotionNumberItem: {
         flexDirection: 'row',
@@ -328,7 +328,7 @@ const styles = StyleSheet.create({
     },
     imageContainer: {
         position: 'absolute',
-        top: '40%',
+        top: '50%',
         left: '30%',
     },
     image: {
