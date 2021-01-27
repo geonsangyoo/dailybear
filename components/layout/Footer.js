@@ -19,15 +19,18 @@ const Footer = props => {
     const date = useSelector(state => state.diary.date);
 
     useEffect(() => {
-        console.log("route -> ", props.parentProps.route.name);
         switch (props.parentProps.route.name) {
             case "CalendarView":
                 setViewMode("StatisticsView");
                 setViewModeImgPath(require('../../assets/icons/calender.png'));
                 break;
             case "StatisticsView":
-                setViewMode("CalendarView");
+                setViewMode("ListView");
                 setViewModeImgPath(require('../../assets/icons/graph.png'));
+                break;
+            case "ListView":
+                setViewMode("CalendarView");
+                setViewModeImgPath(require('../../assets/icons/list.png'));
                 break;
             default:
                 break;

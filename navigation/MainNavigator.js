@@ -68,6 +68,10 @@ const MainContainer = () => {
                     <MainNavigatorScreen.Screen 
                         name="ListView"
                         component={ ListView }
+                        options={{
+                            headerShown: false,
+                            animationEnabled: false
+                        }}
                     />
                     <MainNavigatorScreen.Screen 
                         name="SayingDetail"

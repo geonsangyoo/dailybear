@@ -9,6 +9,10 @@ const Colors = {
     HeaderTitle_gray: '#4D403E',
     DaysTitle_white: 'rgba(77, 64, 62, 0.3)',
 
+    // Line
+    ListView_gray: '#4D403E',
+    ListView_text: '#484140',
+
     // Diary
     DiaryRectangleBox_background: '#FFFFFF',
     DiaryRectangleBox_shadow: 'rgba(0, 0, 0, 0.1)',

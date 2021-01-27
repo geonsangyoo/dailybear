@@ -23,6 +23,17 @@ export const fetchEmotions = async (year, month) => {
     return emotions;
 };
 
+export const fetchContents = async (year, month) => {
+    let contents = await executeQuery(
+        `
+            SELECT date, content FROM diary
+            WHERE year = ?
+            AND month = ?;
+        `
+    , [year, month]);
+    return contents;
+};
+
 export const upsertDiary = async (year, month, date, day, content, emotion) => {
     let diaryUpsert = await executeQuery(
         `
