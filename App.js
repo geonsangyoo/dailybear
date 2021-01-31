@@ -14,13 +14,15 @@ import MainContainer from './navigation/MainNavigator';
 import calendarReducer from './store/reducers/Calendar';
 import sayingReducer from './store/reducers/Saying';
 import diaryReducer from './store/reducers/Diary';
+import settingsReducer from './store/reducers/Settings';
 import { init } from './helpers/db';
 
 // Redux
 const rootReducer = combineReducers({
   calendar: calendarReducer,
   saying: sayingReducer,
-  diary: diaryReducer
+  diary: diaryReducer,
+  settings: settingsReducer
 });
 const middlewareEnhancer = applyMiddleware(ReduxThunk);
 const store = createStore(rootReducer, composeWithDevTools(middlewareEnhancer));

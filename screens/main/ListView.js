@@ -1,6 +1,6 @@
 // Standard
 import React, { useEffect } from 'react';
-import { View, StyleSheet, StatusBar, SafeAreaView, ScrollView, FlatList } from 'react-native';
+import { View, StyleSheet, StatusBar, SafeAreaView, FlatList } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 // Custom

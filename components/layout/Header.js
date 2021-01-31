@@ -23,7 +23,7 @@ const Header = props => {
             </Text>
             <Pressable 
                 style={ styles.sayingContainer } 
-                onPress={ 
+                onPress={
                     () => { 
                             props.parentProps.navigation.navigate("SayingDetail", {
                                 saying: props.saying,

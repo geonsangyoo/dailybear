@@ -52,6 +52,7 @@
 		E1E261F1D3634237898F0197 /* oval_red.png in Resources */ = {isa = PBXBuildFile; fileRef = DD6AE494EA074D42B23FF7EE /* oval_red.png */; };
 		E4D0B9885A5243FD81C91FF0 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 331A58729E284408A33631D4 /* back.png */; };
 		F6A91FB684B64EA336D9B460 /* libPods-dailybear-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51C7596553489B426A46F476 /* libPods-dailybear-tvOSTests.a */; };
+		10E0158E2FE04827A04CFEF5 /* setting_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EC194E2C4954AC693DA9967 /* setting_arrow.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,6 +146,7 @@
 		F6016CE886A343D99FADBA4A /* splash_title.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = splash_title.png; path = ../assets/images/splash_title.png; sourceTree = "<group>"; };
 		FC57ABBD699A44D980F5A1AB /* setting.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = setting.png; path = ../assets/icons/setting.png; sourceTree = "<group>"; };
 		FF3FC6DED7CF4D6D83FB112F /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
+		4EC194E2C4954AC693DA9967 /* setting_arrow.png */ = {isa = PBXFileReference; name = "setting_arrow.png"; path = "../assets/icons/setting_arrow.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -291,6 +293,7 @@
 				EEF3944DAA904564BAA86CDE /* close.png */,
 				51AC34DCD0E64CC58F3DD22F /* diary_edit.png */,
 				CCBACC6BC15F47228C1D42A2 /* share.png */,
+				4EC194E2C4954AC693DA9967 /* setting_arrow.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -507,6 +510,7 @@
 				A9187F20C4EB42DD89F0AE01 /* close.png in Resources */,
 				29E882303DA646BF92B7C699 /* diary_edit.png in Resources */,
 				10D5CB9EECB84A66894E7674 /* share.png in Resources */,
+				10E0158E2FE04827A04CFEF5 /* setting_arrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

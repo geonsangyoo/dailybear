@@ -10,20 +10,25 @@ const RANDOM_MODE = 'Random';
 
 export const loadSayingFromOuter = (year, month) => {
     return async dispatch => {
-        let response = await fetch(OUTER_DB_API_PATH);
-        let resData, randIdx, dbResult;
-        if (!response.ok) {
-            throw new Error('Outer DB Load Failure');
+        try {
+            let response = await fetch(OUTER_DB_API_PATH);
+            let resData, randIdx, saying;
+            if (!response.ok) {
+                throw new Error('Outer DB Load Failure');
+            }
+            resData = await response.json();
+            randIdx = (Math.floor(Math.random() * 100) + 1) % resData.length;
+            await upsertSaying(year, month, resData[randIdx].saying, RANDOM_MODE);
+            saying = await fetchSaying(year, month);
+            dispatch({
+                type: SAVE_SAYING,
+                saying: saying.rows.item(0).saying,
+                mode: RANDOM_MODE
+            });
+        } catch (err) {
+            console.log("DB transasction error!!");
+            throw err;
         }
-        resData = await response.json();
-        randIdx = (Math.floor(Math.random() * 100) + 1) % resData.length;
-        dbResult = await upsertSaying(year, month, resData[randIdx].saying, RANDOM_MODE);
-        saying = await fetchSaying(year, month);
-        dispatch({
-            type: SAVE_SAYING,
-            saying: saying.rows.item(0).saying,
-            mode: RANDOM_MODE
-        });
     }
 }
 
@@ -48,6 +53,7 @@ export const loadSaying = (year, month) => {
                 });
             }
         } catch (err) {
+            console.log("DB transasction error!!");
             throw err;
         }
     };
@@ -55,10 +61,9 @@ export const loadSaying = (year, month) => {
 
 export const saveSaying = (year, month, saying, mode) => {
     return async dispatch => {
-        let dbResult;
         try {
             console.log('Save Saying...');
-            dbResult = await upsertSaying(year, month, saying, mode);
+            await upsertSaying(year, month, saying, mode);
             saying = await fetchSaying(year, month);
             console.log('fetch -> ' + JSON.stringify(saying.rows.item(0)));
             dispatch({
@@ -67,6 +72,7 @@ export const saveSaying = (year, month, saying, mode) => {
                 mode: mode
             });
         } catch (err) {
+            console.log("DB transasction error!!");
             throw err;
         }
     };

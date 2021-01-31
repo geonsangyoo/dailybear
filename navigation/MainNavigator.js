@@ -12,10 +12,12 @@ import StatisticsView from '../screens/main/StatisticsView';
 import HeaderBackImage from '../components/layout/HeaderBackImage';
 import DiaryIntro from '../screens/main/DiaryIntro';
 import DiaryDetail from '../screens/main/DiaryDetail';
+import Setting from '../screens/main/Setting';
 import Colors from '../constants/Colors';
 
 const MainNavigatorScreen = createStackNavigator();
 const SayingDetailBackImage = require('../assets/icons/back.png');
+const SettingBackImage = require('../assets/icons/close.png');
 
 const MainContainer = () => {
     return (
@@ -82,6 +84,17 @@ const MainContainer = () => {
                             headerBackTitleVisible: false,
                             headerTintColor: Colors.HeaderTitle_gray,
                             headerTransparent: true
+                        }}
+                    />
+                    <MainNavigatorScreen.Screen
+                        name="Setting"
+                        component={ Setting }
+                        options={{
+                            headerTitle: () => {},
+                            headerBackImage: () => <HeaderBackImage imagePath={ SettingBackImage } />,
+                            headerBackTitleVisible: false,
+                            headerTransparent: true,
+                            ...TransitionPresets.ModalSlideFromBottomIOS
                         }}
                     />
                 </MainNavigatorScreen.Navigator>

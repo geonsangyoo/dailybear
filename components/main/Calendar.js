@@ -11,6 +11,7 @@ import Diary from '../../constants/Diary';
 import Colors from '../../constants/Colors';
 
 const Calendar = props => {
+
     var rows = [];
     const emotions = useSelector(state => state.calendar.emotions);
     const maxDays = funcs.getMaxDays(props.getDate.getFullYear(), props.getDate.getMonth());
@@ -28,9 +29,7 @@ const Calendar = props => {
             matrix[row] = [];
             for (let col = 0; col < 7; col++) {
                 matrix[row][col] = -1;
-                if (row == 1 && col >= firstDay) {
-                    matrix[row][col] = counter++;
-                } else if (row > 1 && counter <= maxDays) {
+                if ((row == 1 && col >= firstDay) || (row > 1 && counter <= maxDays)) {
                     matrix[row][col] = counter++;
                 }
             }
