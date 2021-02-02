@@ -1,6 +1,7 @@
 // Standard
 import React, { useEffect, useRef, useLayoutEffect, useCallback } from 'react';
-import { View, StyleSheet, Text, StatusBar, ScrollView, Image, Pressable, Alert, Animated, Dimensions, SafeAreaView } from 'react-native';
+import { View, StyleSheet, Text, StatusBar, ScrollView, Image, Pressable, Alert, Animated, Dimensions } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Custom

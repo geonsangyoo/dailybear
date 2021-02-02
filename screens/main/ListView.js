@@ -1,7 +1,8 @@
 // Standard
 import React, { useEffect } from 'react';
-import { View, StyleSheet, StatusBar, SafeAreaView, FlatList } from 'react-native';
+import { View, StyleSheet, StatusBar, FlatList } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Custom
 import Background from '../../components/layout/Background';

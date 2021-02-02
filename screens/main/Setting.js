@@ -1,7 +1,9 @@
 // Standard
 import React, { useEffect, useState, useCallback } from 'react';
-import { View, Text, StyleSheet, Switch, StatusBar, Image, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Switch, StatusBar, Image, Pressable, Alert } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { openComposer } from 'react-native-email-link';
+import InAppReview from 'react-native-in-app-review';
 
 // Custom
 import * as settingsAction from '../../store/actions/Settings';
@@ -100,7 +102,13 @@ const Setting = props => {
                     </View>
                     <View style={ styles.contentRow }>
                         <Text style={ styles.contentText }>Font</Text>
-                        <Pressable style={ styles.settingContainer }>
+                        <Pressable style={ styles.settingContainer }
+                            onPress={() => {
+                                /**
+                                 * To-Do
+                                 */
+                            }}
+                        >
                             <Text style={ styles.settingText }>ABCDEFGHI..</Text>
                             <Image 
                                 style={ styles.image }
@@ -110,7 +118,27 @@ const Setting = props => {
                     </View>
                     <View style={ styles.contentRow }>
                         <Text style={ styles.contentText }>Praise the Developer</Text>
-                        <Pressable style={ styles.settingContainer }>
+                        <Pressable style={ styles.settingContainer }
+                            onPress={() => {
+                                if (InAppReview.isAvailable()) {
+                                    InAppReview.RequestInAppReview();
+                                } else {
+                                    Alert.alert(
+                                        'Warning',
+                                        'Rating screen is not provided!',
+                                        [
+                                            {
+                                                text: 'OK',
+                                                style: 'destructive'
+                                            }
+                                        ],
+                                        {
+                                            cancelable: false
+                                        }
+                                    );
+                                }
+                            }}
+                        >
                             <Image 
                                 style={ styles.image }
                                 source={ require('../../assets/icons/setting_arrow.png') }
@@ -119,7 +147,31 @@ const Setting = props => {
                     </View>
                     <View style={ styles.contentRow }>
                         <Text style={ styles.contentText }>Send any good opinion</Text>
-                        <Pressable style={ styles.settingContainer }>
+                        <Pressable style={ styles.settingContainer }
+                            onPress={() => {
+                                openComposer({
+                                    to: 'geonsangyoo@gmail.com',
+                                    cc: 'strawchoo@naver.com',
+                                    subject: '【Daily Bear】> 건의사항',
+                                }).then(res => {
+                                    console.log("Email is opened!")
+                                }, err => {
+                                    Alert.alert(
+                                        'Error',
+                                        'Email Application is not found!',
+                                        [
+                                            {
+                                                text: 'OK',
+                                                style: 'destructive'
+                                            }
+                                        ],
+                                        {
+                                            cancelable: false
+                                        }
+                                    );
+                                });
+                            }}
+                        >
                             <Image 
                                 style={ styles.image }
                                 source={ require('../../assets/icons/setting_arrow.png') }
@@ -128,7 +180,13 @@ const Setting = props => {
                     </View>
                     <View style={ styles.contentRow }>
                         <Text style={ styles.contentText }>Terms and conditions</Text>
-                        <Pressable style={ styles.settingContainer }>
+                        <Pressable style={ styles.settingContainer }
+                            onPress={() => {
+                                /**
+                                 * To-Do
+                                 */
+                            }}
+                        >
                             <Image 
                                 style={ styles.image }
                                 source={ require('../../assets/icons/setting_arrow.png') }

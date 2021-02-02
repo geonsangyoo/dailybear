@@ -238,6 +238,8 @@ PODS:
   - React-jsinspector (0.63.4)
   - react-native-image-picker (2.3.4):
     - React-Core
+  - react-native-in-app-review (2.1.8):
+    - React
   - react-native-safe-area-context (3.1.9):
     - React-Core
   - react-native-sqlite-storage (5.0.0):
@@ -306,6 +308,8 @@ PODS:
     - React-jsi (= 0.63.4)
   - RNCMaskedView (0.1.10):
     - React
+  - RNCPushNotificationIOS (1.8.0):
+    - React-Core
   - RNFS (2.16.6):
     - React
   - RNGestureHandler (1.9.0):
@@ -358,6 +362,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
+  - react-native-in-app-review (from `../node_modules/react-native-in-app-review`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-sqlite-storage (from `../node_modules/react-native-sqlite-storage`)
   - react-native-uuid-generator (from `../node_modules/react-native-uuid-generator`)
@@ -372,6 +377,7 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
+  - "RNCPushNotificationIOS (from `../node_modules/@react-native-community/push-notification-ios`)"
   - RNFS (from `../node_modules/react-native-fs`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
@@ -427,6 +433,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
+  react-native-in-app-review:
+    :path: "../node_modules/react-native-in-app-review"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-sqlite-storage:
@@ -455,6 +463,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNCMaskedView:
     :path: "../node_modules/@react-native-community/masked-view"
+  RNCPushNotificationIOS:
+    :path: "../node_modules/@react-native-community/push-notification-ios"
   RNFS:
     :path: "../node_modules/react-native-fs"
   RNGestureHandler:
@@ -496,6 +506,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 93bd528844ad21dc07aab1c67cb10abae6df6949
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
   react-native-image-picker: c6d75c4ab2cf46f9289f341242b219cb3c1180d3
+  react-native-in-app-review: 3d6d73b840bdb94ecf83f22e5fee74ee255829d0
   react-native-safe-area-context: b6e0e284002381d2ff29fa4fff42b4d8282e3c94
   react-native-sqlite-storage: 418ef4afc5e6df6ce3574c4617e5f0b65cffde55
   react-native-uuid-generator: 82ffa2a1cac94242ebed52c4dedc5044d3412717
@@ -510,6 +521,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: ae4f914cfe8de7d4de95ae1ea6cc8f6315d73d9d
   ReactCommon: 73d79c7039f473b76db6ff7c6b159c478acbbb3b
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
+  RNCPushNotificationIOS: 61a7c72bd1ebad3568025957d001e0f0e7b32191
   RNFS: 2bd9eb49dc82fa9676382f0585b992c424cd59df
   RNGestureHandler: 9b7e605a741412e20e13c512738a31bd1611759b
   RNReanimated: e03f7425cb7a38dcf1b644d680d1bfc91c3337ad
