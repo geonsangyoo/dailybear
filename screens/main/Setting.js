@@ -11,7 +11,6 @@ import Colors from '../../constants/Colors';
 import Background from '../../components/layout/Background';
 
 const Setting = props => {
-
     const saying = useSelector(state => state.saying.saying);
     const sayingMode = useSelector(state => state.saying.mode);
     const notificationSetting = useSelector(state => state.settings.notification);
@@ -57,23 +56,23 @@ const Setting = props => {
                     <Text style={ styles.headerTitle }>Setting</Text>
                 </View>
                 <View style={ styles.contentContainer }>
-                    <View style={ styles.contentRow }>
+                    <Pressable style={ styles.contentRow }
+                        onPress={() => { 
+                            props.navigation.navigate("SayingDetail", {
+                                saying: saying,
+                                mode: sayingMode
+                            });
+                        }}
+                    >
                         <Text style={ styles.contentText }>A word of this month</Text>
-                        <Pressable style={ styles.settingContainer }
-                            onPress={() => { 
-                                props.navigation.navigate("SayingDetail", {
-                                    saying: saying,
-                                    mode: sayingMode
-                                });
-                            }}
-                        >
+                        <View style={ styles.settingContainer }>
                             <Text style={ styles.settingText }>{ sayingMode }</Text>
                             <Image 
                                 style={ styles.image }
                                 source={ require('../../assets/icons/setting_arrow.png') }
                             />
-                        </Pressable>
-                    </View>
+                        </View>
+                    </Pressable>
                     <View style={ styles.contentRow }>
                         <Text style={ styles.contentText }>Notification</Text>
                         <Switch
@@ -100,99 +99,95 @@ const Setting = props => {
                             }}
                         />
                     </View>
-                    <View style={ styles.contentRow }>
+                    <Pressable style={ styles.contentRow }
+                        onPress={() => { 
+                            props.navigation.navigate("FontSetting");
+                        }}
+                    >
                         <Text style={ styles.contentText }>Font</Text>
-                        <Pressable style={ styles.settingContainer }
-                            onPress={() => {
-                                /**
-                                 * To-Do
-                                 */
-                            }}
-                        >
+                        <View style={ styles.settingContainer }>
                             <Text style={ styles.settingText }>ABCDEFGHI..</Text>
                             <Image 
                                 style={ styles.image }
                                 source={ require('../../assets/icons/setting_arrow.png') }
                             />
-                        </Pressable>
-                    </View>
-                    <View style={ styles.contentRow }>
+                        </View>
+                    </Pressable>
+                    <Pressable style={ styles.contentRow }
+                        onPress={() => {
+                            if (InAppReview.isAvailable()) {
+                                InAppReview.RequestInAppReview();
+                            } else {
+                                Alert.alert(
+                                    'Warning',
+                                    'Rating screen is not provided!',
+                                    [
+                                        {
+                                            text: 'OK',
+                                            style: 'destructive'
+                                        }
+                                    ],
+                                    {
+                                        cancelable: false
+                                    }
+                                );
+                            }
+                        }}
+                    >
                         <Text style={ styles.contentText }>Praise the Developer</Text>
-                        <Pressable style={ styles.settingContainer }
-                            onPress={() => {
-                                if (InAppReview.isAvailable()) {
-                                    InAppReview.RequestInAppReview();
-                                } else {
-                                    Alert.alert(
-                                        'Warning',
-                                        'Rating screen is not provided!',
-                                        [
-                                            {
-                                                text: 'OK',
-                                                style: 'destructive'
-                                            }
-                                        ],
-                                        {
-                                            cancelable: false
-                                        }
-                                    );
-                                }
-                            }}
-                        >
+                        <View style={ styles.settingContainer }>
                             <Image 
                                 style={ styles.image }
                                 source={ require('../../assets/icons/setting_arrow.png') }
                             />
-                        </Pressable>
-                    </View>
-                    <View style={ styles.contentRow }>
+                        </View>
+                    </Pressable>
+                    <Pressable style={ styles.contentRow }
+                        onPress={() => {
+                            openComposer({
+                                to: 'geonsangyoo@gmail.com',
+                                cc: 'strawchoo@naver.com',
+                                subject: '【Daily Bear】> 건의사항',
+                            }).then(res => {
+                                console.log("Email is opened!")
+                            }, err => {
+                                Alert.alert(
+                                    'Error',
+                                    'Email Application is not found!',
+                                    [
+                                        {
+                                            text: 'OK',
+                                            style: 'destructive'
+                                        }
+                                    ],
+                                    {
+                                        cancelable: false
+                                    }
+                                );
+                            });
+                        }}
+                    >
                         <Text style={ styles.contentText }>Send any good opinion</Text>
-                        <Pressable style={ styles.settingContainer }
-                            onPress={() => {
-                                openComposer({
-                                    to: 'geonsangyoo@gmail.com',
-                                    cc: 'strawchoo@naver.com',
-                                    subject: '【Daily Bear】> 건의사항',
-                                }).then(res => {
-                                    console.log("Email is opened!")
-                                }, err => {
-                                    Alert.alert(
-                                        'Error',
-                                        'Email Application is not found!',
-                                        [
-                                            {
-                                                text: 'OK',
-                                                style: 'destructive'
-                                            }
-                                        ],
-                                        {
-                                            cancelable: false
-                                        }
-                                    );
-                                });
-                            }}
-                        >
+                        <View style={ styles.settingContainer }>
                             <Image 
                                 style={ styles.image }
                                 source={ require('../../assets/icons/setting_arrow.png') }
                             />
-                        </Pressable>
-                    </View>
-                    <View style={ styles.contentRow }>
+                        </View>
+                    </Pressable>
+                    <Pressable style={ styles.contentRow }
+                        onPress={() => { 
+                            props.navigation.navigate("TermsAndCondition");
+                        }}
+                    >
                         <Text style={ styles.contentText }>Terms and conditions</Text>
-                        <Pressable style={ styles.settingContainer }
-                            onPress={() => {
-                                /**
-                                 * To-Do
-                                 */
-                            }}
-                        >
+                        <View style={ styles.settingContainer }>
                             <Image 
                                 style={ styles.image }
                                 source={ require('../../assets/icons/setting_arrow.png') }
                             />
-                        </Pressable>
-                    </View>
+                        </View>
+                    </Pressable>
                 </View>
             </Background>
         </View>
@@ -216,8 +211,8 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         top: '11%',
-        marginTop: 50,
         left: '7%',
+        marginTop: 50,
     },
     contentRow: {
         flexDirection: 'row',
