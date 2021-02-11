@@ -21,7 +21,6 @@ const DiaryDetail = props => {
     const dispatch = useDispatch();
     const [isValueInit, setIsValueInit] = useState(true);
     const [isCancelModalOpened, setIsCancelModalOpened] = useState(false);
-    const isDate = useSelector(state => state.calendar.activeDate);
     const diary = {};
     
     diary.content = useSelector(state => state.diary.content);

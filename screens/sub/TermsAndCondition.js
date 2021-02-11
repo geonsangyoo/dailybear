@@ -1,6 +1,7 @@
 // Standard
 import React from 'react';
 import { View, Text, StyleSheet, StatusBar, ScrollView } from 'react-native';
+import { useSelector } from 'react-redux';
 
 // Custom
 import Setting from '../../constants/Setting';
@@ -8,12 +9,17 @@ import Background from '../../components/layout/Background';
 import Colors from '../../constants/Colors';
 
 const TermsAndCondition = props => {
+
+    const fontNameSetting = useSelector(state => state.settings.fontName);
+    
     return (
         <View style={ styles.container }>
             <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent={ true }/>
             <Background style={ styles.container }>
                 <ScrollView style={ styles.scrollContainer }>
-                    <Text style={ styles.contentText }>
+                <Text style={{ ...styles.contentText,
+                        fontFamily: fontNameSetting ? fontNameSetting : Setting.defaultFont
+                    }}>
                         { Setting.termsAndConditions }
                     </Text>
                 </ScrollView>
@@ -38,7 +44,6 @@ const styles = StyleSheet.create({
     },
     contentText: {
         marginHorizontal: 10,
-        fontFamily: 'SFProText-Regular',
         fontWeight: 'normal',
         fontSize: 14,
         lineHeight: 19,

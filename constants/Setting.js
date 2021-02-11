@@ -1,8 +1,19 @@
 const Setting = {
+    fontSelect: "Select",
+    fontSelected: "Selected",
     defaultFont: "SFProText-Regular",
-    bmHanna11yrsFont: "BM HANNA 11yrs old",
-    bmJua: "Jua-Regular",
-    seoulHangang: "SeoulHangang M",
+    defaultBoldFont: "SFProText-Bold",
+    defaultFontTitle: "Default Font",
+    tmoneyRoundWindFont: "TmoneyRoundWind-Regular",
+    tmoneyRoundWindFontTitle: "티머니 둥근바람",
+    mapoFlowerIslandFont: "MapoFlowerIsland",
+    mapoFlowerIslandFontTitle: "마포꽃섬",
+    bazziFont: "bazzi",
+    bazziFontTitle: "넥슨 배찌",
+    kyoboHandwriting2019Font: "Kyobo Handwriting 2019",
+    kyoboHandwriting2019FontTitle: "교보 손글씨",
+    mapoPeacefullFont: "MapoPeacefull",
+    mapoPeacefullFontTitle: "마포한아름체",
     fontPreviewText: "This is a preview text.\nThank you for using Daily Bear.",
     termsAndConditions: `
         Daily Bear is licensed to You (End-User) by Daily Bear (hereinafter: Licensor), for use only under the terms of this License Agreement.

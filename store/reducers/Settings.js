@@ -19,7 +19,7 @@ const settingsReducer = (state = initialState, action) => {
                     ( action.setting.function === "iCloudSync" ) ? action.setting.setting_detail
                     : state.iCloudSync,
                 fontName: 
-                    ( action.setting.function === "fontName" ) ? action.setting.setting_detail
+                    ( action.setting.function === "font" ) ? action.setting.setting_detail
                     : state.fontName,
             };
         case settingsAction.RESET_SETTING:

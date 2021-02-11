@@ -11,7 +11,8 @@ const Diary = {
         LOVELY: 2,
         GLOOMY: 3,
         SAD: 4,
-        MELANCHOLY: 5
+        MELANCHOLY: 5,
+        NONE: 6,
     },
     emotionBears: [
         {
@@ -37,6 +38,10 @@ const Diary = {
         {
             name: "melancholy",
             imgPath: require('../assets/images/main_bear_6.png')
+        },
+        {
+            name: "none",
+            imgPath: require('../assets/images/main_bear_7.png')
         }
     ],
     footerIcons: {

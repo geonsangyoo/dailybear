@@ -36,6 +36,9 @@ const StatisticsView = props => {
         let res = [];
         if (numberOfEmotionsSorted.length > 0) {
             for (let val in Diary.emotionTitle) {
+                if (val === 'NONE') {
+                    continue;
+                }
                 let number = numberOfEmotionsSorted[Diary.emotionTitle[val]].number;
                 res.push({
                     top: Math.floor(Math.random() * emotionHeightRange),

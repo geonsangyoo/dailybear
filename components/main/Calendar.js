@@ -61,9 +61,9 @@ const Calendar = props => {
                 } else {
                     if (isValid) {
                         emotion = emotions[matrix[rowIndex][colIndex] - 1].emotion;
-                        emotion = (emotion === -1) ? Diary.emotionTitle.CALM : emotion;
+                        emotion = (emotion === -1) ? Diary.emotionTitle.NONE : emotion;
                     } else {
-                        emotion = Diary.emotionTitle.CALM;
+                        emotion = Diary.emotionTitle.NONE;
                     }
                     return (
                         <Bear

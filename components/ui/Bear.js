@@ -1,6 +1,6 @@
 // Standard
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 // Custom
 import Diary from '../../constants/Diary';

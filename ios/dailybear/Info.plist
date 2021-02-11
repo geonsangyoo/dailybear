@@ -86,6 +86,11 @@
 		<string>SeoulHangang 2.ttf</string>
 		<string>seoulhangang-medium.ttf</string>
 		<string>BMHANNA_11yrs.ttf</string>
+		<string>Bazzi.ttf</string>
+		<string>Kyobo Handwriting 2019.otf</string>
+		<string>MapoFlowerIsland.otf</string>
+		<string>MapoPeacefull.otf</string>
+		<string>TmoneyRoundWindRegular.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

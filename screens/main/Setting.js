@@ -7,10 +7,12 @@ import InAppReview from 'react-native-in-app-review';
 
 // Custom
 import * as settingsAction from '../../store/actions/Settings';
+import SettingConstants from '../../constants/Setting';
 import Colors from '../../constants/Colors';
 import Background from '../../components/layout/Background';
 
 const Setting = props => {
+    
     const saying = useSelector(state => state.saying.saying);
     const sayingMode = useSelector(state => state.saying.mode);
     const notificationSetting = useSelector(state => state.settings.notification);
@@ -29,31 +31,22 @@ const Setting = props => {
         dispatch(settingsAction.saveSetting("iCloudSync", "flag", val ? "true" : "false"));
     }, [iCloudSyncState]);
 
-    const changeFontName = useCallback(() => {
-        dispatch(settingsAction.saveSetting("font", "name", fontNameState));
-    }, [fontNameState]);
-
     useEffect(() => {
         setNotificationState(notificationSetting);
         setiCloudSyncState(iCloudSyncSetting);
         setFontNameState(fontNameSetting);
-    }, []);
-
-    useEffect(() => {
-        if (fontNameState !== '') {
-            styles.settingText = {
-                ...styles.settingText,
-                fontFamily: fontNameState
-            };
-        }
-    }, [fontNameState]);
+    }, [notificationSetting, iCloudSyncSetting, fontNameSetting]);
 
     return (
         <View style={ styles.container }>
             <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent={ true }/>
             <Background style={ styles.container }>
                 <View style={ styles.headerContainer }>
-                    <Text style={ styles.headerTitle }>Setting</Text>
+                    <Text style={{ ...styles.headerTitle,
+                        fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont
+                    }}>
+                        Setting
+                    </Text>
                 </View>
                 <View style={ styles.contentContainer }>
                     <Pressable style={ styles.contentRow }
@@ -64,7 +57,11 @@ const Setting = props => {
                             });
                         }}
                     >
-                        <Text style={ styles.contentText }>A word of this month</Text>
+                        <Text style={{ ...styles.contentText,
+                            fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont
+                        }}>
+                            A word of this month
+                        </Text>
                         <View style={ styles.settingContainer }>
                             <Text style={ styles.settingText }>{ sayingMode }</Text>
                             <Image 
@@ -74,7 +71,11 @@ const Setting = props => {
                         </View>
                     </Pressable>
                     <View style={ styles.contentRow }>
-                        <Text style={ styles.contentText }>Notification</Text>
+                        <Text style={{ ...styles.contentText,
+                            fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont
+                        }}>
+                            Notification
+                        </Text>
                         <Switch
                             style={ styles.settingSwitch }
                             ios_backgroundColor={ Colors.SettingSwitchOff_brown }
@@ -87,7 +88,11 @@ const Setting = props => {
                         />
                     </View>
                     <View style={ styles.contentRow }>
-                        <Text style={ styles.contentText }>Synchronize iCloud</Text>
+                        <Text style={{ ...styles.contentText,
+                            fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont
+                        }}>
+                            Synchronize iCloud
+                        </Text>
                         <Switch
                             style={ styles.settingSwitch }
                             ios_backgroundColor={ Colors.SettingSwitchOff_brown }
@@ -104,9 +109,17 @@ const Setting = props => {
                             props.navigation.navigate("FontSetting");
                         }}
                     >
-                        <Text style={ styles.contentText }>Font</Text>
+                        <Text style={{ ...styles.contentText,
+                            fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont
+                        }}>
+                            Font
+                        </Text>
                         <View style={ styles.settingContainer }>
-                            <Text style={ styles.settingText }>ABCDEFGHI..</Text>
+                            <Text style={{ ...styles.exampleText,
+                                fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont
+                            }}>
+                                ABCDEFGHI..
+                            </Text>
                             <Image 
                                 style={ styles.image }
                                 source={ require('../../assets/icons/setting_arrow.png') }
@@ -124,7 +137,7 @@ const Setting = props => {
                                     [
                                         {
                                             text: 'OK',
-                                            style: 'destructive'
+                                            style: 'destructive',
                                         }
                                     ],
                                     {
@@ -134,7 +147,11 @@ const Setting = props => {
                             }
                         }}
                     >
-                        <Text style={ styles.contentText }>Praise the Developer</Text>
+                        <Text style={{ ...styles.contentText,
+                            fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont
+                        }}>
+                            Praise the Developer
+                        </Text>
                         <View style={ styles.settingContainer }>
                             <Image 
                                 style={ styles.image }
@@ -167,7 +184,11 @@ const Setting = props => {
                             });
                         }}
                     >
-                        <Text style={ styles.contentText }>Send any good opinion</Text>
+                        <Text style={{ ...styles.contentText,
+                            fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont
+                        }}>
+                            Send any good opinion
+                        </Text>
                         <View style={ styles.settingContainer }>
                             <Image 
                                 style={ styles.image }
@@ -180,7 +201,11 @@ const Setting = props => {
                             props.navigation.navigate("TermsAndCondition");
                         }}
                     >
-                        <Text style={ styles.contentText }>Terms and conditions</Text>
+                        <Text style={{ ...styles.contentText,
+                            fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont
+                        }}>
+                            Terms and conditions
+                        </Text>
                         <View style={ styles.settingContainer }>
                             <Image 
                                 style={ styles.image }
@@ -204,8 +229,7 @@ const styles = StyleSheet.create({
     },
     headerTitle: {
         textAlign: 'center',
-        fontFamily: 'SFProText-Bold',
-        fontWeight: '900',
+        fontWeight: 'bold',
         fontSize: 26,
         color: Colors.HeaderTitle_gray
     },
@@ -219,7 +243,12 @@ const styles = StyleSheet.create({
     },
     contentText: {
         marginVertical: 20,
-        fontFamily: 'SFProText-Regular',
+        fontWeight: 'normal',
+        fontSize: 16,
+        lineHeight: 19,
+        color: Colors.HeaderTitle_gray
+    },
+    exampleText: {
         fontWeight: 'normal',
         fontSize: 16,
         lineHeight: 19,
@@ -232,7 +261,6 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     settingText: {
-        fontFamily: 'SFProText-Regular',
         fontWeight: 'normal',
         fontSize: 16,
         lineHeight: 19,
