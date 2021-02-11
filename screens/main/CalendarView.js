@@ -1,6 +1,7 @@
 // Standard
 import React, { useEffect, useRef, useLayoutEffect, useCallback } from 'react';
-import { View, StyleSheet, Text, StatusBar, ScrollView, Image, Pressable, Alert, Animated, Dimensions, SafeAreaView } from 'react-native';
+import { View, StyleSheet, Text, StatusBar, ScrollView, Image, Pressable, Alert, Animated, Dimensions } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Custom
@@ -11,6 +12,7 @@ import Footer from '../../components/layout/Footer';
 import * as diaryActions from '../../store/actions/Diary';
 import * as calendarActions from '../../store/actions/Calendar';
 import * as sayingActions from '../../store/actions/Saying';
+import * as settingsAction from '../../store/actions/Settings';
 import * as funcs from '../../helpers/funcs';
 import * as calendarConsts from '../../constants/Calendar';
 import sayingConsts from '../../constants/Saying';
@@ -43,12 +45,17 @@ const CalendarView = props => {
     
     // Animation
     const animationDelay = 200;
-    const animationThreshold = 1;
+    const animationThreshold = 0.1;
     const scrollY = useRef(new Animated.Value(0)).current;
     const yPositionMin = Dimensions.get("screen").height * -1;
     const yPositionMax = Dimensions.get("screen").height;
     const yPositionInit = new Animated.Value(0);
-    
+
+    useEffect(() => {
+        // Load Setting
+        dispatch(settingsAction.loadSetting());
+    }, []);
+
     useEffect(() => {
         // Load Saying
         dispatch(sayingActions.loadSaying(isDate.getFullYear(), parseInt(isDate.getMonth()) + 1));
@@ -163,7 +170,6 @@ const CalendarView = props => {
                             Animated.event(
                                 [{ nativeEvent: { contentOffset: { y: scrollY }}}],
                                 { listener: (event) => {
-                                    event.is
                                     if (event.nativeEvent.contentOffset.y > animationThreshold) {
                                         Animated.spring(scrollY, {
                                             toValue: yPositionMin,
@@ -260,10 +266,12 @@ const CalendarView = props => {
                                     ytd.getDate(),
                                     calendarConsts.weekDaysLong[ytd.getDay()]
                                 ));
+                                /** Hold
                                 if (ytd.getMonth() !== isDate.getMonth()) {
                                     isDate.setMonth(isDate.getMonth() - 1);
                                     loadHandler(new Date(+isDate));
                                 }
+                                */
                             }} style={{ ...styles.diary_left }}>
                                 <Image 
                                     source={ Diary.footerIcons.LEFT.imgPath }
@@ -280,10 +288,12 @@ const CalendarView = props => {
                                     ytd.getDate(),
                                     calendarConsts.weekDaysLong[ytd.getDay()]
                                 ));
+                                /** Hold
                                 if (ytd.getMonth() !== isDate.getMonth()) {
                                     isDate.setMonth(isDate.getMonth() + 1);
                                     loadHandler(new Date(+isDate));
                                 }
+                                */
                             }} style={{ ...styles.diary_right }}>
                                 <Image 
                                     source={ Diary.footerIcons.RIGHT.imgPath }

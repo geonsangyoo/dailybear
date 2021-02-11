@@ -22,6 +22,17 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>message</string>
+		<string>readdle-spark</string>
+		<string>airmail</string>
+		<string>ms-outlook</string>
+		<string>googlegmail</string>
+		<string>inbox-gmail</string>
+		<string>ymail</string>
+		<string>superhuman</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -59,6 +70,27 @@
 		<string>Zocial.ttf</string>
 		<string>SFProText-Regular.ttf</string>
 		<string>SFProText-Bold.ttf</string>
+		<string>BMHANNA_11YRS.otf</string>
+		<string>BMJUA.otf</string>
+		<string>SEOULHANGANG.ttf</string>
+		<string>BMHANNA_11YRS-Regular.otf</string>
+		<string>BMJUA-Regular.otf</string>
+		<string>SEOULHANGANG-Regular.ttf</string>
+		<string>BM-HANNA-Regular.ttf</string>
+		<string>Jua-Regular.ttf</string>
+		<string>SeoulHangang-Regular.ttf</string>
+		<string>EastSeaDokdo-Regular.ttf</string>
+		<string>NanumBrushScript-Regular.ttf</string>
+		<string>YeonSung-Regular.ttf</string>
+		<string>BMHANNA_11yrs_otf.otf</string>
+		<string>SeoulHangang 2.ttf</string>
+		<string>seoulhangang-medium.ttf</string>
+		<string>BMHANNA_11yrs.ttf</string>
+		<string>Bazzi.ttf</string>
+		<string>Kyobo Handwriting 2019.otf</string>
+		<string>MapoFlowerIsland.otf</string>
+		<string>MapoPeacefull.otf</string>
+		<string>TmoneyRoundWindRegular.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

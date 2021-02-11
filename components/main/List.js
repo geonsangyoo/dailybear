@@ -16,12 +16,13 @@ const List = props => {
                 <Text style={ styles.listViewText }>
                     { String(props.date).padStart(2, '0') }
                 </Text>
-                { (props.emotionTitle >= 0) ?
-                    <Image 
-                        source={ Diary.emotionBears[props.emotionTitle].imgPath }
-                        style={ styles.image }
-                    /> : null
-                }
+                <Image 
+                    source={ ( props.emotionTitle >= 0 ) ?
+                        Diary.emotionBears[props.emotionTitle].imgPath :
+                        Diary.emotionBears[Diary.emotionTitle.NONE].imgPath
+                    }
+                    style={ styles.image }
+                />
                 <Text
                     style={ styles.listViewText }
                     numberOfLines={ 1 }

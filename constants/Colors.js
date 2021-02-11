@@ -8,6 +8,8 @@ const Colors = {
     // Text
     HeaderTitle_gray: '#4D403E',
     DaysTitle_white: 'rgba(77, 64, 62, 0.3)',
+    SettingTitle_brown: '#7E6357',
+    SettingSwitchOff_brown: 'rgba(126, 99, 87, 0.3)',
 
     // Line
     ListView_gray: '#4D403E',

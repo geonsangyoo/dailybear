@@ -12,10 +12,14 @@ import StatisticsView from '../screens/main/StatisticsView';
 import HeaderBackImage from '../components/layout/HeaderBackImage';
 import DiaryIntro from '../screens/main/DiaryIntro';
 import DiaryDetail from '../screens/main/DiaryDetail';
+import Setting from '../screens/main/Setting';
+import TermsAndCondition from '../screens/sub/TermsAndCondition';
+import FontSetting from '../screens/sub/FontSetting';
 import Colors from '../constants/Colors';
 
 const MainNavigatorScreen = createStackNavigator();
-const SayingDetailBackImage = require('../assets/icons/back.png');
+const BackBackImage = require('../assets/icons/back.png');
+const CloseBackImage = require('../assets/icons/close.png');
 
 const MainContainer = () => {
     return (
@@ -78,7 +82,45 @@ const MainContainer = () => {
                         component={ SayingDetail }
                         options={{
                             headerTitle: "A word of this month",
-                            headerBackImage: () => <HeaderBackImage imagePath={ SayingDetailBackImage } />,
+                            headerBackImage: () => <HeaderBackImage imagePath={ BackBackImage } />,
+                            headerBackTitleVisible: false,
+                            headerTintColor: Colors.HeaderTitle_gray,
+                            headerTransparent: true
+                        }}
+                    />
+                    <MainNavigatorScreen.Screen
+                        name="Setting"
+                        component={ Setting }
+                        options={{
+                            headerTitle: () => {},
+                            headerBackImage: () => <HeaderBackImage imagePath={ CloseBackImage } />,
+                            headerBackTitleVisible: false,
+                            headerTransparent: true,
+                        }}
+                    />
+                    <MainNavigatorScreen.Screen
+                        name="TermsAndCondition"
+                        component={ TermsAndCondition }
+                        options={{
+                            headerTitle: "Terms and conditions",
+                            headerTitleStyle: {
+                                fontWeight: 'bold'
+                            },
+                            headerBackImage: () => <HeaderBackImage imagePath={ CloseBackImage } />,
+                            headerBackTitleVisible: false,
+                            headerTintColor: Colors.HeaderTitle_gray,
+                            headerTransparent: true
+                        }}
+                    />
+                    <MainNavigatorScreen.Screen
+                        name="FontSetting"
+                        component={ FontSetting }
+                        options={{
+                            headerTitle: "Font",
+                            headerTitleStyle: {
+                                fontWeight: 'bold'
+                            },
+                            headerBackImage: () => <HeaderBackImage imagePath={ BackBackImage } />,
                             headerBackTitleVisible: false,
                             headerTintColor: Colors.HeaderTitle_gray,
                             headerTransparent: true

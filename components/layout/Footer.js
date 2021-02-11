@@ -34,7 +34,7 @@ const Footer = props => {
                 break;
             default:
                 break;
-        };
+        }
     }, [props.parentProps]);
 
     useEffect(() => {
@@ -65,7 +65,9 @@ const Footer = props => {
                     style={ styles.icon }
                 />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => {} } style={{ ...styles.setting_circle, ...styles.shadow }}>
+            <TouchableOpacity onPress={() => {
+                props.parentProps.navigation.navigate("Setting");
+            }} style={{ ...styles.setting_circle, ...styles.shadow }}>
                 <Image 
                     source={ require('../../assets/icons/setting.png') }
                     style={ styles.icon }

@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
         height: 340,
         backgroundColor: Colors.DiaryRectangleBox_background,
         shadowOpacity: 0.5,
-        shadowOffset: { width: 3, height: 4 },
+        shadowOffset: { width: 4, height: 6 },
         shadowColor: Colors.DiaryRectangleBox_shadow,
         borderRadius: 1,
         elevation: 4

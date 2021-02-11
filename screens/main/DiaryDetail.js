@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-native-elements';
 
 // Custom
+import * as calendarActions from '../../store/actions/Calendar';
 import * as diaryActions from '../../store/actions/Diary';
 import Diary from '../../constants/Diary';
 import Background from '../../components/layout/Background';
@@ -56,6 +57,8 @@ const DiaryDetail = props => {
     }
 
     const saveModeHandler = useCallback(() => {
+        let currDay = new Date();
+        currDay.setFullYear(diary.date.year, diary.date.month - 1, diary.date.date);
         dispatch(diaryActions.saveDiary(
                                 diary.date.year,
                                 diary.date.month,
@@ -64,6 +67,8 @@ const DiaryDetail = props => {
                                 inputState.value,
                                 diary.emotion
                             ));
+        dispatch(calendarActions.setActiveDate(currDay));
+        dispatch(calendarActions.setIsDiaryDetailed(false));
         props.navigation.navigate("CalendarView");
     }, [inputState.value, diary.emotion]);
 

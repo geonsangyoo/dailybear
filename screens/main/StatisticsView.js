@@ -1,7 +1,8 @@
 // Standard
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, StatusBar, SafeAreaView, ScrollView, Image, Dimensions } from 'react-native';
+import { View, StyleSheet, Text, StatusBar, ScrollView, Image, Dimensions } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Custom
 import Background from '../../components/layout/Background';
@@ -35,6 +36,9 @@ const StatisticsView = props => {
         let res = [];
         if (numberOfEmotionsSorted.length > 0) {
             for (let val in Diary.emotionTitle) {
+                if (val === 'NONE') {
+                    continue;
+                }
                 let number = numberOfEmotionsSorted[Diary.emotionTitle[val]].number;
                 res.push({
                     top: Math.floor(Math.random() * emotionHeightRange),
