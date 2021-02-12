@@ -14,6 +14,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		1C1477FE15F0403882CC21BC /* MapoPeacefull.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2FC9576F59434301834DFFAD /* MapoPeacefull.otf */; };
 		29E882303DA646BF92B7C699 /* diary_edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 51AC34DCD0E64CC58F3DD22F /* diary_edit.png */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -26,6 +27,7 @@
 		611AA9473C19A869AF7D762D /* libPods-dailybear-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BF1182DF77CD16F45A7EC98 /* libPods-dailybear-tvOS.a */; };
 		678C2AF087E748B09DE79E05 /* splash_title.png in Resources */ = {isa = PBXBuildFile; fileRef = F6016CE886A343D99FADBA4A /* splash_title.png */; };
 		68E3763E19FD43E08041AAB3 /* main_bear_5.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C68B655DD734F9FAED0298F /* main_bear_5.png */; };
+		697CD90AA4FF40AAB2B91E0E /* Bazzi.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A55729735EB747D39256C78C /* Bazzi.ttf */; };
 		6BCFC7F6CAE84B9194329C9C /* SFProText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09FA717B0EF347FDAC856466 /* SFProText-Regular.ttf */; };
 		7418B7F2E94343908E4DA7CA /* setting.png in Resources */ = {isa = PBXBuildFile; fileRef = FC57ABBD699A44D980F5A1AB /* setting.png */; };
 		779447EC8DE44113B613FC5A /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 07A36D7498B34B538D06E145 /* background.png */; };
@@ -34,8 +36,10 @@
 		7AA07E0D695548FFBE490A02 /* oval_orange.png in Resources */ = {isa = PBXBuildFile; fileRef = 923E01F392E9438788D483A6 /* oval_orange.png */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8468A9FE7B2640B187904163 /* splash_bear.png in Resources */ = {isa = PBXBuildFile; fileRef = 72FE35F5E4B742A6AFD540B4 /* splash_bear.png */; };
+		8AB5A5076E7749B199287024 /* MapoFlowerIsland.otf in Resources */ = {isa = PBXBuildFile; fileRef = D8F96A3BE9B0487594BD448A /* MapoFlowerIsland.otf */; };
 		8B04EA08257C71B600A94C8D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8EEB3DCDA0521745C32842AB /* libPods-dailybear.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8721B47666DD4CC9C093FDC1 /* libPods-dailybear.a */; };
+		9860A502360E4BA8BBB2AF40 /* Kyobo Handwriting 2019.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5540AB647D6D465CA450E873 /* Kyobo Handwriting 2019.otf */; };
 		988F66B830534C139492A23F /* left.png in Resources */ = {isa = PBXBuildFile; fileRef = A996A6423386494692543D75 /* left.png */; };
 		9B45A0D79EFB4487B8D04B69 /* main_bear_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B39C12232A64498B6540890 /* main_bear_3.png */; };
 		A0FDB5D56C454037ACC71DA9 /* check_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 306C3521CE594C28A896C6FC /* check_on.png */; };
@@ -51,15 +55,11 @@
 		C1B1F17A4EAF4788A5A6312C /* right.png in Resources */ = {isa = PBXBuildFile; fileRef = E548AA93B49847F388E9B751 /* right.png */; };
 		C4BD54F0289C4FC8AD3897AB /* main_bear_6.png in Resources */ = {isa = PBXBuildFile; fileRef = 0407968E63584EB99EB3A604 /* main_bear_6.png */; };
 		CC95F0CA8C3B4E5D8D3CCE99 /* main_bear_4.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B2026F435843AF88DDE56B /* main_bear_4.png */; };
+		D707BADAE1334606ADD33895 /* main_bear_7.png in Resources */ = {isa = PBXBuildFile; fileRef = D64F1006C38F4FECBCFE0C4B /* main_bear_7.png */; };
 		E1E261F1D3634237898F0197 /* oval_red.png in Resources */ = {isa = PBXBuildFile; fileRef = DD6AE494EA074D42B23FF7EE /* oval_red.png */; };
 		E4D0B9885A5243FD81C91FF0 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 331A58729E284408A33631D4 /* back.png */; };
-		F6A91FB684B64EA336D9B460 /* libPods-dailybear-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51C7596553489B426A46F476 /* libPods-dailybear-tvOSTests.a */; };
-		697CD90AA4FF40AAB2B91E0E /* Bazzi.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A55729735EB747D39256C78C /* Bazzi.ttf */; };
-		9860A502360E4BA8BBB2AF40 /* Kyobo Handwriting 2019.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5540AB647D6D465CA450E873 /* Kyobo Handwriting 2019.otf */; };
-		8AB5A5076E7749B199287024 /* MapoFlowerIsland.otf in Resources */ = {isa = PBXBuildFile; fileRef = D8F96A3BE9B0487594BD448A /* MapoFlowerIsland.otf */; };
-		1C1477FE15F0403882CC21BC /* MapoPeacefull.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2FC9576F59434301834DFFAD /* MapoPeacefull.otf */; };
 		F63F781EB25B4F86BEEC3B03 /* TmoneyRoundWindRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B669FA6BD7304FEB8E3DAD7A /* TmoneyRoundWindRegular.ttf */; };
-		D707BADAE1334606ADD33895 /* main_bear_7.png in Resources */ = {isa = PBXBuildFile; fileRef = D64F1006C38F4FECBCFE0C4B /* main_bear_7.png */; };
+		F6A91FB684B64EA336D9B460 /* libPods-dailybear-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51C7596553489B426A46F476 /* libPods-dailybear-tvOSTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +100,7 @@
 		2931122B9EBF49F2BB5FA94F /* setting_check.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = setting_check.png; path = ../assets/icons/setting_check.png; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* dailybear-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "dailybear-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* dailybear-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dailybear-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2FC9576F59434301834DFFAD /* MapoPeacefull.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MapoPeacefull.otf; path = ../assets/fonts/MapoPeacefull.otf; sourceTree = "<group>"; };
 		306C3521CE594C28A896C6FC /* check_on.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = check_on.png; path = ../assets/icons/check_on.png; sourceTree = "<group>"; };
 		331A58729E284408A33631D4 /* back.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = back.png; path = ../assets/icons/back.png; sourceTree = "<group>"; };
 		349D375C08FB45B7BE10AB87 /* list.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = list.png; path = ../assets/icons/list.png; sourceTree = "<group>"; };
@@ -112,6 +113,7 @@
 		53626931B0A0452CAFFCA90C /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		5410BC8D6F3F4861B8D47F5E /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		542E509EC34A53A26DC8BF5C /* Pods-dailybear-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dailybear-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-dailybear-tvOSTests/Pods-dailybear-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		5540AB647D6D465CA450E873 /* Kyobo Handwriting 2019.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Kyobo Handwriting 2019.otf"; path = "../assets/fonts/Kyobo Handwriting 2019.otf"; sourceTree = "<group>"; };
 		569E50D8A747473B87F475CB /* oval_purple.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = oval_purple.png; path = ../assets/images/oval_purple.png; sourceTree = "<group>"; };
 		5BF1182DF77CD16F45A7EC98 /* libPods-dailybear-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dailybear-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6224883672AC4822ACDE333E /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
@@ -134,9 +136,11 @@
 		9B39C12232A64498B6540890 /* main_bear_3.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = main_bear_3.png; path = ../assets/images/main_bear_3.png; sourceTree = "<group>"; };
 		9C2736DC3A804FCD8B5D1F16 /* oval_pink.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = oval_pink.png; path = ../assets/images/oval_pink.png; sourceTree = "<group>"; };
 		9D8901DEA6FC486997B87404 /* main_bear_2.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = main_bear_2.png; path = ../assets/images/main_bear_2.png; sourceTree = "<group>"; };
+		A55729735EB747D39256C78C /* Bazzi.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Bazzi.ttf; path = ../assets/fonts/Bazzi.ttf; sourceTree = "<group>"; };
 		A996A6423386494692543D75 /* left.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = left.png; path = ../assets/icons/left.png; sourceTree = "<group>"; };
 		AB281D941C4665C897AE8978 /* Pods-dailybear-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dailybear-tvOS.release.xcconfig"; path = "Target Support Files/Pods-dailybear-tvOS/Pods-dailybear-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		AC3C56EC4D55774EABDCB305 /* Pods-dailybear-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dailybear-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-dailybear-tvOS/Pods-dailybear-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		B669FA6BD7304FEB8E3DAD7A /* TmoneyRoundWindRegular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = TmoneyRoundWindRegular.ttf; path = ../assets/fonts/TmoneyRoundWindRegular.ttf; sourceTree = "<group>"; };
 		B91D6623FC19195EF8EEB1E3 /* Pods-dailybear-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dailybear-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-dailybear-tvOSTests/Pods-dailybear-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BC0F6CBC14794C5F9D4A737C /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		BD9399AEA97409441193B9E5 /* Pods-dailybear-dailybearTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dailybear-dailybearTests.release.xcconfig"; path = "Target Support Files/Pods-dailybear-dailybearTests/Pods-dailybear-dailybearTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -145,6 +149,8 @@
 		C8A1FBC1F7EC514F5299B18B /* libPods-dailybear-dailybearTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dailybear-dailybearTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCBACC6BC15F47228C1D42A2 /* share.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = share.png; path = ../assets/icons/share.png; sourceTree = "<group>"; };
 		D0D2B92444D8448EB027BA22 /* oval_blue.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = oval_blue.png; path = ../assets/images/oval_blue.png; sourceTree = "<group>"; };
+		D64F1006C38F4FECBCFE0C4B /* main_bear_7.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = main_bear_7.png; path = ../assets/images/main_bear_7.png; sourceTree = "<group>"; };
+		D8F96A3BE9B0487594BD448A /* MapoFlowerIsland.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MapoFlowerIsland.otf; path = ../assets/fonts/MapoFlowerIsland.otf; sourceTree = "<group>"; };
 		DD6AE494EA074D42B23FF7EE /* oval_red.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = oval_red.png; path = ../assets/images/oval_red.png; sourceTree = "<group>"; };
 		E07AEFBE54604DA2B663B4AA /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		E548AA93B49847F388E9B751 /* right.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = right.png; path = ../assets/icons/right.png; sourceTree = "<group>"; };
@@ -155,12 +161,6 @@
 		F6016CE886A343D99FADBA4A /* splash_title.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = splash_title.png; path = ../assets/images/splash_title.png; sourceTree = "<group>"; };
 		FC57ABBD699A44D980F5A1AB /* setting.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = setting.png; path = ../assets/icons/setting.png; sourceTree = "<group>"; };
 		FF3FC6DED7CF4D6D83FB112F /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
-		A55729735EB747D39256C78C /* Bazzi.ttf */ = {isa = PBXFileReference; name = "Bazzi.ttf"; path = "../assets/fonts/Bazzi.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		5540AB647D6D465CA450E873 /* Kyobo Handwriting 2019.otf */ = {isa = PBXFileReference; name = "Kyobo Handwriting 2019.otf"; path = "../assets/fonts/Kyobo Handwriting 2019.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		D8F96A3BE9B0487594BD448A /* MapoFlowerIsland.otf */ = {isa = PBXFileReference; name = "MapoFlowerIsland.otf"; path = "../assets/fonts/MapoFlowerIsland.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		2FC9576F59434301834DFFAD /* MapoPeacefull.otf */ = {isa = PBXFileReference; name = "MapoPeacefull.otf"; path = "../assets/fonts/MapoPeacefull.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		B669FA6BD7304FEB8E3DAD7A /* TmoneyRoundWindRegular.ttf */ = {isa = PBXFileReference; name = "TmoneyRoundWindRegular.ttf"; path = "../assets/fonts/TmoneyRoundWindRegular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		D64F1006C38F4FECBCFE0C4B /* main_bear_7.png */ = {isa = PBXFileReference; name = "main_bear_7.png"; path = "../assets/images/main_bear_7.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -920,7 +920,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = 5D35DF6M3H;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = dailybear/Info.plist;
@@ -945,7 +945,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = 5D35DF6M3H;
 				INFOPLIST_FILE = dailybear/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
