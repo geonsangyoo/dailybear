@@ -63,7 +63,6 @@ const Header = props => {
 
 const styles = StyleSheet.create({
     container: {
-        
     },
     year: {
         textAlign: 'center',

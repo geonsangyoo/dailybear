@@ -1,6 +1,6 @@
 // Standard
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, StyleSheet, Image, Pressable } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Custom
@@ -57,23 +57,23 @@ const Footer = props => {
 
     return (
         <View style={ styles.container }>
-            <TouchableOpacity onPress={() => {
+            <Pressable onPress={() => {
                 props.parentProps.navigation.navigate(viewMode);
             }} style={{ ...styles.viewMode_circle, ...styles.shadow }}>
                 <Image 
                     source={ viewModeImgPath }
                     style={ styles.icon }
                 />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {
+            </Pressable>
+            <Pressable onPress={() => {
                 props.parentProps.navigation.navigate("Setting");
             }} style={{ ...styles.setting_circle, ...styles.shadow }}>
                 <Image 
                     source={ require('../../assets/icons/setting.png') }
                     style={ styles.icon }
                 />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {
+            </Pressable>
+            <Pressable onPress={() => {
                 dispatch(diaryActions.loadDiary(
                     today.getFullYear(),
                     today.getMonth() + 1,
@@ -86,7 +86,7 @@ const Footer = props => {
                     source={ require('../../assets/icons/edit.png') }
                     style={ styles.icon }
                 />
-            </TouchableOpacity>
+            </Pressable>
         </View>
     );
 
@@ -94,45 +94,46 @@ const Footer = props => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        position: 'absolute',
         flexDirection: 'row',
-        alignItems: 'flex-end',
-        marginBottom: '8%',
-        marginLeft: '8%',
-        marginRight: '8%'
+        width: '100%',
+        bottom: '13%',
     },
     shadow: {
         shadowColor: 'black',
-        shadowOpacity: 0.26,
-        shadowOffset: { width: 0, height: 8 },
-        shadowRadius: 8,
-        elevation: 5
+        shadowOpacity: 0.2,
+        shadowOffset: { width: 0, height: 1 },
+        shadowRadius: 2,
     },
     viewMode_circle: {
-        width: 60,
-        height: 60,
-        borderRadius: 60/2,
-        backgroundColor: Colors.FooterIconBackground_white
+        position: 'absolute',
+        width: 46,
+        height: 46,
+        borderRadius: 46/2,
+        left: '7%',
+        backgroundColor: Colors.FooterIconBackground_white,
     },
     setting_circle: {
-        width: 60,
-        height: 60,
-        marginLeft: 20,
-        borderRadius: 60/2,
-        backgroundColor: Colors.FooterIconBackground_white
+        position: 'absolute',
+        width: 46,
+        height: 46,
+        left: '23%',
+        borderRadius: 46/2,
+        backgroundColor: Colors.FooterIconBackground_white,
     },
     edit_circle: {
-        width: 60,
-        height: 60,
-        marginLeft: '40%',
-        borderRadius: 60/2,
-        backgroundColor: Colors.FooterIconBackground_brown
+        position: 'absolute',
+        width: 46,
+        height: 46,
+        borderRadius: 46/2,
+        right: '7%',
+        backgroundColor: Colors.FooterIconBackground_brown,
     },
     icon: {
-        width: 30,
-        height: 30,
-        marginTop: 15,
-        marginLeft: 15
+        width: 24,
+        height: 24,
+        marginTop: 11,
+        marginLeft: 11,
     }
 });
 

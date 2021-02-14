@@ -28,12 +28,11 @@ const Bear = props => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        marginHorizontal: 14,
+        flex: 1
     },
     image: {
-        width: 38,
-        height: 35
+        width: 40,
+        height: 40
     }
 });
 
