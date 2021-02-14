@@ -110,7 +110,6 @@ const styles = StyleSheet.create({
     calendarContainer: {
         flex: 2,
         alignItems: 'center',
-        marginTop: '5%',
     },
     rowConatiner: {
         flex: 1,

@@ -44,7 +44,7 @@ const CalendarView = props => {
                         : '';
     
     // Animation
-    const animationDelay = 300;
+    const animationDelay = 80;
     const animationThreshold = 10;
     const scrollY = useRef(new Animated.Value(0)).current;
     const yPositionMin = Dimensions.get("screen").height * -1;
@@ -142,6 +142,8 @@ const CalendarView = props => {
         scrollY.setValue(yPositionMax);
         Animated.spring(scrollY, {
             toValue: yPositionInit,
+            speed: 25,
+            bounciness: 1,
             useNativeDriver: true
         }).start();
     };
@@ -152,6 +154,8 @@ const CalendarView = props => {
         scrollY.setValue(yPositionMin);
         Animated.spring(scrollY, {
             toValue: yPositionInit,
+            speed: 25,
+            bounciness: 1,
             useNativeDriver: true
         }).start();
     };
@@ -160,43 +164,47 @@ const CalendarView = props => {
         <View style={{ flex: 1 }}>
             <Background style={{ ...styles.container, opacity: isDiaryDetailed ? Diary.opacity : 1 }}>
                 <SafeAreaView style={ styles.container }>
-                    <Animated.ScrollView
-                        style={{ ...styles.gestureHandler, transform: [{ translateY: scrollY }] }}
-                        onScrollEndDrag={
-                            Animated.event(
-                                [{ nativeEvent: { contentOffset: { y: scrollY }}}],
-                                { listener: (event) => {
-                                    if (event.nativeEvent.contentOffset.y > animationThreshold) {
-                                        scrollY.setValue(-1 * event.nativeEvent.contentOffset.y)
-                                        Animated.spring(scrollY, {
-                                            toValue: yPositionMin,
-                                            useNativeDriver: true
-                                        }).start();
-                                        setTimeout(() => {
-                                            scrollY.stopAnimation(swipeUpAnimationAfter)
-                                        }, animationDelay);
+                    <View style={ styles.gestureContainer }>
+                        <Animated.ScrollView
+                            style={{ transform: [{ translateY: scrollY }] }}
+                            onScrollEndDrag={
+                                Animated.event(
+                                    [{ nativeEvent: { contentOffset: { y: scrollY }}}],
+                                    { listener: (event) => {
+                                        if (event.nativeEvent.contentOffset.y > animationThreshold) {
+                                            scrollY.setValue(-1 * event.nativeEvent.contentOffset.y)
+                                            Animated.spring(scrollY, {
+                                                toValue: yPositionMin,
+                                                bounciness: 1,
+                                                useNativeDriver: true
+                                            }).start();
+                                            setTimeout(() => {
+                                                scrollY.stopAnimation(swipeUpAnimationAfter)
+                                            }, animationDelay);
+                                        }
+                                        if (event.nativeEvent.contentOffset.y < (-1 * animationThreshold)) {
+                                            scrollY.setValue(-1 * event.nativeEvent.contentOffset.y)
+                                            Animated.spring(scrollY, {
+                                                toValue: yPositionMax,
+                                                bounciness: 1,
+                                                useNativeDriver: true
+                                            }).start();
+                                            setTimeout(() => {
+                                                scrollY.stopAnimation(swipeDownAnimationAfter)
+                                            }, animationDelay);
+                                        }
+                                    },
+                                        useNativeDriver: true
                                     }
-                                    if (event.nativeEvent.contentOffset.y < (-1 * animationThreshold)) {
-                                        scrollY.setValue(-1 * event.nativeEvent.contentOffset.y)
-                                        Animated.spring(scrollY, {
-                                            toValue: yPositionMax,
-                                            useNativeDriver: true
-                                        }).start();
-                                        setTimeout(() => {
-                                            scrollY.stopAnimation(swipeDownAnimationAfter)
-                                        }, animationDelay);
-                                    }
-                                },
-                                    useNativeDriver: true
-                                }
-                            )
-                        }
-                        scrollEventThrottle={ 0 }
-                    >
-                        <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent={ true }/>
-                        <Header getDate={ isDate } parentProps={ props } saying={ saying } mode={ mode }/>
-                        <Calendar getDate={ isDate } diaryHandler={ diaryHandler } parent={ this }/>
-                    </Animated.ScrollView>
+                                )
+                            }
+                            scrollEventThrottle={ 0 }
+                        >
+                            <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent={ true }/>
+                            <Header getDate={ isDate } parentProps={ props } saying={ saying } mode={ mode }/>
+                            <Calendar getDate={ isDate } diaryHandler={ diaryHandler } parent={ this }/>
+                        </Animated.ScrollView>
+                    </View>
                     <Footer parentProps={ props } parent={ this } diaryHandler={ diaryHandler }/>
                 </SafeAreaView>
             </Background>
@@ -310,8 +318,9 @@ const styles = StyleSheet.create({
         flex: 1,
         overflow: 'hidden'
     },
-    gestureHandler: {
-        height: '100%',
+    gestureContainer: {
+        height: '80%',
+        overflow: 'hidden',
     },
     contentContainer: {
         flex: 1,
