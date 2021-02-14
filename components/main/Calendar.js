@@ -50,7 +50,7 @@ const Calendar = props => {
             let rowItems = row.map((item, colIndex) => {
                 let isValid;
                 isValid = (item == -1) ? false : true;
-                if (rowIndex == 0) {
+                if (rowIndex === 0) {
                     return (
                         <View key={ keyCounter++ } style={ styles.viewDays }>
                             <Text style={ styles.Days }>
@@ -85,7 +85,7 @@ const Calendar = props => {
                 }
             });
             return (
-                <View key={ rowIndex } style={ styles.rowConatiner }>
+                <View key={ rowIndex } style={{ ...styles.rowConatiner, marginVertical: (rowIndex === 0) ? 25 : 6 }}>
                     { rowItems }
                 </View>
             );
@@ -109,23 +109,22 @@ const Calendar = props => {
 const styles = StyleSheet.create({
     calendarContainer: {
         flex: 2,
+        alignItems: 'center',
         marginTop: '5%',
     },
     rowConatiner: {
         flex: 1,
         flexDirection: 'row',
-        marginLeft: 10,
-        marginRight: 25,
-        marginVertical: 12,
-        justifyContent: 'space-around',
-        alignItems: 'center',
+        justifyContent: 'center',
+        left: '1%',
+        marginHorizontal: 15,
     },
     viewDays: {
+        flex: 1,
         top: 20,
-        marginBottom: 15
     },
     Days: {
-        paddingLeft: 10,
+        marginHorizontal: 14,
         fontSize: 11,
         fontFamily: 'SFProText-Regular',
         fontWeight: '800',

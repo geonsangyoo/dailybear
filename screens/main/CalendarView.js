@@ -45,7 +45,7 @@ const CalendarView = props => {
     
     // Animation
     const animationDelay = 300;
-    const animationThreshold = 20;
+    const animationThreshold = 10;
     const scrollY = useRef(new Animated.Value(0)).current;
     const yPositionMin = Dimensions.get("screen").height * -1;
     const yPositionMax = Dimensions.get("screen").height;
@@ -142,8 +142,6 @@ const CalendarView = props => {
         scrollY.setValue(yPositionMax);
         Animated.spring(scrollY, {
             toValue: yPositionInit,
-            speed: 5,
-            bounciness: 3,
             useNativeDriver: true
         }).start();
     };
@@ -154,8 +152,6 @@ const CalendarView = props => {
         scrollY.setValue(yPositionMin);
         Animated.spring(scrollY, {
             toValue: yPositionInit,
-            speed: 5,
-            bounciness: 3,
             useNativeDriver: true
         }).start();
     };
@@ -171,10 +167,9 @@ const CalendarView = props => {
                                 [{ nativeEvent: { contentOffset: { y: scrollY }}}],
                                 { listener: (event) => {
                                     if (event.nativeEvent.contentOffset.y > animationThreshold) {
+                                        scrollY.setValue(-1 * event.nativeEvent.contentOffset.y)
                                         Animated.spring(scrollY, {
                                             toValue: yPositionMin,
-                                            speed: 5,
-                                            bounciness: 3,
                                             useNativeDriver: true
                                         }).start();
                                         setTimeout(() => {
@@ -182,10 +177,9 @@ const CalendarView = props => {
                                         }, animationDelay);
                                     }
                                     if (event.nativeEvent.contentOffset.y < (-1 * animationThreshold)) {
+                                        scrollY.setValue(-1 * event.nativeEvent.contentOffset.y)
                                         Animated.spring(scrollY, {
                                             toValue: yPositionMax,
-                                            speed: 5,
-                                            bounciness: 3,
                                             useNativeDriver: true
                                         }).start();
                                         setTimeout(() => {
