@@ -132,7 +132,7 @@ const DiaryDetail = props => {
                             <Text style={ styles.dateTextStyle }>
                                 { dateString }
                             </Text>
-                            <ScrollView bounces={ false }>
+                            <ScrollView style={ styles.scrollBarContainer }>
                                 <View style={ styles.description }>
                                         <TextInput
                                             style={ styles.input }  
@@ -221,6 +221,10 @@ const styles = StyleSheet.create({
         width: 315,
         height: 166
     },
+    scrollBarContainer: {
+        marginTop: 30,
+        marginBottom: 20,
+    },
     textContainer: {
         flex: 1,
         top: '12%'
@@ -252,8 +256,6 @@ const styles = StyleSheet.create({
     },
     description: {
         alignSelf: 'center',
-        width: 295,
-        height: 134
     },
     diaryTextContainer: {
         top: '10%',
@@ -270,8 +272,8 @@ const styles = StyleSheet.create({
         width: 95,
         height: 87.5,
         alignSelf: 'center',
-        marginTop: 55,
-        marginBottom: 18,
+        marginTop: 25,
+        marginBottom: 20,
         marginHorizontal: 18
     },
     headerRightContainer: {
