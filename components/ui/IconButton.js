@@ -1,11 +1,15 @@
 // Standard
 import React from 'react';
 import { Text, View, StyleSheet, Pressable, Image } from 'react-native';
+import { useSelector } from 'react-redux';
 
 // Custom
+import SettingConstants from '../../constants/Setting';
 import Colors from '../../constants/Colors';
 
 const IconButton = props => {
+
+    const fontNameSetting = useSelector(state => state.settings.fontName);
     
     const { setting } = props;
     const { name } = props;
@@ -16,12 +20,17 @@ const IconButton = props => {
 
     return (
         <View>
-            <Pressable onPress={ () => { props.clickHandler(name) }} style={ styles.settingButton }>
+            <Pressable
+                onPress={ () => { props.clickHandler(name) }}
+                style={ styles.settingButton }>
                 <Image 
                     style={ styles.icon }
                     source={ imgPath }
                 />
-                <Text style={ styles.text }>{ name }</Text>
+                <Text style={{ ...styles.text,
+                    fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
+                        { name }
+                </Text>
             </Pressable>
         </View>
     );
@@ -38,9 +47,8 @@ const styles = StyleSheet.create({
     },
     text: {
         top: 2,
-        marginLeft: 6,
+        marginLeft: 10,
         fontSize: 14,
-        fontFamily: 'SFProText-Regular',
         color: Colors.HeaderTitle_gray
     }
 });

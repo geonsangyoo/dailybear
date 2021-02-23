@@ -12,6 +12,7 @@ import * as calendarActions from '../../store/actions/Calendar';
 import * as diaryActions from '../../store/actions/Diary';
 import * as sayingActions from '../../store/actions/Saying';
 import * as funcs from '../../helpers/funcs';
+import SettingConstants from '../../constants/Setting';
 import sayingConsts from '../../constants/Saying';
 import Diary from '../../constants/Diary';
 import Statistics from '../../constants/Statistics';
@@ -24,6 +25,7 @@ const StatisticsView = props => {
     const saying = useSelector(state => state.saying.saying);
     const mode = useSelector(state => state.saying.mode);
     const emotions = useSelector(state => state.calendar.emotions);
+    const fontNameSetting = useSelector(state => state.settings.fontName);
     const maxDays = funcs.getMaxDays(isDate.getFullYear(), isDate.getMonth());
     const emotionWidthRange = Math.floor( Dimensions.get('window').width / 4 );
     const emotionHeightRange = Math.floor( Dimensions.get('window').height / 6 );
@@ -188,27 +190,45 @@ const StatisticsView = props => {
                         <View style={ styles.emotionNumberContainer }>
                             <View style={ styles.emotionNumberItem }>
                                 <View style={{ ...styles.emotionOvalShape, backgroundColor: Colors.EmotionOvalShape_angry }}/>
-                                <Text style={ styles.emotionNumberText } >{ numberOfEmotions[Diary.emotionTitle.ANGRY] }</Text>
+                                <Text style={{ ...styles.emotionNumberText,
+                                    fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
+                                        { numberOfEmotions[Diary.emotionTitle.ANGRY] }
+                                </Text>
                             </View>
                             <View style={ styles.emotionNumberItem }>
                                 <View style={{ ...styles.emotionOvalShape, backgroundColor: Colors.EmotionOvalShape_calm }}/>
-                                <Text style={ styles.emotionNumberText } >{ numberOfEmotions[Diary.emotionTitle.CALM] }</Text>
+                                <Text style={{ ...styles.emotionNumberText,
+                                    fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
+                                        { numberOfEmotions[Diary.emotionTitle.CALM] }
+                                </Text>
                             </View>
                             <View style={ styles.emotionNumberItem }>
                                 <View style={{ ...styles.emotionOvalShape, backgroundColor: Colors.EmotionOvalShape_lovely }}/>
-                                <Text style={ styles.emotionNumberText } >{ numberOfEmotions[Diary.emotionTitle.LOVELY] }</Text>
+                                <Text style={{ ...styles.emotionNumberText,
+                                    fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
+                                        { numberOfEmotions[Diary.emotionTitle.LOVELY] }
+                                </Text>
                             </View>
                             <View style={ styles.emotionNumberItem }>
                                 <View style={{ ...styles.emotionOvalShape, backgroundColor: Colors.EmotionOvalShape_gloomy }}/>
-                                <Text style={ styles.emotionNumberText } >{ numberOfEmotions[Diary.emotionTitle.GLOOMY] }</Text>
+                                <Text style={{ ...styles.emotionNumberText,
+                                    fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
+                                        { numberOfEmotions[Diary.emotionTitle.GLOOMY] }
+                                </Text>
                             </View>
                             <View style={ styles.emotionNumberItem }>
                                 <View style={{ ...styles.emotionOvalShape, backgroundColor: Colors.EmotionOvalShape_sad }}/>
-                                <Text style={ styles.emotionNumberText } >{ numberOfEmotions[Diary.emotionTitle.SAD] }</Text>
+                                <Text style={{ ...styles.emotionNumberText,
+                                    fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
+                                        { numberOfEmotions[Diary.emotionTitle.SAD] }
+                                </Text>
                             </View>
                             <View style={ styles.emotionNumberItem }>
                                 <View style={{ ...styles.emotionOvalShape, backgroundColor: Colors.EmotionOvalShape_melancholy }}/>
-                                <Text style={ styles.emotionNumberText } >{ numberOfEmotions[Diary.emotionTitle.MELANCHOLY] }</Text>
+                                <Text style={{ ...styles.emotionNumberText,
+                                    fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
+                                        { numberOfEmotions[Diary.emotionTitle.MELANCHOLY] }
+                                </Text>
                             </View>
                         </View>
                         {
@@ -323,7 +343,6 @@ const styles = StyleSheet.create({
         marginTop: 1,
     },
     emotionNumberText: {
-        fontFamily: 'SFProText-Regular',
         fontStyle: 'normal',
         fontWeight: '400',
         marginLeft: 8,

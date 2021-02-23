@@ -1,19 +1,25 @@
 // Standard
 import React from 'react';
 import { View, Text, Image, StyleSheet, } from 'react-native';
+import { useSelector } from 'react-redux';
 
 // Custom
+import SettingConstants from '../../constants/Setting';
 import Diary from '../../constants/Diary';
 import Colors from '../../constants/Colors';
 
 const List = props => {
+    
+    const fontNameSetting = useSelector(state => state.settings.fontName);
+
     return (
         <View style={ styles.container }>
             { (props.date === 1) ?
                 <View style={ styles.line } /> : null
             }
             <View style={ styles.contents }>
-                <Text style={ styles.listViewText }>
+                <Text style={{ ...styles.listViewText,
+                    fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
                     { String(props.date).padStart(2, '0') }
                 </Text>
                 <Image 
@@ -23,8 +29,8 @@ const List = props => {
                     }
                     style={ styles.image }
                 />
-                <Text
-                    style={ styles.listViewText }
+                <Text style={{ ...styles.listViewText,
+                    fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}
                     numberOfLines={ 1 }
                 >
                     { props.content }
@@ -50,7 +56,6 @@ const styles = StyleSheet.create({
         borderBottomColor: Colors.ListView_gray
     },
     listViewText: {
-        fontFamily: 'SFProText-Regular',
         fontStyle: 'normal',
         fontWeight: '400',
         fontSize: 12,

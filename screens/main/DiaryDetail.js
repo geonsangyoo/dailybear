@@ -7,6 +7,7 @@ import { Button } from 'react-native-elements';
 // Custom
 import * as calendarActions from '../../store/actions/Calendar';
 import * as diaryActions from '../../store/actions/Diary';
+import SettingConstants from '../../constants/Setting';
 import Diary from '../../constants/Diary';
 import Background from '../../components/layout/Background';
 import HeaderBackImage from '../../components/layout/HeaderBackImage';
@@ -18,6 +19,7 @@ const DiaryIntroBackImage = require('../../assets/icons/close.png');
 const DiaryDetail = props => {
     const INPUT_CHANGE = 'INPUT_CHANGE';
     const placeholder = Diary.placeholder;
+    const fontNameSetting = useSelector(state => state.settings.fontName);
     const dispatch = useDispatch();
     const [isValueInit, setIsValueInit] = useState(true);
     const [isCancelModalOpened, setIsCancelModalOpened] = useState(false);
@@ -90,7 +92,8 @@ const DiaryDetail = props => {
                 <Button
                     title='Save'
                     type='clear'
-                    titleStyle={ styles.headerRightText }
+                    titleStyle={{ ...styles.headerRightText,
+                        fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}
                     onPress={ saveModeHandler }
                     disabled={ isCancelModalOpened ? true : false }
                     style={{ opacity: isCancelModalOpened ? Diary.opacity : 1 }}
@@ -129,13 +132,15 @@ const DiaryDetail = props => {
                                     source={ Diary.emotionBears[diary.emotion].imgPath }
                                 />
                             </TouchableOpacity>
-                            <Text style={ styles.dateTextStyle }>
+                            <Text style={{ ...styles.dateTextStyle,
+                                fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
                                 { dateString }
                             </Text>
                             <ScrollView style={ styles.scrollBarContainer }>
                                 <View style={ styles.description }>
                                         <TextInput
-                                            style={ styles.input }  
+                                            style={{ ...styles.input,
+                                                fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}  
                                             editable={ true }
                                             multiline={ true }
                                             onChangeText={(text) => { 
@@ -158,7 +163,8 @@ const DiaryDetail = props => {
                 isCancelModalOpened ?
                     <RectangleBox style={ styles.rectangleBoxCloseModalContainer }>
                         <View style={ styles.cancelMessageContainer }>
-                            <Text style={ styles.cancelModalTextStyle }>
+                            <Text style={{ ...styles.cancelModalTextStyle,
+                                fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
                                 { Diary.cancelMessage }
                             </Text>
                         </View>
@@ -166,13 +172,15 @@ const DiaryDetail = props => {
                             <Text onPress={() => {
                                 setIsCancelModalOpened(false);
                             }}
-                                style={ styles.cancelModalButtonTextStyle }>
+                                style={{ ...styles.cancelModalButtonTextStyle,
+                                fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
                                 Cancel
                             </Text>
                             <Text onPress={() => {
                                 props.navigation.goBack();
                             }} 
-                                style={ styles.cancelModalButtonTextStyle }>
+                                style={{ ...styles.cancelModalButtonTextStyle,
+                                fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
                                 Close
                             </Text>
                         </View>
@@ -232,7 +240,6 @@ const styles = StyleSheet.create({
     dateTextStyle: {
         color: Colors.HeaderTitle_gray,
         fontSize: 13,
-        fontFamily: 'SFProText-Bold',
         fontStyle: 'normal',
         fontWeight: 'bold',
         textAlign: 'center'
@@ -240,7 +247,6 @@ const styles = StyleSheet.create({
     cancelModalButtonTextStyle: {
         color: Colors.HeaderTitle_gray,
         fontSize: 14,
-        fontFamily: 'SFProText-Bold',
         fontStyle: 'normal',
         fontWeight: 'bold',
         lineHeight: 22,
@@ -249,7 +255,6 @@ const styles = StyleSheet.create({
     cancelModalTextStyle: {
         color: Colors.HeaderTitle_gray,
         fontSize: 15,
-        fontFamily: 'SFProText-Regular',
         fontStyle: 'normal',
         fontWeight: '400',
         textAlign: 'center'

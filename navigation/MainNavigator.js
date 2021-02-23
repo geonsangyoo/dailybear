@@ -3,6 +3,7 @@ import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
+import { useSelector } from 'react-redux';
 
 // Custom
 import CalendarView from '../screens/main/CalendarView';
@@ -15,6 +16,7 @@ import DiaryDetail from '../screens/main/DiaryDetail';
 import Setting from '../screens/main/Setting';
 import TermsAndCondition from '../screens/sub/TermsAndCondition';
 import FontSetting from '../screens/sub/FontSetting';
+import SettingConstants from '../constants/Setting';
 import Colors from '../constants/Colors';
 
 const MainNavigatorScreen = createStackNavigator();
@@ -22,6 +24,9 @@ const BackBackImage = require('../assets/icons/back.png');
 const CloseBackImage = require('../assets/icons/close.png');
 
 const MainContainer = () => {
+
+    const fontNameSetting = useSelector(state => state.settings.fontName);
+
     return (
         <SafeAreaProvider>
             <NavigationContainer>
@@ -82,6 +87,9 @@ const MainContainer = () => {
                         component={ SayingDetail }
                         options={{
                             headerTitle: "A word of this month",
+                            headerTitleStyle: {
+                                fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont
+                            },
                             headerBackImage: () => <HeaderBackImage imagePath={ BackBackImage } />,
                             headerBackTitleVisible: false,
                             headerTintColor: Colors.HeaderTitle_gray,
@@ -104,6 +112,7 @@ const MainContainer = () => {
                         options={{
                             headerTitle: "Terms and conditions",
                             headerTitleStyle: {
+                                fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont,
                                 fontWeight: 'bold'
                             },
                             headerBackImage: () => <HeaderBackImage imagePath={ CloseBackImage } />,
@@ -118,6 +127,7 @@ const MainContainer = () => {
                         options={{
                             headerTitle: "Font",
                             headerTitleStyle: {
+                                fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont,
                                 fontWeight: 'bold'
                             },
                             headerBackImage: () => <HeaderBackImage imagePath={ BackBackImage } />,
