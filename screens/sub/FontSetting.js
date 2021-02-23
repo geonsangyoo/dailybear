@@ -69,7 +69,7 @@ const FontSetting = props => {
                     type='clear'
                     onPress={ changeFontName }
                     titleStyle={{ ...styles.headerRightText,
-                        fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont }}
+                        fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}
                 />
             ),
             headerRightContainerStyle: styles.headerRightContainer
