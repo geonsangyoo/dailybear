@@ -1,12 +1,16 @@
 // Standard
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Pressable } from 'react-native';
+import { useSelector } from 'react-redux';
 
 // Custom
 import Colors from '../../constants/Colors';
+import SettingConstants from '../../constants/Setting';
 
 const Header = props => {
+
     const maxLine = 4;
+    const fontNameSetting = useSelector(state => state.settings.fontName);
     const [truncateText, setTruncateText] = useState();
     
     useEffect(() => {
@@ -15,10 +19,12 @@ const Header = props => {
     
     return (
         <View style={ styles.container }>
-            <Text style={ styles.year }>
+            <Text style={{ ...styles.year,
+                fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
                 { props.getDate.getFullYear() }
             </Text>
-            <Text style={ styles.month }>
+            <Text style={{ ...styles.month,
+                fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont}}>
                 { props.getDate.getMonth() + 1 }
             </Text>
             <Pressable 
@@ -33,7 +39,8 @@ const Header = props => {
                 }
             >
                 <Text
-                    style={ styles.saying }
+                    style={{ ...styles.saying,
+                        fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}
                     numberOfLines={ 4 }
                     ellipsizeMode='tail'
                     onTextLayout={ ({ nativeEvent: { lines } }) => {
@@ -67,7 +74,6 @@ const styles = StyleSheet.create({
     year: {
         textAlign: 'center',
         top: '15%',
-        fontFamily: 'SFProText-Regular',
         fontStyle: 'normal',
         fontWeight: '900',
         fontSize: 20,
@@ -76,7 +82,6 @@ const styles = StyleSheet.create({
     month: {
         textAlign: 'center',
         top: '15%',
-        fontFamily: 'SFProText-Bold',
         fontWeight: '900',
         fontSize: 45,
         color: Colors.HeaderTitle_gray
@@ -89,7 +94,6 @@ const styles = StyleSheet.create({
     saying: {
         textAlign: 'center',
         top: '25%',
-        fontFamily: 'SFProText-Regular',
         fontSize: 15,
         color: Colors.HeaderTitle_gray
     }

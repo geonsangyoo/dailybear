@@ -15,6 +15,7 @@ import * as sayingActions from '../../store/actions/Saying';
 import * as settingsAction from '../../store/actions/Settings';
 import * as funcs from '../../helpers/funcs';
 import * as calendarConsts from '../../constants/Calendar';
+import SettingConstants from '../../constants/Setting';
 import sayingConsts from '../../constants/Saying';
 import RectangleBox from '../../components/ui/RectangleBox';
 import HeaderBackImage from '../../components/layout/HeaderBackImage';
@@ -31,6 +32,7 @@ const CalendarView = props => {
     const saying = useSelector(state => state.saying.saying);
     const mode = useSelector(state => state.saying.mode);
     const checkEmotionChanged = useSelector(state => state.diary.emotion);
+    const fontNameSetting = useSelector(state => state.settings.fontName);
     const maxDays = funcs.getMaxDays(isDate.getFullYear(), isDate.getMonth());
     const dispatch = useDispatch();
     const diary = {};
@@ -230,11 +232,13 @@ const CalendarView = props => {
                                             source={ diary.emotion !== "" ? Diary.emotionBears[diary.emotion].imgPath : null }
                                         />
                                     </View>
-                                    <Text style={ styles.dateTextStyle }>
+                                    <Text style={{ ...styles.dateTextStyle,
+                                        fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
                                         { dateString }
                                     </Text>
                                     <View style={ styles.description }>
-                                        <Text style={ styles.input }>
+                                        <Text style={{ ...styles.input,
+                                            fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
                                             { diary.emotion !== "" ? diary.content : '' }
                                         </Text>
                                     </View>
@@ -359,11 +363,10 @@ const styles = StyleSheet.create({
         marginHorizontal: 18
     },
     dateTextStyle: {
-        color: Colors.HeaderTitle_gray,
         fontSize: 13,
-        fontFamily: 'SFProText-Bold',
         fontStyle: 'normal',
         fontWeight: 'bold',
+        color: Colors.HeaderTitle_gray,
         textAlign: 'center'
     },
     description: {

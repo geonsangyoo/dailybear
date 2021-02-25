@@ -63,7 +63,10 @@ const Setting = props => {
                             A word of this month
                         </Text>
                         <View style={ styles.settingContainer }>
-                            <Text style={ styles.settingText }>{ sayingMode }</Text>
+                            <Text style={{ ...styles.settingText,
+                                fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont }}>
+                                { sayingMode }
+                            </Text>
                             <Image 
                                 style={ styles.image }
                                 source={ require('../../assets/icons/setting_arrow.png') }

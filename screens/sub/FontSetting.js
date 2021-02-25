@@ -6,6 +6,7 @@ import { Button } from 'react-native-elements';
 
 // Custom
 import * as settingsAction from '../../store/actions/Settings';
+import SettingConstants from '../../constants/Setting';
 import Setting from '../../constants/Setting';
 import Diary from '../../constants/Diary';
 import Background from '../../components/layout/Background';
@@ -67,7 +68,8 @@ const FontSetting = props => {
                     title='Save'
                     type='clear'
                     onPress={ changeFontName }
-                    titleStyle={ styles.headerRightText }
+                    titleStyle={{ ...styles.headerRightText,
+                        fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}
                 />
             ),
             headerRightContainerStyle: styles.headerRightContainer

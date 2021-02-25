@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 // Custom
 import Bear from '../ui/Bear';
 import * as calendarConsts from '../../constants/Calendar';
+import SettingConstants from '../../constants/Setting';
 import * as funcs from '../../helpers/funcs';
 import Diary from '../../constants/Diary';
 import Colors from '../../constants/Colors';
@@ -13,6 +14,7 @@ import Colors from '../../constants/Colors';
 const Calendar = props => {
 
     var rows = [];
+    const fontNameSetting = useSelector(state => state.settings.fontName);
     const emotions = useSelector(state => state.calendar.emotions);
     const maxDays = funcs.getMaxDays(props.getDate.getFullYear(), props.getDate.getMonth());
 
@@ -53,7 +55,8 @@ const Calendar = props => {
                 if (rowIndex === 0) {
                     return (
                         <View key={ keyCounter++ } style={ styles.viewDays }>
-                            <Text style={ styles.Days }>
+                            <Text style={{ ...styles.Days,
+                                fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
                                 { matrix[rowIndex][colIndex] }
                             </Text>
                         </View>
@@ -125,7 +128,6 @@ const styles = StyleSheet.create({
     Days: {
         marginHorizontal: 14,
         fontSize: 11,
-        fontFamily: 'SFProText-Regular',
         fontWeight: '800',
         color: Colors.DaysTitle_white
     }

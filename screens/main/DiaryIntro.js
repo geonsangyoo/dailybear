@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // Custom
 import Diary from '../../constants/Diary';
 import * as diaryActions from '../../store/actions/Diary';
+import SettingConstants from '../../constants/Setting';
 import Background from '../../components/layout/Background';
 import HeaderBackImage from '../../components/layout/HeaderBackImage';
 import RectangleBox from '../../components/ui/RectangleBox';
@@ -17,6 +18,7 @@ const DiaryIntro = props => {
     
     const isDiaryDetailed = useSelector(state => state.calendar.isDiaryDetailed);
     const date = useSelector(status => status.diary.date);
+    const fontNameSetting = useSelector(state => state.settings.fontName);
     const dispatch = useDispatch();
     const dateString = ( Object.keys(date).length ) > 0 ?
                 Diary.convertDate(date.year, date.month, date.date, date.day) :
@@ -50,10 +52,12 @@ const DiaryIntro = props => {
         <Background style={ styles.container }>
             <View style={ styles.container }>
                 <View style={ styles.textContainer }>
-                    <Text style={ styles.dateTextStyle }>
+                    <Text style={{ ...styles.dateTextStyle,
+                        fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
                         { dateString }
                     </Text>
-                    <Text style={ styles.diaryIntroTextStyle }>
+                    <Text style={{ ...styles.diaryIntroTextStyle,
+                        fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
                         { Diary.diaryIntro }
                     </Text>
                 </View>
@@ -124,7 +128,6 @@ const styles = StyleSheet.create({
     dateTextStyle: {
         color: Colors.HeaderTitle_gray,
         fontSize: 13,
-        fontFamily: 'SFProText-Bold',
         fontStyle: 'normal',
         fontWeight: '900',
         textAlign: 'center'
@@ -133,7 +136,6 @@ const styles = StyleSheet.create({
         marginTop: 8,
         color: Colors.HeaderTitle_gray,
         fontSize: 24,
-        fontFamily: 'SFProText-Regular',
         fontStyle: 'normal',
         fontWeight: '400',
         textAlign: 'center'

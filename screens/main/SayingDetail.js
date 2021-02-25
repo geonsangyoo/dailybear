@@ -17,6 +17,7 @@ import { useHeaderHeight } from '@react-navigation/stack';
 
 // Custom
 import * as sayingActions from '../../store/actions/Saying';
+import SettingConstants from '../../constants/Setting';
 import Background from '../../components/layout/Background';
 import Card from '../../components/ui/Card';
 import IconButton from '../../components/ui/IconButton';
@@ -24,10 +25,12 @@ import Colors from '../../constants/Colors';
 import Sayings from '../../constants/Saying';
 
 const SayingDetail = props => {
+    
     const INPUT_CHANGE = 'INPUT_CHANGE';
     const sayingHeader = Sayings.sayingHeader;
     const placeholder = Sayings.placeholder;
     const randomTextInfo = Sayings.randomTextInfo;
+    const fontNameSetting = useSelector(state => state.settings.fontName);
     const isDate = useSelector(state => state.calendar.activeDate);
     const [mode, setMode] = useState(props.route.params?.mode);
     const dispatch = useDispatch();
@@ -66,7 +69,8 @@ const SayingDetail = props => {
                 <Button
                     title='Save'
                     type='clear'
-                    titleStyle={ styles.headerRightText }
+                    titleStyle={{ ...styles.headerRightText,
+                        fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}
                     onPress={ saveModeHandler }
                 />
             ),
@@ -81,7 +85,8 @@ const SayingDetail = props => {
                     contentContainerStyle={{ ...styles.container, top: useHeaderHeight() }}
                     bounces={ false }
                 >
-                    <Text style={ styles.saying }>
+                    <Text style={{ ...styles.saying,
+                        fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
                             { sayingHeader }
                     </Text>
                     <View style={ styles.sayingMode }>
@@ -104,7 +109,8 @@ const SayingDetail = props => {
                     { ( mode === Sayings.randomMode ) ? 
                         <Card style={ styles.descriptionRandom }>
                             <TextInput
-                                style={ styles.input }  
+                                style={{ ...styles.input,
+                                    fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}  
                                 editable={ false }
                                 multiline={ true }
                                 value={ randomTextInfo }
@@ -116,7 +122,8 @@ const SayingDetail = props => {
                     { ( mode === Sayings.writeMode ) ? 
                         <Card style={ styles.description }>
                             <TextInput
-                                style={ styles.input }  
+                                style={{ ...styles.input,
+                                    fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}  
                                 editable={ true }
                                 multiline={ true }
                                 onChangeText={(text) => { 
@@ -152,12 +159,11 @@ const styles = StyleSheet.create({
     sayingMode: {
         top: '20%',
         flexDirection: 'row',
-        marginLeft: 20,
+        justifyContent: 'center',
     },
     saying: {
         textAlign: 'center',
         top: '5%',
-        fontFamily: 'SFProText-Regular',
         fontSize: 15,
         color: Colors.HeaderTitle_gray
     },
