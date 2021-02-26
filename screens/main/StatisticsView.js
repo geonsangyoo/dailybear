@@ -1,6 +1,6 @@
 // Standard
-import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, StatusBar, ScrollView, Image } from 'react-native';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { View, StyleSheet, Text, StatusBar, Image, Animated, Dimensions } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -32,6 +32,14 @@ const StatisticsView = props => {
     const [emotionLocation, setEmotionLocation] = useState([]);
     const [emotionDisplayed, setEmotionDisplayed] = useState(false);
     const dispatch = useDispatch();
+
+    // Animation
+    const animationDelay = 80;
+    const animationThreshold = Dimensions.get("screen").height / 8;
+    const scrollY = useRef(new Animated.Value(0)).current;
+    const yPositionMin = Dimensions.get("screen").height * -1;
+    const yPositionMax = Dimensions.get("screen").height;
+    const yPositionInit = new Animated.Value(0);
 
     useEffect(() => {
         let locRandom =
@@ -210,141 +218,211 @@ const StatisticsView = props => {
         return rank;
     };
 
+    const loadHandler = useCallback((isDate) => {
+        dispatch(calendarActions.setActiveDate(isDate));
+    }, [dispatch, isDate]);
+
+    const swipeUpAnimationAfter = () => {
+        isDate.setMonth(isDate.getMonth() + 1);
+        loadHandler(new Date(+isDate));
+        setEmotionDisplayed(false);
+        scrollY.setValue(yPositionMax);
+        Animated.spring(scrollY, {
+            toValue: yPositionInit,
+            speed: 20,
+            bounciness: 2,
+            useNativeDriver: true
+        }).start();
+    };
+
+    const swipeDownAnimationAfter = () => {
+        isDate.setMonth(isDate.getMonth() - 1);
+        loadHandler(new Date(+isDate));
+        setEmotionDisplayed(false);
+        scrollY.setValue(yPositionMin);
+        Animated.spring(scrollY, {
+            toValue: yPositionInit,
+            speed: 20,
+            bounciness: 2,
+            useNativeDriver: true
+        }).start();
+    };
+
     return (
         <View style={{ flex: 1 }}>
             <Background style={ styles.container }>
                 <SafeAreaView style={ styles.container }>
-                    <ScrollView
-                        style={ styles.mainContentContainer }
-                        bounces={ false }
-                    >
-                        <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent={ true }/>
-                        <Header getDate={ isDate } parentProps={ props } saying={ saying } mode={ mode }/>
-                        <View style={ styles.emotionNumberContainer }>
-                            <View style={ styles.emotionNumberItem }>
-                                <View style={{ ...styles.emotionOvalShape, backgroundColor: Colors.EmotionOvalShape_angry }}/>
-                                <Text style={{ ...styles.emotionNumberText,
-                                    fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
-                                        { numberOfEmotions[Diary.emotionTitle.ANGRY] }
-                                </Text>
-                            </View>
-                            <View style={ styles.emotionNumberItem }>
-                                <View style={{ ...styles.emotionOvalShape, backgroundColor: Colors.EmotionOvalShape_calm }}/>
-                                <Text style={{ ...styles.emotionNumberText,
-                                    fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
-                                        { numberOfEmotions[Diary.emotionTitle.CALM] }
-                                </Text>
-                            </View>
-                            <View style={ styles.emotionNumberItem }>
-                                <View style={{ ...styles.emotionOvalShape, backgroundColor: Colors.EmotionOvalShape_lovely }}/>
-                                <Text style={{ ...styles.emotionNumberText,
-                                    fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
-                                        { numberOfEmotions[Diary.emotionTitle.LOVELY] }
-                                </Text>
-                            </View>
-                            <View style={ styles.emotionNumberItem }>
-                                <View style={{ ...styles.emotionOvalShape, backgroundColor: Colors.EmotionOvalShape_gloomy }}/>
-                                <Text style={{ ...styles.emotionNumberText,
-                                    fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
-                                        { numberOfEmotions[Diary.emotionTitle.GLOOMY] }
-                                </Text>
-                            </View>
-                            <View style={ styles.emotionNumberItem }>
-                                <View style={{ ...styles.emotionOvalShape, backgroundColor: Colors.EmotionOvalShape_sad }}/>
-                                <Text style={{ ...styles.emotionNumberText,
-                                    fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
-                                        { numberOfEmotions[Diary.emotionTitle.SAD] }
-                                </Text>
-                            </View>
-                            <View style={ styles.emotionNumberItem }>
-                                <View style={{ ...styles.emotionOvalShape, backgroundColor: Colors.EmotionOvalShape_melancholy }}/>
-                                <Text style={{ ...styles.emotionNumberText,
-                                    fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
-                                        { numberOfEmotions[Diary.emotionTitle.MELANCHOLY] }
-                                </Text>
-                            </View>
-                        </View>
-                        {
-                            (emotionLocation.length > 0) ?
-                            (
-                                <View style={ styles.imageContainer }>
-                                    { numberOfEmotions[Diary.emotionTitle.ANGRY] > 0 ?
-                                        <Image
-                                            style={{ ...styles.image,
-                                                top: emotionLocation[Diary.emotionTitle.ANGRY].top,
-                                                left: emotionLocation[Diary.emotionTitle.ANGRY].left,
-                                                width: emotionLocation[Diary.emotionTitle.ANGRY].width,
-                                                height: emotionLocation[Diary.emotionTitle.ANGRY].height
-                                            }}
-                                            source={ Diary.emotionBears[Diary.emotionTitle.ANGRY].imgPath }
-                                        />
-                                        : null
+                    <View style={ styles.mainContentContainer }>
+                        <Animated.ScrollView
+                            style={{ transform: [{ translateY: scrollY }] }}
+                            onScrollEndDrag={
+                                Animated.event(
+                                    [{ nativeEvent: { contentOffset: { y: scrollY }}}],
+                                    { listener: (event) => {
+                                        if (event.nativeEvent.contentOffset.y > animationThreshold) {
+                                            scrollY.setValue(-1 * event.nativeEvent.contentOffset.y)
+                                            Animated.spring(scrollY, {
+                                                toValue: yPositionMin,
+                                                speed: 20,
+                                                bounciness: 2,
+                                                useNativeDriver: true,
+
+                                            }).start();
+                                            setTimeout(() => {
+                                                scrollY.stopAnimation(swipeUpAnimationAfter)
+                                            }, animationDelay);
+                                        }
+                                        else if (event.nativeEvent.contentOffset.y < (-1 * animationThreshold)) {
+                                            scrollY.setValue(-1 * event.nativeEvent.contentOffset.y)
+                                            Animated.spring(scrollY, {
+                                                toValue: yPositionMax,
+                                                speed: 20,
+                                                bounciness: 2,
+                                                useNativeDriver: true
+                                            }).start();
+                                            setTimeout(() => {
+                                                scrollY.stopAnimation(swipeDownAnimationAfter)
+                                            }, animationDelay);
+                                        }
+                                        else {
+                                            // Back to the starting coord.
+                                            scrollY.setValue(0)
+                                        }
+                                    },
+                                        useNativeDriver: true
                                     }
-                                    { numberOfEmotions[Diary.emotionTitle.CALM] > 0 ?
-                                        <Image
-                                            style={{ ...styles.image,
-                                                top: emotionLocation[Diary.emotionTitle.CALM].top,
-                                                left: emotionLocation[Diary.emotionTitle.CALM].left,
-                                                width: emotionLocation[Diary.emotionTitle.CALM].width,
-                                                height: emotionLocation[Diary.emotionTitle.CALM].height
-                                            }}
-                                            source={ Diary.emotionBears[Diary.emotionTitle.CALM].imgPath }
-                                        />
-                                        : null
-                                    }
-                                    { numberOfEmotions[Diary.emotionTitle.LOVELY] > 0 ?
-                                        <Image
-                                            style={{ ...styles.image,
-                                                top: emotionLocation[Diary.emotionTitle.LOVELY].top,
-                                                left: emotionLocation[Diary.emotionTitle.LOVELY].left,
-                                                width: emotionLocation[Diary.emotionTitle.LOVELY].width,
-                                                height: emotionLocation[Diary.emotionTitle.LOVELY].height
-                                            }}
-                                            source={ Diary.emotionBears[Diary.emotionTitle.LOVELY].imgPath }
-                                        />
-                                        : null
-                                    }
-                                    { numberOfEmotions[Diary.emotionTitle.GLOOMY] > 0 ?
-                                        <Image
-                                            style={{ ...styles.image,
-                                                top: emotionLocation[Diary.emotionTitle.GLOOMY].top,
-                                                left: emotionLocation[Diary.emotionTitle.GLOOMY].left,
-                                                width: emotionLocation[Diary.emotionTitle.GLOOMY].width,
-                                                height: emotionLocation[Diary.emotionTitle.GLOOMY].height
-                                            }}
-                                            source={ Diary.emotionBears[Diary.emotionTitle.GLOOMY].imgPath }
-                                        />
-                                        : null
-                                    }
-                                    { numberOfEmotions[Diary.emotionTitle.SAD] > 0 ?
-                                        <Image
-                                            style={{ ...styles.image,
-                                                top: emotionLocation[Diary.emotionTitle.SAD].top,
-                                                left: emotionLocation[Diary.emotionTitle.SAD].left,
-                                                width: emotionLocation[Diary.emotionTitle.SAD].width,
-                                                height: emotionLocation[Diary.emotionTitle.SAD].height
-                                            }}
-                                            source={ Diary.emotionBears[Diary.emotionTitle.SAD].imgPath }
-                                        />
-                                        : null
-                                    }
-                                    { numberOfEmotions[Diary.emotionTitle.MELANCHOLY] > 0 ?
-                                        <Image
-                                            style={{ ...styles.image,
-                                                top: emotionLocation[Diary.emotionTitle.MELANCHOLY].top,
-                                                left: emotionLocation[Diary.emotionTitle.MELANCHOLY].left,
-                                                width: emotionLocation[Diary.emotionTitle.MELANCHOLY].width,
-                                                height: emotionLocation[Diary.emotionTitle.MELANCHOLY].height
-                                            }}
-                                            source={ Diary.emotionBears[Diary.emotionTitle.MELANCHOLY].imgPath }
-                                        />
-                                        : null
-                                    }
+                                )
+                            }
+                            scrollEventThrottle={ 1 }
+                        >
+                            <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent={ true }/>
+                            <Header getDate={ isDate } parentProps={ props } saying={ saying } mode={ mode }/>
+                            <View style={ styles.emotionNumberContainer }>
+                                <View style={ styles.emotionNumberItem }>
+                                    <View style={{ ...styles.emotionOvalShape, backgroundColor: Colors.EmotionOvalShape_angry }}/>
+                                    <Text style={{ ...styles.emotionNumberText,
+                                        fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
+                                            { numberOfEmotions[Diary.emotionTitle.ANGRY] }
+                                    </Text>
                                 </View>
-                            )
-                            : null
-                        }
-                    </ScrollView>
+                                <View style={ styles.emotionNumberItem }>
+                                    <View style={{ ...styles.emotionOvalShape, backgroundColor: Colors.EmotionOvalShape_calm }}/>
+                                    <Text style={{ ...styles.emotionNumberText,
+                                        fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
+                                            { numberOfEmotions[Diary.emotionTitle.CALM] }
+                                    </Text>
+                                </View>
+                                <View style={ styles.emotionNumberItem }>
+                                    <View style={{ ...styles.emotionOvalShape, backgroundColor: Colors.EmotionOvalShape_lovely }}/>
+                                    <Text style={{ ...styles.emotionNumberText,
+                                        fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
+                                            { numberOfEmotions[Diary.emotionTitle.LOVELY] }
+                                    </Text>
+                                </View>
+                                <View style={ styles.emotionNumberItem }>
+                                    <View style={{ ...styles.emotionOvalShape, backgroundColor: Colors.EmotionOvalShape_gloomy }}/>
+                                    <Text style={{ ...styles.emotionNumberText,
+                                        fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
+                                            { numberOfEmotions[Diary.emotionTitle.GLOOMY] }
+                                    </Text>
+                                </View>
+                                <View style={ styles.emotionNumberItem }>
+                                    <View style={{ ...styles.emotionOvalShape, backgroundColor: Colors.EmotionOvalShape_sad }}/>
+                                    <Text style={{ ...styles.emotionNumberText,
+                                        fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
+                                            { numberOfEmotions[Diary.emotionTitle.SAD] }
+                                    </Text>
+                                </View>
+                                <View style={ styles.emotionNumberItem }>
+                                    <View style={{ ...styles.emotionOvalShape, backgroundColor: Colors.EmotionOvalShape_melancholy }}/>
+                                    <Text style={{ ...styles.emotionNumberText,
+                                        fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
+                                            { numberOfEmotions[Diary.emotionTitle.MELANCHOLY] }
+                                    </Text>
+                                </View>
+                            </View>
+                            {
+                                (emotionLocation.length > 0) ?
+                                (
+                                    <View style={ styles.imageContainer }>
+                                        { numberOfEmotions[Diary.emotionTitle.ANGRY] > 0 ?
+                                            <Image
+                                                style={{ ...styles.image,
+                                                    top: emotionLocation[Diary.emotionTitle.ANGRY].top,
+                                                    left: emotionLocation[Diary.emotionTitle.ANGRY].left,
+                                                    width: emotionLocation[Diary.emotionTitle.ANGRY].width,
+                                                    height: emotionLocation[Diary.emotionTitle.ANGRY].height
+                                                }}
+                                                source={ Diary.emotionBears[Diary.emotionTitle.ANGRY].imgPath }
+                                            />
+                                            : null
+                                        }
+                                        { numberOfEmotions[Diary.emotionTitle.CALM] > 0 ?
+                                            <Image
+                                                style={{ ...styles.image,
+                                                    top: emotionLocation[Diary.emotionTitle.CALM].top,
+                                                    left: emotionLocation[Diary.emotionTitle.CALM].left,
+                                                    width: emotionLocation[Diary.emotionTitle.CALM].width,
+                                                    height: emotionLocation[Diary.emotionTitle.CALM].height
+                                                }}
+                                                source={ Diary.emotionBears[Diary.emotionTitle.CALM].imgPath }
+                                            />
+                                            : null
+                                        }
+                                        { numberOfEmotions[Diary.emotionTitle.LOVELY] > 0 ?
+                                            <Image
+                                                style={{ ...styles.image,
+                                                    top: emotionLocation[Diary.emotionTitle.LOVELY].top,
+                                                    left: emotionLocation[Diary.emotionTitle.LOVELY].left,
+                                                    width: emotionLocation[Diary.emotionTitle.LOVELY].width,
+                                                    height: emotionLocation[Diary.emotionTitle.LOVELY].height
+                                                }}
+                                                source={ Diary.emotionBears[Diary.emotionTitle.LOVELY].imgPath }
+                                            />
+                                            : null
+                                        }
+                                        { numberOfEmotions[Diary.emotionTitle.GLOOMY] > 0 ?
+                                            <Image
+                                                style={{ ...styles.image,
+                                                    top: emotionLocation[Diary.emotionTitle.GLOOMY].top,
+                                                    left: emotionLocation[Diary.emotionTitle.GLOOMY].left,
+                                                    width: emotionLocation[Diary.emotionTitle.GLOOMY].width,
+                                                    height: emotionLocation[Diary.emotionTitle.GLOOMY].height
+                                                }}
+                                                source={ Diary.emotionBears[Diary.emotionTitle.GLOOMY].imgPath }
+                                            />
+                                            : null
+                                        }
+                                        { numberOfEmotions[Diary.emotionTitle.SAD] > 0 ?
+                                            <Image
+                                                style={{ ...styles.image,
+                                                    top: emotionLocation[Diary.emotionTitle.SAD].top,
+                                                    left: emotionLocation[Diary.emotionTitle.SAD].left,
+                                                    width: emotionLocation[Diary.emotionTitle.SAD].width,
+                                                    height: emotionLocation[Diary.emotionTitle.SAD].height
+                                                }}
+                                                source={ Diary.emotionBears[Diary.emotionTitle.SAD].imgPath }
+                                            />
+                                            : null
+                                        }
+                                        { numberOfEmotions[Diary.emotionTitle.MELANCHOLY] > 0 ?
+                                            <Image
+                                                style={{ ...styles.image,
+                                                    top: emotionLocation[Diary.emotionTitle.MELANCHOLY].top,
+                                                    left: emotionLocation[Diary.emotionTitle.MELANCHOLY].left,
+                                                    width: emotionLocation[Diary.emotionTitle.MELANCHOLY].width,
+                                                    height: emotionLocation[Diary.emotionTitle.MELANCHOLY].height
+                                                }}
+                                                source={ Diary.emotionBears[Diary.emotionTitle.MELANCHOLY].imgPath }
+                                            />
+                                            : null
+                                        }
+                                    </View>
+                                )
+                                : null
+                            }
+                        </Animated.ScrollView>
+                    </View>
                     <Footer parentProps={ props } parent={ this } diaryHandler={ diaryHandler }/>
                 </SafeAreaView>
             </Background>
