@@ -1,6 +1,6 @@
 // Standard
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, StatusBar, ScrollView, Image, Dimensions } from 'react-native';
+import { View, StyleSheet, Text, StatusBar, ScrollView, Image } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -27,31 +27,64 @@ const StatisticsView = props => {
     const emotions = useSelector(state => state.calendar.emotions);
     const fontNameSetting = useSelector(state => state.settings.fontName);
     const maxDays = funcs.getMaxDays(isDate.getFullYear(), isDate.getMonth());
-    const emotionWidthRange = Math.floor( Dimensions.get('window').width / 4 );
-    const emotionHeightRange = Math.floor( Dimensions.get('window').height / 6 );
     const [numberOfEmotions, setNumberOfEmotions] = useState([]);
     const [numberOfEmotionsSorted, setNumberOfEmotionsSorted] = useState([]);
     const [emotionLocation, setEmotionLocation] = useState([]);
+    const [emotionDisplayed, setEmotionDisplayed] = useState(false);
     const dispatch = useDispatch();
 
     useEffect(() => {
+        let locRandom =
+            [
+                Diary.emotionTitle.ANGRY,
+                Diary.emotionTitle.CALM,
+                Diary.emotionTitle.LOVELY,
+                Diary.emotionTitle.GLOOMY,
+                Diary.emotionTitle.SAD,
+                Diary.emotionTitle.MELANCHOLY
+            ];
         let res = [];
-        if (numberOfEmotionsSorted.length > 0) {
+        if (numberOfEmotionsSorted.length > 0 && !emotionDisplayed) {
+            locRandom.sort((x) => Math.random() - 0.5);
             for (let val in Diary.emotionTitle) {
                 if (val === 'NONE') {
                     continue;
                 }
-                let number = numberOfEmotionsSorted[Diary.emotionTitle[val]].number;
+                let number = numberOfEmotions[Diary.emotionTitle[val]];
+                let top, left, width, height;
+                
+                // Decide where emotion figure is located
+                top = Math.floor(locRandom.indexOf(Diary.emotionTitle[val]) * Statistics.emotionHeightRange);
+                left = Math.floor(Math.random() * Statistics.emotionWidthRange);
+                
+                // Decide how big the scale of emotion figure is
+                if (Statistics.emotionSize.size1_min_number <= number && number <= Statistics.emotionSize.size1_max_number) {
+                    width = Statistics.emotionSize.size1_width;
+                    height = Statistics.emotionSize.size1_height;
+                } else if (Statistics.emotionSize.size2_min_number <= number && number <= Statistics.emotionSize.size2_max_number) {
+                    width = Statistics.emotionSize.size2_width;
+                    height = Statistics.emotionSize.size2_height;
+                } else if (Statistics.emotionSize.size3_min_number <= number && number <= Statistics.emotionSize.size3_max_number) {
+                    width = Statistics.emotionSize.size3_width;
+                    height = Statistics.emotionSize.size3_height;
+                } else if (Statistics.emotionSize.size4_min_number <= number && number <= maxDays) {
+                    width = Statistics.emotionSize.size4_width;
+                    height = Statistics.emotionSize.size4_height;
+                } else { // No day is assigned
+                    width = 0;
+                    height = 0;
+                }
                 res.push({
-                    top: Math.floor(Math.random() * emotionHeightRange),
-                    left: Math.floor(Math.random() * emotionWidthRange),
-                    width: Math.floor(Statistics.emotionMinWidthSize + (( Statistics.emotionMaxWidthSize) * number / maxDays)),
-                    height: Math.floor(Statistics.emotionMinHeightSize + (( Statistics.emotionMaxHeightSize) * number / maxDays)),
+                    top: top,
+                    left: left,
+                    width: width,
+                    height: height,
                 });
             }
             setEmotionLocation(res);
+            setEmotionDisplayed(true);
         }
-    }, [numberOfEmotionsSorted]);
+    }, [numberOfEmotions]);
 
     useEffect(() => {
         // Set number of emotions
