@@ -1,6 +1,6 @@
 // Standard
 import React, { useState, useCallback, useLayoutEffect, useReducer } from 'react';
-import { Text, TextInput, View, StyleSheet, Image, TouchableOpacity, ActivityIndicator, Pressable, ScrollView } from 'react-native';
+import { Text, TextInput, View, StyleSheet, Image, TouchableOpacity, ActivityIndicator, Pressable, KeyboardAvoidingView, Platform } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-native-elements';
 
@@ -13,6 +13,7 @@ import Background from '../../components/layout/Background';
 import HeaderBackImage from '../../components/layout/HeaderBackImage';
 import RectangleBox from '../../components/ui/RectangleBox';
 import Colors from '../../constants/Colors';
+import InputScrollView from 'react-native-input-scroll-view';
 
 const DiaryIntroBackImage = require('../../assets/icons/close.png');
 
@@ -114,11 +115,17 @@ const DiaryDetail = props => {
     }
 
     return (
-        <View style={{ flex: 1 }}>
+        <KeyboardAvoidingView
+            style={ styles.container }
+            behavior={ Platform.OS === 'ios' ? 'padding' : 'height' }
+        >
             <Background style={{ ...styles.container, opacity: isCancelModalOpened ? Diary.opacity : 1 }}>
                 <View style={ styles.rectangleContainer }>
                     <RectangleBox style={ styles.rectangleBoxContainer }>
-                        <View style={ styles.contentContainer }>
+                        <InputScrollView
+                            style={ styles.contentContainer }
+                            useAnimatedScrollView={ true }
+                        >
                             <TouchableOpacity
                                 style={ styles.imageContainer }
                                 disabled={ isCancelModalOpened ? true : false }
@@ -136,7 +143,7 @@ const DiaryDetail = props => {
                                 fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
                                 { dateString }
                             </Text>
-                            <ScrollView style={ styles.scrollBarContainer }>
+                            <View style={ styles.scrollBarContainer }>
                                 <View style={ styles.description }>
                                         <TextInput
                                             style={{ ...styles.input,
@@ -154,8 +161,8 @@ const DiaryDetail = props => {
                                             keyboardType='default'
                                         />
                                 </View>
-                            </ScrollView>
-                        </View>
+                            </View>
+                        </InputScrollView>
                     </RectangleBox>
                 </View>
             </Background>
@@ -187,7 +194,7 @@ const DiaryDetail = props => {
                     </RectangleBox>
                 : null
             }
-        </View>
+        </KeyboardAvoidingView>
     );
 };
 
@@ -210,9 +217,15 @@ const styles = StyleSheet.create({
         marginBottom: 17
     },
     imageContainer: {
+        width: 100,
+        height: 100,
+        alignSelf: 'center',
+        marginTop: 25,
+        marginBottom: 20,
+        marginHorizontal: 18,
     },
     rectangleContainer: {
-        flex: 1
+        flex: 1,
     },
     rectangleBoxContainer: {
         alignSelf: 'center',
@@ -230,7 +243,7 @@ const styles = StyleSheet.create({
         height: 166
     },
     scrollBarContainer: {
-        marginTop: 30,
+        marginTop: 20,
         marginBottom: 20,
     },
     textContainer: {
@@ -270,16 +283,14 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     input: {
-        margin: 20,
-        textAlign: 'center'
+        width: 250,
+        height: '100%',
+        textAlign: 'center',
+        margin: 30,
     },
     image: {
         width: 95,
         height: 87.5,
-        alignSelf: 'center',
-        marginTop: 25,
-        marginBottom: 20,
-        marginHorizontal: 18
     },
     headerRightContainer: {
         marginRight: 14

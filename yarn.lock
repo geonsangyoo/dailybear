@@ -5815,6 +5815,13 @@ react-native-in-app-review@^2.1.8:
   resolved "https://registry.yarnpkg.com/react-native-in-app-review/-/react-native-in-app-review-2.1.8.tgz#b708f60ee249903ba81221696b45b943fe1b610e"
   integrity sha512-DuY1vx8wOYMvVfUZgkJNQ4eFmtNGeIAMBuh79Bq+XU85iCvYcTkgoVdi+si15+BKNaG0/WRNkMQ7Y8a/Il+HSw==
 
+react-native-input-scroll-view@^1.11.0:
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/react-native-input-scroll-view/-/react-native-input-scroll-view-1.11.0.tgz#05ca068c4093c7c92a6412c0a05a9d76166976ad"
+  integrity sha512-KCIR3D8uug7Mef2vsjVkVnVr3DvPrSXRPz+C/DNHawXqA4WjmzqABrXjbZOGp+JwSHFD6U2ZVX9GfLgAOs1/7g==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-native-iphone-x-helper@^1.3.0:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.3.1.tgz#20c603e9a0e765fd6f97396638bdeb0e5a60b010"
