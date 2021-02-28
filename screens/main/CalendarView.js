@@ -267,7 +267,7 @@ const CalendarView = props => {
                                 </Animated.Text>
                                 <Animated.ScrollView
                                     bounces={ true }
-                                    scrollEnabled= { true }
+                                    scrollEnabled={ true }
                                     onScroll={
                                         Animated.event(
                                             [{ nativeEvent: { contentOffset: { y: diaryScrollY }}}],
