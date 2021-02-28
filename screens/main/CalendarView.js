@@ -45,13 +45,25 @@ const CalendarView = props => {
                         ? Diary.convertDate(diary.date.year, diary.date.month, diary.date.date, diary.date.day)
                         : '';
     
-    // Animation
+    // Animation (Swipe)
     const animationDelay = 80;
     const animationThreshold = Dimensions.get("screen").height / 8;
-    const scrollY = useRef(new Animated.Value(0)).current;
     const yPositionMin = Dimensions.get("screen").height * -1;
     const yPositionMax = Dimensions.get("screen").height;
     const yPositionInit = new Animated.Value(0);
+    const scrollY = useRef(new Animated.Value(0)).current;
+
+    // Animation (Emotion Icon)
+    const emotionImgHeight = 90;
+    const emotionScale = useRef(new Animated.Value(1)).current;
+    const emotionImgSizeStyle = {
+        transform: [
+            {
+                scale: emotionScale
+            }
+        ]
+    };
+    const diaryScrollY = useRef(new Animated.Value(0)).current;
 
     useEffect(() => {
         // Load Setting
@@ -222,13 +234,30 @@ const CalendarView = props => {
                     <View style={ styles.diaryDetailContainer }>
                         <RectangleBox style={ styles.diaryDetailRectangleContainer }>
                             <View style={ styles.contentContainer }>
-                                <ScrollView
+                                <Animated.ScrollView
                                     bounces={ true }
                                     scrollEnabled= { true }
+                                    onScroll={
+                                        Animated.event(
+                                            [{ nativeEvent: { contentOffset: { y: diaryScrollY }}}],
+                                            { listener: (event) => {
+                                                if (event.nativeEvent.contentOffset.y > emotionImgHeight) {
+                                                    Animated.timing(emotionScale, {
+                                                        toValue: .5,
+                                                        duration: 2500,
+                                                        useNativeDriver: true
+                                                    }).start();
+                                                }
+                                            },
+                                                useNativeDriver: true
+                                            }
+                                        )
+                                    }
+                                    scrollEventThrottle={ 1 }
                                 >
                                     <View style={ styles.imageContainer }>
-                                        <Image
-                                            style={ styles.image }
+                                        <Animated.Image
+                                            style={[styles.image, emotionImgSizeStyle ]}
                                             source={ diary.emotion !== "" ? Diary.emotionBears[diary.emotion].imgPath : null }
                                         />
                                     </View>
@@ -242,7 +271,7 @@ const CalendarView = props => {
                                             { diary.emotion !== "" ? diary.content : '' }
                                         </Text>
                                     </View>
-                                </ScrollView>
+                                </Animated.ScrollView>
                             </View>
                         </RectangleBox>
                         <View style={ styles.footerContainer }>

@@ -124,7 +124,6 @@ const DiaryDetail = props => {
                     <RectangleBox style={ styles.rectangleBoxContainer }>
                         <InputScrollView
                             style={ styles.contentContainer }
-                            useAnimatedScrollView={ true }
                         >
                             <TouchableOpacity
                                 style={ styles.imageContainer }
