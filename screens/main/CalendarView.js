@@ -55,7 +55,7 @@ const CalendarView = props => {
 
     // Animation (Emotion Icon)
     const emotionTransitionDuration = 350;
-    const emotionImgHeight = 35;
+    const emotionImgHeight = 10;
     const [emotionImgAnimationStarted, setEmotionImgAnimationStarted] = useState(false);
     const emotionLeftTransition = useRef(new Animated.Value(0)).current;
     const emotionScaleX = useRef(new Animated.Value(95)).current;
@@ -266,6 +266,7 @@ const CalendarView = props => {
                                         { dateString }
                                 </Animated.Text>
                                 <Animated.ScrollView
+                                    style={ styles.scrollViewContainer }
                                     bounces={ true }
                                     scrollEnabled={ true }
                                     onScroll={
@@ -285,7 +286,7 @@ const CalendarView = props => {
                                                         useNativeDriver: false
                                                     }).start();
                                                     Animated.timing(emotionLeftTransition, {
-                                                        toValue: -50,
+                                                        toValue: -53,
                                                         duration: emotionTransitionDuration,
                                                         useNativeDriver: false
                                                     }).start();
@@ -295,7 +296,7 @@ const CalendarView = props => {
                                                         useNativeDriver: false
                                                     }).start();
                                                     Animated.timing(dateRightTransition, {
-                                                        toValue: 25,
+                                                        toValue: 35,
                                                         duration: emotionTransitionDuration,
                                                         useNativeDriver: false
                                                     }).start();
@@ -467,13 +468,17 @@ const styles = StyleSheet.create({
         color: Colors.HeaderTitle_gray,
         textAlign: 'center'
     },
+    scrollViewContainer: {
+        maxWidth: 230,
+        maxHeight: 200,
+        alignSelf: 'center',
+    },
     description: {
         alignSelf: 'center',
         marginTop: 10,
     },
     input: {
         margin: 20,
-        textAlign: 'center'
     },
     centered: {
         flex: 1,

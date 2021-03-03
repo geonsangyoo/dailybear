@@ -14,6 +14,7 @@ import HeaderBackImage from '../../components/layout/HeaderBackImage';
 import RectangleBox from '../../components/ui/RectangleBox';
 import Colors from '../../constants/Colors';
 import InputScrollView from 'react-native-input-scroll-view';
+import { captureScreen } from 'react-native-view-shot';
 
 const DiaryIntroBackImage = require('../../assets/icons/close.png');
 
@@ -33,7 +34,7 @@ const DiaryDetail = props => {
 
     // Animation (Emotion Icon)
     const emotionTransitionDuration = 350;
-    const emotionImgHeight = 35;
+    const emotionImgHeight = 10;
     const [emotionImgAnimationStarted, setEmotionImgAnimationStarted] = useState(false);
     const emotionLeftTransition = useRef(new Animated.Value(0)).current;
     const emotionScaleX = useRef(new Animated.Value(95)).current;
@@ -208,7 +209,7 @@ const DiaryDetail = props => {
                                                             useNativeDriver: false
                                                         }).start();
                                                         Animated.timing(emotionLeftTransition, {
-                                                            toValue: -50,
+                                                            toValue: -53,
                                                             duration: emotionTransitionDuration,
                                                             useNativeDriver: false
                                                         }).start();
@@ -218,7 +219,7 @@ const DiaryDetail = props => {
                                                             useNativeDriver: false
                                                         }).start();
                                                         Animated.timing(dateRightTransition, {
-                                                            toValue: 25,
+                                                            toValue: 35,
                                                             duration: emotionTransitionDuration,
                                                             useNativeDriver: false
                                                         }).start();
@@ -265,6 +266,11 @@ const DiaryDetail = props => {
                             </InputScrollView>
                         </View>
                     </RectangleBox>
+                    <View>
+                        <Image
+
+                        />
+                    </View>
                 </View>
             </Background>
             {
@@ -346,7 +352,7 @@ const styles = StyleSheet.create({
         height: 166
     },
     scrollBarContainer: {
-        marginTop: 10,
+        marginTop: 20,
     },
     textContainer: {
         flex: 1,
@@ -376,12 +382,12 @@ const styles = StyleSheet.create({
     },
     description: {
         alignSelf: 'center',
+        width: 250,
+        maxHeight: 200,
     },
     input: {
-        width: 280,
-        height: 200,
-        textAlign: 'center',
-        overflow: 'hidden',
+        maxWidth: 230,
+        marginHorizontal: 30,
     },
     image: {
         alignSelf: 'center',
