@@ -14,7 +14,6 @@ import HeaderBackImage from '../../components/layout/HeaderBackImage';
 import RectangleBox from '../../components/ui/RectangleBox';
 import Colors from '../../constants/Colors';
 import InputScrollView from 'react-native-input-scroll-view';
-import { captureScreen } from 'react-native-view-shot';
 
 const DiaryIntroBackImage = require('../../assets/icons/close.png');
 
@@ -266,11 +265,6 @@ const DiaryDetail = props => {
                             </InputScrollView>
                         </View>
                     </RectangleBox>
-                    <View>
-                        <Image
-
-                        />
-                    </View>
                 </View>
             </Background>
             {

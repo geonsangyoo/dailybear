@@ -5866,6 +5866,11 @@ react-native-screens@^2.15.0:
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-2.15.0.tgz#9b97c1881c4fcdf304bf363f0013225901625f44"
   integrity sha512-qTSQPy0WKHtlb8xt5gY0Gt6sdvfQUQAnFSqgsggW9UEvySbkHzpqOrOYNA79Ca8oXO0dCFwp6X8buIiDefa7+Q==
 
+react-native-share@^5.1.4:
+  version "5.1.4"
+  resolved "https://registry.yarnpkg.com/react-native-share/-/react-native-share-5.1.4.tgz#0b9d51f6ca724728cb0c5b3ed3a883ee54d7a11b"
+  integrity sha512-/eNBTuimOmzeeBbnZkwW6hbzSZvJnhfkx5cSdQkFS45KRHekD9twP6F8QHn+zJxeJGAP+EgpVCXoA7yCrgKrhQ==
+
 react-native-size-matters@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/react-native-size-matters/-/react-native-size-matters-0.3.1.tgz#24d0cfc335a2c730f6d58bd7b43ea5a41be4b49f"
