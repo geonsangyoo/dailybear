@@ -50,6 +50,18 @@
 	</dict>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Development Test</string>
+	<key>NSUbiquitousContainers</key>
+	<dict>
+		<key>iCloud.com.example.dailybear</key>
+		<dict>
+			<key>NSUbiquitousContainerIsDocumentScopePublic</key>
+			<true/>
+			<key>NSUbiquitousContainerName</key>
+			<string>dailybear</string>
+			<key>NSUbiquitousContainerSupportedFolderLevels</key>
+			<string>Any</string>
+		</dict>
+	</dict>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
@@ -104,17 +116,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSUbiquitousContainers</key>
-    <dict>
-        <key>iCloud.com.example.dailybear</key>
-        <dict>
-            <key>NSUbiquitousContainerIsDocumentScopePublic</key>
-            <true/>
-            <key>NSUbiquitousContainerSupportedFolderLevels</key>
-            <string>Any</string>
-            <key>NSUbiquitousContainerName</key>
-            <string>dailybear</string>
-        </dict>
-    </dict>
 </dict>
 </plist>
