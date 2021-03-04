@@ -1,6 +1,6 @@
 // Standard
-import React, { useState, useCallback, useLayoutEffect, useReducer } from 'react';
-import { Text, TextInput, View, StyleSheet, Image, TouchableOpacity, ActivityIndicator, Pressable, ScrollView } from 'react-native';
+import React, { useState, useCallback, useLayoutEffect, useReducer, useRef } from 'react';
+import { Text, TextInput, View, StyleSheet, Image, TouchableOpacity, ActivityIndicator, Pressable, KeyboardAvoidingView, Platform, Animated } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-native-elements';
 
@@ -13,10 +13,12 @@ import Background from '../../components/layout/Background';
 import HeaderBackImage from '../../components/layout/HeaderBackImage';
 import RectangleBox from '../../components/ui/RectangleBox';
 import Colors from '../../constants/Colors';
+import InputScrollView from 'react-native-input-scroll-view';
 
 const DiaryIntroBackImage = require('../../assets/icons/close.png');
 
 const DiaryDetail = props => {
+    
     const INPUT_CHANGE = 'INPUT_CHANGE';
     const placeholder = Diary.placeholder;
     const fontNameSetting = useSelector(state => state.settings.fontName);
@@ -28,6 +30,38 @@ const DiaryDetail = props => {
     diary.content = useSelector(state => state.diary.content);
     diary.emotion = useSelector(state => state.diary.emotion);
     diary.date = useSelector(state => state.diary.date);
+
+    // Animation (Emotion Icon)
+    const emotionTransitionDuration = 350;
+    const emotionImgHeight = 10;
+    const [emotionImgAnimationStarted, setEmotionImgAnimationStarted] = useState(false);
+    const emotionLeftTransition = useRef(new Animated.Value(0)).current;
+    const emotionScaleX = useRef(new Animated.Value(95)).current;
+    const emotionScaleY = useRef(new Animated.Value(87.5)).current;
+    const diaryScrollY = useRef(new Animated.Value(0)).current;
+    const emotionImgSizeStyle = {
+        width: emotionScaleX,
+        height: emotionScaleY,
+        transform: [
+            {
+                translateX: emotionLeftTransition
+            }
+        ]
+    };
+
+    // Animation (Date)
+    const dateRightTransition = useRef(new Animated.Value(0)).current;
+    const dateUpTransition = useRef(new Animated.Value(0)).current;
+    const dateSizeStyle = {
+        transform: [
+            {
+                translateX: dateRightTransition
+            },
+            {
+                translateY: dateUpTransition
+            }
+        ]
+    };
 
     if ((diary.emotion !== props.route.params?.emotion) && (props.route.params?.emotion !== undefined)) {
         diary.emotion = props.route.params?.emotion;
@@ -114,11 +148,14 @@ const DiaryDetail = props => {
     }
 
     return (
-        <View style={{ flex: 1 }}>
+        <KeyboardAvoidingView
+            style={ styles.container }
+            behavior={ Platform.OS === 'ios' ? 'padding' : 'height' }
+        >
             <Background style={{ ...styles.container, opacity: isCancelModalOpened ? Diary.opacity : 1 }}>
                 <View style={ styles.rectangleContainer }>
                     <RectangleBox style={ styles.rectangleBoxContainer }>
-                        <View style={ styles.contentContainer }>
+                        <View style={ styles.contentInnerContainer }>
                             <TouchableOpacity
                                 style={ styles.imageContainer }
                                 disabled={ isCancelModalOpened ? true : false }
@@ -127,34 +164,105 @@ const DiaryDetail = props => {
                                         props.navigation.navigate("DiaryIntro");
                                 }}
                             >
-                                <Image
-                                    style={ styles.image }
+                                <Animated.Image
+                                    style={[styles.image, emotionImgSizeStyle ]}
                                     source={ Diary.emotionBears[diary.emotion].imgPath }
                                 />
                             </TouchableOpacity>
-                            <Text style={{ ...styles.dateTextStyle,
+                            <Animated.Text style={{ ...styles.dateTextStyle, ...dateSizeStyle,
                                 fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}>
                                 { dateString }
-                            </Text>
-                            <ScrollView style={ styles.scrollBarContainer }>
+                            </Animated.Text>
+                            <InputScrollView
+                                style={ styles.scrollBarContainer }
+                                useAnimatedScrollView= { true }
+                                bounces={ false }
+                                scrollEventThrottle={ 1 }
+                            >
                                 <View style={ styles.description }>
-                                        <TextInput
-                                            style={{ ...styles.input,
-                                                fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}  
-                                            editable={ true }
-                                            multiline={ true }
-                                            onChangeText={(text) => { 
-                                                dispatchInput({
-                                                    type: INPUT_CHANGE,
-                                                    value: text
-                                                });
-                                            }}
-                                            value={ inputState.value }
-                                            placeholder={ placeholder }
-                                            keyboardType='default'
-                                        />
+                                    <TextInput
+                                        style={{ ...styles.input,
+                                            fontFamily: fontNameSetting ? fontNameSetting : SettingConstants.defaultFont }}  
+                                        editable={ true }
+                                        multiline={ true }
+                                        onChangeText={(text) => { 
+                                            dispatchInput({
+                                                type: INPUT_CHANGE,
+                                                value: text
+                                            });
+                                        }}
+                                        onScroll={
+                                            Animated.event(
+                                                [{ nativeEvent: { contentOffset: { y: diaryScrollY }}}],
+                                                { listener: (event) => {
+                                                    if (!emotionImgAnimationStarted && event.nativeEvent.contentOffset.y > emotionImgHeight) {
+                                                        setEmotionImgAnimationStarted(true);
+                                                        Animated.timing(emotionScaleX, {
+                                                            toValue: 46,
+                                                            duration: emotionTransitionDuration,
+                                                            useNativeDriver: false
+                                                        }).start();
+                                                        Animated.timing(emotionScaleY, {
+                                                            toValue: 40,
+                                                            duration: emotionTransitionDuration,
+                                                            useNativeDriver: false
+                                                        }).start();
+                                                        Animated.timing(emotionLeftTransition, {
+                                                            toValue: -53,
+                                                            duration: emotionTransitionDuration,
+                                                            useNativeDriver: false
+                                                        }).start();
+                                                        Animated.timing(dateUpTransition, {
+                                                            toValue: -45,
+                                                            duration: emotionTransitionDuration,
+                                                            useNativeDriver: false
+                                                        }).start();
+                                                        Animated.timing(dateRightTransition, {
+                                                            toValue: 35,
+                                                            duration: emotionTransitionDuration,
+                                                            useNativeDriver: false
+                                                        }).start();
+                                                    }
+        
+                                                    if (emotionImgAnimationStarted && event.nativeEvent.contentOffset.y < emotionImgHeight) {
+                                                        setEmotionImgAnimationStarted(false);
+                                                        Animated.timing(emotionScaleX, {
+                                                            toValue: 95,
+                                                            duration: emotionTransitionDuration,
+                                                            useNativeDriver: false
+                                                        }).start();
+                                                        Animated.timing(emotionScaleY, {
+                                                            toValue: 87.5,
+                                                            duration: emotionTransitionDuration,
+                                                            useNativeDriver: false
+                                                        }).start();
+                                                        Animated.timing(emotionLeftTransition, {
+                                                            toValue: 0,
+                                                            duration: emotionTransitionDuration,
+                                                            useNativeDriver: false
+                                                        }).start();
+                                                        Animated.timing(dateUpTransition, {
+                                                            toValue: 0,
+                                                            duration: emotionTransitionDuration,
+                                                            useNativeDriver: false
+                                                        }).start();
+                                                        Animated.timing(dateRightTransition, {
+                                                            toValue: 0,
+                                                            duration: emotionTransitionDuration,
+                                                            useNativeDriver: false
+                                                        }).start();
+                                                    }
+                                                },
+                                                    useNativeDriver: false
+                                                }
+                                            )
+                                        }
+                                        value={ inputState.value }
+                                        placeholder={ placeholder }
+                                        keyboardType='default'
+                                    />
                                 </View>
-                            </ScrollView>
+                            </InputScrollView>
                         </View>
                     </RectangleBox>
                 </View>
@@ -187,16 +295,22 @@ const DiaryDetail = props => {
                     </RectangleBox>
                 : null
             }
-        </View>
+        </KeyboardAvoidingView>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
     },
     contentContainer: {
         flex: 1,
+        overflow: 'hidden'
+    },
+    contentInnerContainer: {
+        flex: 1,
+        marginTop: 20,
+        marginBottom: 20,
     },
     cancelMessageContainer: {
         flex: 1,
@@ -212,15 +326,17 @@ const styles = StyleSheet.create({
     imageContainer: {
     },
     rectangleContainer: {
-        flex: 1
+        alignSelf: 'center',
+        position: 'absolute',
+        top: '15%',
+        width: '100%',
+        height: '80%',
+        overflow: 'hidden',
     },
     rectangleBoxContainer: {
-        alignSelf: 'center',
-        justifyContent: 'center',
-        top: '13%',
         width: 335,
         height: 400,
-        borderRadius: 1
+        alignSelf: 'center'
     },
     rectangleBoxCloseModalContainer: {
         position: 'absolute',
@@ -230,8 +346,7 @@ const styles = StyleSheet.create({
         height: 166
     },
     scrollBarContainer: {
-        marginTop: 30,
-        marginBottom: 20,
+        marginTop: 20,
     },
     textContainer: {
         flex: 1,
@@ -261,23 +376,15 @@ const styles = StyleSheet.create({
     },
     description: {
         alignSelf: 'center',
-    },
-    diaryTextContainer: {
-        top: '10%',
-        width: '80%',
-        height: '20%',
-        margin: 20,
-        alignSelf: 'center'
+        width: 250,
+        maxHeight: 200,
     },
     input: {
-        margin: 20,
-        textAlign: 'center'
+        maxWidth: 230,
+        marginHorizontal: 30,
     },
     image: {
-        width: 95,
-        height: 87.5,
         alignSelf: 'center',
-        marginTop: 25,
         marginBottom: 20,
         marginHorizontal: 18
     },
