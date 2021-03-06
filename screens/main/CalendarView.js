@@ -54,6 +54,9 @@ const CalendarView = props => {
 
     // Diary sharing
     const viewShot = useRef(null);
+
+    // Notification Interval
+    const [notificationPermission, setNotificationPermission] = useState(false);
     
     // Animation (Swipe)
     const animationDelay = 80;
@@ -96,6 +99,20 @@ const CalendarView = props => {
     };
 
     useEffect(() => {
+        // Permission
+        PushNotificationIOS.requestPermissions().then(
+            (data) => {
+                console.log('PushNotificationIOS.requestPermissions', data);
+                setNotificationPermission(true);
+            },
+            (err) => {
+                console.log('PushNotificationIOS.requestPermissions failed', err);
+                setNotificationPermission(false);
+            }
+        );
+    }, []);
+
+    useEffect(() => {
         // Load Setting
         dispatch(settingsAction.loadSetting());
     }, []);
@@ -115,44 +132,55 @@ const CalendarView = props => {
     }, [checkEmotionChanged]);
 
     useEffect(() => {
-        BackgroundTimer.runBackgroundTimer(() => {
-            if (notificationSetting === 'true') {
+        if (notificationSetting === 'true') {
             // Notification Permission
-                PushNotificationIOS.requestPermissions().then(
-                    (data) => {
-                            console.log('PushNotificationIOS.requestPermissions', data);
-                            let today = new Date();
-                            let tomorrow = new Date();
-                            
-                            tomorrow.setDate(tomorrow.getDate() + 1);
-                            tomorrow.setHours(0, 0, 0);
-            
-                            fetchDiary(today.getFullYear(), today.getMonth() + 1, today.getDate())
-                                .then(res => {
-                                    if (res.rows.length > 0) {
-                                        // Cancel all notifications
-                                        PushNotificationIOS.removeAllPendingNotificationRequests();
-                                    } else {
-                                        // Cancel all notifications
-                                        PushNotificationIOS.removeAllPendingNotificationRequests();
-                                        // Register a new notification
-                                        PushNotificationIOS.addNotificationRequest({
-                                            id: 'Proposal',
-                                            title: 'From Daily Bear',
-                                            body: 'How about writing your story for today? > <',
-                                            fireDate: new Date(new Date().valueOf() + 3000),
-                                        });
-                                    }
+            if (notificationPermission) {
+                BackgroundTimer.runBackgroundTimer(() => {
+                    console.log('PushNotificationIOS.requestPermissions', data);
+                    let today = new Date();
+                    let tomorrow = new Date();
+                    
+                    tomorrow.setDate(tomorrow.getDate() + 1);
+                    tomorrow.setHours(0, 0, 0);
+
+                    fetchDiary(today.getFullYear(), today.getMonth() + 1, today.getDate())
+                        .then(res => {
+                            if (res.rows.length > 0) {
+                                // Cancel all notifications
+                                PushNotificationIOS.removeAllPendingNotificationRequests();
+                            } else {
+                                // Cancel all notifications
+                                PushNotificationIOS.removeAllPendingNotificationRequests();
+                                // Register a new notification
+                                PushNotificationIOS.addNotificationRequest({
+                                    id: 'Proposal',
+                                    title: 'From Daily Bear',
+                                    body: 'How about writing your story for today? > <',
+                                    fireDate: new Date(tomorrow.valueOf()),
                                 });
-                    },
-                    (err) => {
-                        console.log('PushNotificationIOS.requestPermissions failed', err);
-                        setPermissions(err);
+                            }
+                        });
+                }, SettingConstants.notificationInterval);
+            } else {
+                BackgroundTimer.stopBackgroundTimer();
+                Alert.alert(
+                    'Error',
+                    'Notification is not permitted on your device!',
+                    [
+                        {
+                            text: 'OK',
+                            style: 'destructive'
+                        }
+                    ],
+                    {
+                        cancelable: false
                     }
                 );
             }
-        }, 1000 * 10);
-    }, [notificationSetting]);
+        } else {
+            BackgroundTimer.stopBackgroundTimer();
+        }
+    }, [notificationSetting, notificationPermission]);
 
     useEffect(() => {
         (
