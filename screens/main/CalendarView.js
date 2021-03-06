@@ -115,43 +115,43 @@ const CalendarView = props => {
     }, [checkEmotionChanged]);
 
     useEffect(() => {
-        if (notificationSetting === 'true') {
-        // Notification Permission
-            PushNotificationIOS.requestPermissions().then(
-                (data) => {
-                    BackgroundTimer.runBackgroundTimer(() => {
-                        console.log('PushNotificationIOS.requestPermissions', data);
-                        let today = new Date();
-                        let tomorrow = new Date();
-                        
-                        tomorrow.setDate(tomorrow.getDate() + 1);
-                        tomorrow.setHours(0, 0, 0);
-        
-                        fetchDiary(today.getFullYear(), today.getMonth() + 1, today.getDate())
-                            .then(res => {
-                                if (res.rows.length > 0) {
-                                    // Cancel all notifications
-                                    PushNotificationIOS.removeAllPendingNotificationRequests();
-                                } else {
-                                    // Cancel all notifications
-                                    PushNotificationIOS.removeAllPendingNotificationRequests();
-                                    // Register a new notification
-                                    PushNotificationIOS.addNotificationRequest({
-                                        id: 'Proposal',
-                                        title: 'From Daily Bear',
-                                        body: 'How about writing your story for today? > <',
-                                        fireDate: new Date(new Date().valueOf() + 5000),
-                                    });
-                                }
-                            });
-                    }, 1000 * 30);
-                },
-                (err) => {
-                    console.log('PushNotificationIOS.requestPermissions failed', err);
-                    setPermissions(err);
-                }
-            );
-        }
+        BackgroundTimer.runBackgroundTimer(() => {
+            if (notificationSetting === 'true') {
+            // Notification Permission
+                PushNotificationIOS.requestPermissions().then(
+                    (data) => {
+                            console.log('PushNotificationIOS.requestPermissions', data);
+                            let today = new Date();
+                            let tomorrow = new Date();
+                            
+                            tomorrow.setDate(tomorrow.getDate() + 1);
+                            tomorrow.setHours(0, 0, 0);
+            
+                            fetchDiary(today.getFullYear(), today.getMonth() + 1, today.getDate())
+                                .then(res => {
+                                    if (res.rows.length > 0) {
+                                        // Cancel all notifications
+                                        PushNotificationIOS.removeAllPendingNotificationRequests();
+                                    } else {
+                                        // Cancel all notifications
+                                        PushNotificationIOS.removeAllPendingNotificationRequests();
+                                        // Register a new notification
+                                        PushNotificationIOS.addNotificationRequest({
+                                            id: 'Proposal',
+                                            title: 'From Daily Bear',
+                                            body: 'How about writing your story for today? > <',
+                                            fireDate: new Date(new Date().valueOf() + 3000),
+                                        });
+                                    }
+                                });
+                    },
+                    (err) => {
+                        console.log('PushNotificationIOS.requestPermissions failed', err);
+                        setPermissions(err);
+                    }
+                );
+            }
+        }, 1000 * 10);
     }, [notificationSetting]);
 
     useEffect(() => {
