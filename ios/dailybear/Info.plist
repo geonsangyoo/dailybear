@@ -122,5 +122,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>org.example.dailybear</string>
+	</array>
 </dict>
 </plist>
