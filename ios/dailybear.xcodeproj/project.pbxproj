@@ -129,6 +129,7 @@
 		8721B47666DD4CC9C093FDC1 /* libPods-dailybear.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-dailybear.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		876C7D11E17E4FAAB8DB9A36 /* edit.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = edit.png; path = ../assets/icons/edit.png; sourceTree = "<group>"; };
 		8A5F7FCC4A3C4C5388640EA8 /* main_bear_1.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = main_bear_1.png; path = ../assets/images/main_bear_1.png; sourceTree = "<group>"; };
+		8BF70F7025F3868F00BA1D80 /* dailybear.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = dailybear.entitlements; path = dailybear/dailybear.entitlements; sourceTree = "<group>"; };
 		8EF29BBA0E764EB090314576 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		923E01F392E9438788D483A6 /* oval_orange.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = oval_orange.png; path = ../assets/images/oval_orange.png; sourceTree = "<group>"; };
 		92D6EB5CC6DC4232813602BD /* graph.png */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = graph.png; path = ../assets/icons/graph.png; sourceTree = "<group>"; };
@@ -234,6 +235,7 @@
 		13B07FAE1A68108700A75B9A /* dailybear */ = {
 			isa = PBXGroup;
 			children = (
+				8BF70F7025F3868F00BA1D80 /* dailybear.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -920,7 +922,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 31;
+				CODE_SIGN_ENTITLEMENTS = dailybear/dailybear.entitlements;
+				CURRENT_PROJECT_VERSION = 32;
 				DEVELOPMENT_TEAM = 5D35DF6M3H;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = dailybear/Info.plist;
@@ -945,7 +948,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 31;
+				CODE_SIGN_ENTITLEMENTS = dailybear/dailybear.entitlements;
+				CURRENT_PROJECT_VERSION = 32;
 				DEVELOPMENT_TEAM = 5D35DF6M3H;
 				INFOPLIST_FILE = dailybear/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
