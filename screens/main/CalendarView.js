@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import ViewShot from 'react-native-view-shot';
 import RNFileSystem from 'react-native-fs';
 import Share from 'react-native-share';
+import PushNotificationIOS from '@react-native-community/push-notification-ios';
+import BackgroundTimer from 'react-native-background-timer';
 
 // Custom
 import Background from '../../components/layout/Background';
@@ -24,6 +26,7 @@ import RectangleBox from '../../components/ui/RectangleBox';
 import HeaderBackImage from '../../components/layout/HeaderBackImage';
 import Diary from '../../constants/Diary';
 import Colors from '../../constants/Colors';
+import { fetchDiary } from '../../helpers/db_diary';
 
 const DiaryIntroBackImage = require('../../assets/icons/close.png');
 
@@ -34,6 +37,7 @@ const CalendarView = props => {
     const isDiaryDetailed = useSelector(state => state.calendar.isDiaryDetailed);
     const saying = useSelector(state => state.saying.saying);
     const mode = useSelector(state => state.saying.mode);
+    const notificationSetting = useSelector(state => state.settings.notification);
     const checkEmotionChanged = useSelector(state => state.diary.emotion);
     const fontNameSetting = useSelector(state => state.settings.fontName);
     const maxDays = funcs.getMaxDays(isDate.getFullYear(), isDate.getMonth());
@@ -47,8 +51,12 @@ const CalendarView = props => {
     const dateString = (Object.keys(diary.date).length > 0) 
                         ? Diary.convertDate(diary.date.year, diary.date.month, diary.date.date, diary.date.day)
                         : '';
+
     // Diary sharing
     const viewShot = useRef(null);
+
+    // Notification Interval
+    const [notificationPermission, setNotificationPermission] = useState(false);
     
     // Animation (Swipe)
     const animationDelay = 80;
@@ -90,6 +98,19 @@ const CalendarView = props => {
         ]
     };
 
+    useEffect(() => {
+        // Permission
+        PushNotificationIOS.requestPermissions().then(
+            (data) => {
+                console.log('PushNotificationIOS.requestPermissions', data);
+                setNotificationPermission(true);
+            },
+            (err) => {
+                console.log('PushNotificationIOS.requestPermissions failed', err);
+                setNotificationPermission(false);
+            }
+        );
+    }, []);
 
     useEffect(() => {
         // Load Setting
@@ -109,6 +130,57 @@ const CalendarView = props => {
             dispatch(calendarActions.loadEmotions(isDate.getFullYear(), isDate.getMonth() + 1, maxDays));
         }
     }, [checkEmotionChanged]);
+
+    useEffect(() => {
+        if (notificationSetting === 'true') {
+            // Notification Permission
+            if (notificationPermission) {
+                BackgroundTimer.runBackgroundTimer(() => {
+                    console.log('PushNotificationIOS.requestPermissions', data);
+                    let today = new Date();
+                    let tomorrow = new Date();
+                    
+                    tomorrow.setDate(tomorrow.getDate() + 1);
+                    tomorrow.setHours(0, 0, 0);
+
+                    fetchDiary(today.getFullYear(), today.getMonth() + 1, today.getDate())
+                        .then(res => {
+                            if (res.rows.length > 0) {
+                                // Cancel all notifications
+                                PushNotificationIOS.removeAllPendingNotificationRequests();
+                            } else {
+                                // Cancel all notifications
+                                PushNotificationIOS.removeAllPendingNotificationRequests();
+                                // Register a new notification
+                                PushNotificationIOS.addNotificationRequest({
+                                    id: 'Proposal',
+                                    title: 'From Daily Bear',
+                                    body: 'How about writing your story for today? > <',
+                                    fireDate: new Date(tomorrow.valueOf()),
+                                });
+                            }
+                        });
+                }, SettingConstants.notificationInterval);
+            } else {
+                BackgroundTimer.stopBackgroundTimer();
+                Alert.alert(
+                    'Error',
+                    'Notification is not permitted on your device!',
+                    [
+                        {
+                            text: 'OK',
+                            style: 'destructive'
+                        }
+                    ],
+                    {
+                        cancelable: false
+                    }
+                );
+            }
+        } else {
+            BackgroundTimer.stopBackgroundTimer();
+        }
+    }, [notificationSetting, notificationPermission]);
 
     useEffect(() => {
         (

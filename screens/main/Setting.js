@@ -90,6 +90,7 @@ const Setting = props => {
                             }}
                         />
                     </View>
+                    {/*
                     <View style={ styles.contentRow }>
                         <Text style={{ ...styles.contentText,
                             fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont
@@ -107,6 +108,7 @@ const Setting = props => {
                             }}
                         />
                     </View>
+                    */}
                     <Pressable style={ styles.contentRow }
                         onPress={() => { 
                             props.navigation.navigate("FontSetting");

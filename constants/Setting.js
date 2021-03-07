@@ -1,4 +1,5 @@
 const Setting = {
+    notificationInterval: (1000 * 60 * 60) + 5,
     fontSelect: "Select",
     fontSelected: "Selected",
     defaultFont: "SFProText-Regular",

@@ -7,8 +7,7 @@ target 'dailybear' do
   config = use_native_modules!
 
   use_react_native!(:path => config["reactNativePath"])
-
-
+  
   target 'dailybearTests' do
     inherit! :complete
     # Pods for testing
@@ -22,6 +21,13 @@ target 'dailybear' do
   post_install do |installer|
     flipper_post_install(installer)
   end
+
+  permissions_path = '../node_modules/react-native-permissions/ios'
+
+  pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications"
+  pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary"
+  pod 'Permission-PhotoLibraryAddOnly', :path => "#{permissions_path}/PhotoLibraryAddOnly"
+
 end
 
 target 'dailybear-tvOS' do
