@@ -19,3 +19,6 @@ export const nDays = [
     31, 30, 31, 31, 
     30, 31, 30, 31
 ];
+
+export const animationThresholdRatio = 15;
+export const marginFromTopVerticalRatio = 20;

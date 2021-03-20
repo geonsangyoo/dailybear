@@ -12,11 +12,14 @@ import * as calendarActions from '../../store/actions/Calendar';
 import * as diaryActions from '../../store/actions/Diary';
 import * as sayingActions from '../../store/actions/Saying';
 import * as funcs from '../../helpers/funcs';
+import * as calendarConsts from '../../constants/Calendar';
 import SettingConstants from '../../constants/Setting';
 import sayingConsts from '../../constants/Saying';
 import Diary from '../../constants/Diary';
 import Statistics from '../../constants/Statistics';
 import Colors from '../../constants/Colors';
+
+const marginFromTopVerticalRatio = calendarConsts.marginFromTopVerticalRatio;
 
 const StatisticsView = props => {
 
@@ -35,7 +38,7 @@ const StatisticsView = props => {
 
     // Animation
     const animationDelay = 80;
-    const animationThreshold = Dimensions.get("screen").height / 8;
+    const animationThreshold = Dimensions.get("screen").height / calendarConsts.animationThresholdRatio;
     const scrollY = useRef(new Animated.Value(0)).current;
     const yPositionMin = Dimensions.get("screen").height * -1;
     const yPositionMax = Dimensions.get("screen").height;
@@ -436,12 +439,13 @@ const styles = StyleSheet.create({
         overflow: 'hidden'
     },
     mainContentContainer: {
-        height: '100%'
+        top: Dimensions.get('window').height / marginFromTopVerticalRatio,
+        height: '80%',
     },
     emotionNumberContainer: {
         flexDirection: 'column',
         marginLeft: '8%',
-        marginTop: '25%',
+        marginTop: '20%',
     },
     emotionNumberItem: {
         flexDirection: 'row',

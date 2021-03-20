@@ -29,6 +29,7 @@ import Colors from '../../constants/Colors';
 import { fetchDiary } from '../../helpers/db_diary';
 
 const DiaryIntroBackImage = require('../../assets/icons/close.png');
+const marginFromTopVerticalRatio = calendarConsts.marginFromTopVerticalRatio;
 
 const CalendarView = props => {
 
@@ -60,7 +61,7 @@ const CalendarView = props => {
     
     // Animation (Swipe)
     const animationDelay = 80;
-    const animationThreshold = Dimensions.get("screen").height / 8;
+    const animationThreshold = Dimensions.get("screen").height / calendarConsts.animationThresholdRatio;
     const yPositionMin = Dimensions.get("screen").height * -1;
     const yPositionMax = Dimensions.get("screen").height;
     const yPositionInit = new Animated.Value(0);
@@ -535,6 +536,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden'
     },
     gestureContainer: {
+        top: Dimensions.get('window').height / marginFromTopVerticalRatio,
         height: '80%',
         overflow: 'hidden',
     },
