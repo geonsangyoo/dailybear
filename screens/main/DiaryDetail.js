@@ -151,6 +151,7 @@ const DiaryDetail = props => {
         <KeyboardAvoidingView
             style={ styles.container }
             behavior={ Platform.OS === 'ios' ? 'padding' : 'height' }
+            keyboardVerticalOffset={ Diary.keyboardVerticalOffset }
         >
             <Background style={{ ...styles.container, opacity: isCancelModalOpened ? Diary.opacity : 1 }}>
                 <View style={ styles.rectangleContainer }>
