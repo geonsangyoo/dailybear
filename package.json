@@ -19,6 +19,7 @@
     "moment": "^2.29.1",
     "react": "16.13.1",
     "react-native": "0.63.4",
+    "react-native-background-fetch": "^4.0.1",
     "react-native-background-timer": "^2.4.1",
     "react-native-elements": "^3.1.0",
     "react-native-email-link": "^1.10.0",
