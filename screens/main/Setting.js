@@ -1,15 +1,18 @@
 // Standard
 import React, { useEffect, useState, useCallback } from 'react';
-import { View, Text, StyleSheet, Switch, StatusBar, Image, Pressable, Alert } from 'react-native';
+import { View, Text, StyleSheet, Switch, StatusBar, Image, Pressable, Alert, Dimensions } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { openComposer } from 'react-native-email-link';
 import InAppReview from 'react-native-in-app-review';
 
 // Custom
+import * as calendarConsts from '../../constants/Calendar';
 import * as settingsAction from '../../store/actions/Settings';
 import SettingConstants from '../../constants/Setting';
 import Colors from '../../constants/Colors';
 import Background from '../../components/layout/Background';
+
+const marginFromTopVerticalRatio = calendarConsts.marginFromTopVerticalRatio;
 
 const Setting = props => {
     
@@ -19,7 +22,7 @@ const Setting = props => {
     const iCloudSyncSetting = useSelector(state => state.settings.iCloudSync);
     const fontNameSetting = useSelector(state => state.settings.fontName);
     const [notificationState, setNotificationState] = useState('');
-    const [iCloudSyncState, setiCloudSyncState] = useState('');
+    // const [iCloudSyncState, setiCloudSyncState] = useState('');
     const [fontNameState, setFontNameState] = useState('');
     const dispatch = useDispatch();
 
@@ -27,9 +30,10 @@ const Setting = props => {
         dispatch(settingsAction.saveSetting("notification", "flag", val ? "true" : "false"));
     }, [notificationState]);
 
-    const changeiCloudSync = useCallback((val) => {
-        dispatch(settingsAction.saveSetting("iCloudSync", "flag", val ? "true" : "false"));
-    }, [iCloudSyncState]);
+    // TODO
+    // const changeiCloudSync = useCallback((val) => {
+    //     dispatch(settingsAction.saveSetting("iCloudSync", "flag", val ? "true" : "false"));
+    // }, [iCloudSyncState]);
 
     useEffect(() => {
         setNotificationState(notificationSetting);
@@ -41,183 +45,185 @@ const Setting = props => {
         <View style={ styles.container }>
             <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent={ true }/>
             <Background style={ styles.container }>
-                <View style={ styles.headerContainer }>
-                    <Text style={{ ...styles.headerTitle,
-                        fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont
-                    }}>
-                        Setting
-                    </Text>
-                </View>
-                <View style={ styles.contentContainer }>
-                    <Pressable style={ styles.contentRow }
-                        onPress={() => { 
-                            props.navigation.navigate("SayingDetail", {
-                                saying: saying,
-                                mode: sayingMode
-                            });
-                        }}
-                    >
-                        <Text style={{ ...styles.contentText,
+                <View style={ styles.mainContentContainer }>
+                    <View style={ styles.headerContainer }>
+                        <Text style={{ ...styles.headerTitle,
                             fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont
                         }}>
-                            A word of this month
+                            Setting
                         </Text>
-                        <View style={ styles.settingContainer }>
-                            <Text style={{ ...styles.settingText,
-                                fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont }}>
-                                { sayingMode }
-                            </Text>
-                            <Image 
-                                style={ styles.image }
-                                source={ require('../../assets/icons/setting_arrow.png') }
-                            />
-                        </View>
-                    </Pressable>
-                    <View style={ styles.contentRow }>
-                        <Text style={{ ...styles.contentText,
-                            fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont
-                        }}>
-                            Notification
-                        </Text>
-                        <Switch
-                            style={ styles.settingSwitch }
-                            ios_backgroundColor={ Colors.SettingSwitchOff_brown }
-                            trackColor={{ true: Colors.SettingTitle_brown }}
-                            value={ notificationState === "true" ? true : false }
-                            onValueChange={(newValue) => {
-                                setNotificationState(newValue ? "true" : "false");
-                                changeNotification(newValue);
-                            }}
-                        />
                     </View>
-                    {/*
-                    <View style={ styles.contentRow }>
-                        <Text style={{ ...styles.contentText,
-                            fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont
-                        }}>
-                            Synchronize iCloud
-                        </Text>
-                        <Switch
-                            style={ styles.settingSwitch }
-                            ios_backgroundColor={ Colors.SettingSwitchOff_brown }
-                            trackColor={{ true: Colors.SettingTitle_brown }}
-                            value={ iCloudSyncState === "true" ? true : false }
-                            onValueChange={(newValue) => {
-                                setiCloudSyncState(newValue ? "true" : "false");
-                                changeiCloudSync(newValue);
+                    <View style={ styles.contentContainer }>
+                        <Pressable style={ styles.contentRow }
+                            onPress={() => { 
+                                props.navigation.navigate("SayingDetail", {
+                                    saying: saying,
+                                    mode: sayingMode
+                                });
                             }}
-                        />
-                    </View>
-                    */}
-                    <Pressable style={ styles.contentRow }
-                        onPress={() => { 
-                            props.navigation.navigate("FontSetting");
-                        }}
-                    >
-                        <Text style={{ ...styles.contentText,
-                            fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont
-                        }}>
-                            Font
-                        </Text>
-                        <View style={ styles.settingContainer }>
-                            <Text style={{ ...styles.exampleText,
+                        >
+                            <Text style={{ ...styles.contentText,
                                 fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont
                             }}>
-                                ABCDEFGHI..
+                                A word of this month
                             </Text>
-                            <Image 
-                                style={ styles.image }
-                                source={ require('../../assets/icons/setting_arrow.png') }
+                            <View style={ styles.settingContainer }>
+                                <Text style={{ ...styles.settingText,
+                                    fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont }}>
+                                    { sayingMode }
+                                </Text>
+                                <Image 
+                                    style={ styles.image }
+                                    source={ require('../../assets/icons/setting_arrow.png') }
+                                />
+                            </View>
+                        </Pressable>
+                        <View style={ styles.contentRow }>
+                            <Text style={{ ...styles.contentText,
+                                fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont
+                            }}>
+                                Notification
+                            </Text>
+                            <Switch
+                                style={ styles.settingSwitch }
+                                ios_backgroundColor={ Colors.SettingSwitchOff_brown }
+                                trackColor={{ true: Colors.SettingTitle_brown }}
+                                value={ notificationState === "true" ? true : false }
+                                onValueChange={(newValue) => {
+                                    setNotificationState(newValue ? "true" : "false");
+                                    changeNotification(newValue);
+                                }}
                             />
                         </View>
-                    </Pressable>
-                    <Pressable style={ styles.contentRow }
-                        onPress={() => {
-                            if (InAppReview.isAvailable()) {
-                                InAppReview.RequestInAppReview();
-                            } else {
-                                Alert.alert(
-                                    'Warning',
-                                    'Rating screen is not provided!',
-                                    [
+                        {/*
+                        <View style={ styles.contentRow }>
+                            <Text style={{ ...styles.contentText,
+                                fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont
+                            }}>
+                                Synchronize iCloud
+                            </Text>
+                            <Switch
+                                style={ styles.settingSwitch }
+                                ios_backgroundColor={ Colors.SettingSwitchOff_brown }
+                                trackColor={{ true: Colors.SettingTitle_brown }}
+                                value={ iCloudSyncState === "true" ? true : false }
+                                onValueChange={(newValue) => {
+                                    setiCloudSyncState(newValue ? "true" : "false");
+                                    changeiCloudSync(newValue);
+                                }}
+                            />
+                        </View>
+                        */}
+                        <Pressable style={ styles.contentRow }
+                            onPress={() => { 
+                                props.navigation.navigate("FontSetting");
+                            }}
+                        >
+                            <Text style={{ ...styles.contentText,
+                                fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont
+                            }}>
+                                Font
+                            </Text>
+                            <View style={ styles.settingContainer }>
+                                <Text style={{ ...styles.exampleText,
+                                    fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont
+                                }}>
+                                    ABCDEFGHI..
+                                </Text>
+                                <Image 
+                                    style={ styles.image }
+                                    source={ require('../../assets/icons/setting_arrow.png') }
+                                />
+                            </View>
+                        </Pressable>
+                        <Pressable style={ styles.contentRow }
+                            onPress={() => {
+                                if (InAppReview.isAvailable()) {
+                                    InAppReview.RequestInAppReview();
+                                } else {
+                                    Alert.alert(
+                                        'Warning',
+                                        'Rating screen is not provided!',
+                                        [
+                                            {
+                                                text: 'OK',
+                                                style: 'destructive',
+                                            }
+                                        ],
                                         {
-                                            text: 'OK',
-                                            style: 'destructive',
+                                            cancelable: false
                                         }
-                                    ],
-                                    {
-                                        cancelable: false
-                                    }
-                                );
-                            }
-                        }}
-                    >
-                        <Text style={{ ...styles.contentText,
-                            fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont
-                        }}>
-                            Praise the Developer
-                        </Text>
-                        <View style={ styles.settingContainer }>
-                            <Image 
-                                style={ styles.image }
-                                source={ require('../../assets/icons/setting_arrow.png') }
-                            />
-                        </View>
-                    </Pressable>
-                    <Pressable style={ styles.contentRow }
-                        onPress={() => {
-                            openComposer({
-                                to: 'geonsangyoo@gmail.com',
-                                cc: 'strawchoo@naver.com',
-                                subject: '【Daily Bear】> 건의사항',
-                            }).then(res => {
-                                console.log("Email is opened!")
-                            }, err => {
-                                Alert.alert(
-                                    'Error',
-                                    'Email Application is not found!',
-                                    [
+                                    );
+                                }
+                            }}
+                        >
+                            <Text style={{ ...styles.contentText,
+                                fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont
+                            }}>
+                                Praise the Developer
+                            </Text>
+                            <View style={ styles.settingContainer }>
+                                <Image 
+                                    style={ styles.image }
+                                    source={ require('../../assets/icons/setting_arrow.png') }
+                                />
+                            </View>
+                        </Pressable>
+                        <Pressable style={ styles.contentRow }
+                            onPress={() => {
+                                openComposer({
+                                    to: 'geonsangyoo@gmail.com',
+                                    cc: 'strawchoo@naver.com',
+                                    subject: '【Daily Bear】> 건의사항',
+                                }).then(res => {
+                                    console.log("Email is opened!")
+                                }, err => {
+                                    Alert.alert(
+                                        'Error',
+                                        'Email Application is not found!',
+                                        [
+                                            {
+                                                text: 'OK',
+                                                style: 'destructive'
+                                            }
+                                        ],
                                         {
-                                            text: 'OK',
-                                            style: 'destructive'
+                                            cancelable: false
                                         }
-                                    ],
-                                    {
-                                        cancelable: false
-                                    }
-                                );
-                            });
-                        }}
-                    >
-                        <Text style={{ ...styles.contentText,
-                            fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont
-                        }}>
-                            Send any good opinion
-                        </Text>
-                        <View style={ styles.settingContainer }>
-                            <Image 
-                                style={ styles.image }
-                                source={ require('../../assets/icons/setting_arrow.png') }
-                            />
-                        </View>
-                    </Pressable>
-                    <Pressable style={ styles.contentRow }
-                        onPress={() => { 
-                            props.navigation.navigate("TermsAndCondition");
-                        }}
-                    >
-                        <Text style={{ ...styles.contentText,
-                            fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont
-                        }}>
-                            Terms and conditions
-                        </Text>
-                        <View style={ styles.settingContainer }>
-                            <Image 
-                                style={ styles.image }
-                                source={ require('../../assets/icons/setting_arrow.png') }
-                            />
-                        </View>
-                    </Pressable>
+                                    );
+                                });
+                            }}
+                        >
+                            <Text style={{ ...styles.contentText,
+                                fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont
+                            }}>
+                                Send any good opinion
+                            </Text>
+                            <View style={ styles.settingContainer }>
+                                <Image 
+                                    style={ styles.image }
+                                    source={ require('../../assets/icons/setting_arrow.png') }
+                                />
+                            </View>
+                        </Pressable>
+                        <Pressable style={ styles.contentRow }
+                            onPress={() => { 
+                                props.navigation.navigate("TermsAndCondition");
+                            }}
+                        >
+                            <Text style={{ ...styles.contentText,
+                                fontFamily: fontNameState ? fontNameState : SettingConstants.defaultFont
+                            }}>
+                                Terms and conditions
+                            </Text>
+                            <View style={ styles.settingContainer }>
+                                <Image 
+                                    style={ styles.image }
+                                    source={ require('../../assets/icons/setting_arrow.png') }
+                                />
+                            </View>
+                        </Pressable>
+                    </View>
                 </View>
             </Background>
         </View>
@@ -227,6 +233,10 @@ const Setting = props => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    mainContentContainer: {
+        top: Dimensions.get('window').height / marginFromTopVerticalRatio,
+        height: '80%',
     },
     headerContainer: {
         top: '12%',

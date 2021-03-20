@@ -1,6 +1,6 @@
 // Standard
 import React, { useEffect } from 'react';
-import { View, StyleSheet, StatusBar, FlatList } from 'react-native';
+import { View, StyleSheet, StatusBar, Dimensions, FlatList } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -9,11 +9,14 @@ import Background from '../../components/layout/Background';
 import Header from '../../components/layout/Header';
 import Footer from '../../components/layout/Footer';
 import List from '../../components/main/List';
+import * as calendarConsts from '../../constants/Calendar';
 import * as calendarActions from '../../store/actions/Calendar';
 import * as diaryActions from '../../store/actions/Diary';
 import * as sayingActions from '../../store/actions/Saying';
 import * as funcs from '../../helpers/funcs';
 import sayingConsts from '../../constants/Saying';
+
+const marginFromTopVerticalRatio = calendarConsts.marginFromTopVerticalRatio;
 
 const ListView = props => {
 
@@ -58,23 +61,25 @@ const diaryHandler = (year, month, date, day, emotion) => {
         <View style={{ flex: 1 }}>
             <Background style={ styles.container }>
                 <SafeAreaView style={ styles.container }>
-                    <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent={ true }/>
-                    <Header getDate={ isDate } parentProps={ props } saying={ saying } mode={ mode }/>
-                    { ( contents.length > 0 ) ?
-                        <View style={ styles.listContainer }>
-                            <FlatList
-                                data={ emotions }
-                                keyExtractor={ item => String(item.date) }
-                                renderItem={ itemData => (
-                                    <List
-                                        date={ itemData.item.date }
-                                        emotionTitle={ itemData.item.emotion }
-                                        content={ contents[itemData.index].content }
-                                    />
-                                )}
-                            />
-                        </View> : null
-                    }
+                    <View style={ styles.mainContentContainer }>
+                        <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent={ true }/>
+                        <Header getDate={ isDate } parentProps={ props } saying={ saying } mode={ mode }/>
+                        { ( contents.length > 0 ) ?
+                            <View style={ styles.listContainer }>
+                                <FlatList
+                                    data={ emotions }
+                                    keyExtractor={ item => String(item.date) }
+                                    renderItem={ itemData => (
+                                        <List
+                                            date={ itemData.item.date }
+                                            emotionTitle={ itemData.item.emotion }
+                                            content={ contents[itemData.index].content }
+                                        />
+                                    )}
+                                />
+                            </View> : null
+                        }
+                    </View>
                     <Footer parentProps={ props } parent={ this } diaryHandler={ diaryHandler }/>
                 </SafeAreaView>
             </Background>
@@ -85,6 +90,10 @@ const diaryHandler = (year, month, date, day, emotion) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    mainContentContainer: {
+        top: Dimensions.get('window').height / marginFromTopVerticalRatio,
+        height: '80%',
     },
     listContainer: {
         marginTop: '10%',
