@@ -69,6 +69,7 @@ const Diary = {
             .concat(String(date).padStart(2, '0'))
             .concat('  ')
             .concat(day);
-    }
+    },
+    keyboardVerticalOffset: -150,
 };
 export default Diary;
