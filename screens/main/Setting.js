@@ -37,7 +37,7 @@ const Setting = props => {
 
     useEffect(() => {
         setNotificationState(notificationSetting);
-        setiCloudSyncState(iCloudSyncSetting);
+        // setiCloudSyncState(iCloudSyncSetting);
         setFontNameState(fontNameSetting);
     }, [notificationSetting, iCloudSyncSetting, fontNameSetting]);
 

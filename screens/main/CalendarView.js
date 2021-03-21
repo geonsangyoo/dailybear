@@ -7,7 +7,7 @@ import ViewShot from 'react-native-view-shot';
 import RNFileSystem from 'react-native-fs';
 import Share from 'react-native-share';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
-import BackgroundTimer from 'react-native-background-timer';
+import BackgroundFetch from 'react-native-background-fetch';
 
 // Custom
 import Background from '../../components/layout/Background';
@@ -58,6 +58,7 @@ const CalendarView = props => {
 
     // Notification Interval
     const [notificationPermission, setNotificationPermission] = useState(false);
+    const [backgroundTasks, setBackgroundTasks] = useState([]);
     
     // Animation (Swipe)
     const animationDelay = 80;
@@ -136,34 +137,8 @@ const CalendarView = props => {
         if (notificationSetting === 'true') {
             // Notification Permission
             if (notificationPermission) {
-                BackgroundTimer.runBackgroundTimer(() => {
-                    console.log('PushNotificationIOS.requestPermissions', data);
-                    let today = new Date();
-                    let tomorrow = new Date();
-                    
-                    tomorrow.setDate(tomorrow.getDate() + 1);
-                    tomorrow.setHours(0, 0, 0);
-
-                    fetchDiary(today.getFullYear(), today.getMonth() + 1, today.getDate())
-                        .then(res => {
-                            if (res.rows.length > 0) {
-                                // Cancel all notifications
-                                PushNotificationIOS.removeAllPendingNotificationRequests();
-                            } else {
-                                // Cancel all notifications
-                                PushNotificationIOS.removeAllPendingNotificationRequests();
-                                // Register a new notification
-                                PushNotificationIOS.addNotificationRequest({
-                                    id: 'Proposal',
-                                    title: 'From Daily Bear',
-                                    body: 'How about writing your story for today? > <',
-                                    fireDate: new Date(tomorrow.valueOf()),
-                                });
-                            }
-                        });
-                }, SettingConstants.notificationInterval);
+                backgroundFetchConfig();
             } else {
-                BackgroundTimer.stopBackgroundTimer();
                 Alert.alert(
                     'Error',
                     'Notification is not permitted on your device!',
@@ -179,7 +154,8 @@ const CalendarView = props => {
                 );
             }
         } else {
-            BackgroundTimer.stopBackgroundTimer();
+            // TODO
+            PushNotificationIOS.removeAllPendingNotificationRequests();
         }
     }, [notificationSetting, notificationPermission]);
 
@@ -208,6 +184,58 @@ const CalendarView = props => {
             )
         });
     });
+
+    const setPushNotification = () => {
+        let today = new Date();
+        let tomorrow = new Date();
+        
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        tomorrow.setHours(0, 0, 0, 100);
+
+        fetchDiary(today.getFullYear(), today.getMonth() + 1, today.getDate())
+            .then(res => {
+                if (res.rows.length > 0) {
+                    // Cancel all notifications
+                    PushNotificationIOS.removeAllPendingNotificationRequests();
+                } else {
+                    // Cancel all notifications
+                    PushNotificationIOS.removeAllPendingNotificationRequests();
+                    // Register a new notification
+                    PushNotificationIOS.addNotificationRequest({
+                        id: 'Proposal',
+                        title: 'From Daily Bear',
+                        body: 'How about writing your story for today? > <',
+                        fireDate: new Date(tomorrow.valueOf()),
+                    });
+                }
+            });
+    };
+
+    const backgroundFetchConfig = () => {
+        // Configure BackgroundFetch as usual
+        BackgroundFetch.configure({ minimumFetchInterval: 15 },
+            async (taskId) => {
+                setBackgroundTasks(backgroundTasks.push(taskId));
+                console.log("[BackgroundFetch] fetched >", taskId);
+                setPushNotification();
+                setBackgroundTasks(backgroundTasks.pop());
+                BackgroundFetch.finish(taskId);
+            },
+            async (taskId) => {
+                console.log("[BackgroundFetch] timed out >", taskId);
+                setBackgroundTasks(backgroundTasks.pop());
+                BackgroundFetch.finish(taskId);
+            },
+        );
+        BackgroundFetch.scheduleTask({
+            stopOnTerminate: false,
+            enableHeadless: true,
+            taskId: 'org.example.dailybear.notification',
+            delay: 5000,
+            forceAlarmManager: false,
+            periodic: true,
+        });
+    };
 
     const loadHandler = useCallback((isDate) => {
         dispatch(calendarActions.setActiveDate(isDate));

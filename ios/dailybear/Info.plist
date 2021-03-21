@@ -5,6 +5,7 @@
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>org.example.dailybear</string>
+		<string>org.example.dailybear.notification</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
