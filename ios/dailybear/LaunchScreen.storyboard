@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,28 +23,38 @@
                                     <constraint firstAttribute="height" constant="1040" id="hSG-br-fKJ"/>
                                 </constraints>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_bear.png" translatesAutoresizingMaskIntoConstraints="NO" id="5vl-aX-sng">
-                                <rect key="frame" x="149.66666666666666" y="294" width="75.666666666666657" height="74"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_title.png" translatesAutoresizingMaskIntoConstraints="NO" id="Axg-do-Ygg">
-                                <rect key="frame" x="117.66666666666667" y="378" width="139.66666666666663" height="15"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dailybear_right_img.png" translatesAutoresizingMaskIntoConstraints="NO" id="73c-mj-0Xo">
+                                <rect key="frame" x="297" y="389" width="36" height="39"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="15" id="QdL-6O-Jls"/>
+                                    <constraint firstAttribute="width" constant="36" id="L3D-1P-Cfk"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dailybear_text.png" translatesAutoresizingMaskIntoConstraints="NO" id="22F-Op-8jD">
+                                <rect key="frame" x="66.666666666666671" y="344" width="241.66666666666663" height="129"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="129" id="XyO-Jk-o2b"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dailybear_left_img.png" translatesAutoresizingMaskIntoConstraints="NO" id="LYH-KE-kLH">
+                                <rect key="frame" x="39" y="398.33333333333331" width="66" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="66" id="rmX-d9-AL9"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="LYH-KE-kLH" firstAttribute="centerY" secondItem="22F-Op-8jD" secondAttribute="centerY" multiplier="1.03" id="0Sh-oa-Tsh"/>
+                            <constraint firstItem="22F-Op-8jD" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="2Hz-T8-qMq"/>
                             <constraint firstItem="xwd-LL-6xx" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="-145" id="4pL-Qc-2j2"/>
-                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="bottom" secondItem="Axg-do-Ygg" secondAttribute="bottom" constant="385" id="BbA-Qt-7Ow"/>
-                            <constraint firstItem="5vl-aX-sng" firstAttribute="top" secondItem="Bcu-3y-fUS" secondAttribute="top" constant="250" id="Cmp-Vo-DhL"/>
-                            <constraint firstItem="Axg-do-Ygg" firstAttribute="top" secondItem="5vl-aX-sng" secondAttribute="bottom" constant="10" id="JHX-IV-poN"/>
-                            <constraint firstItem="5vl-aX-sng" firstAttribute="centerX" secondItem="Axg-do-Ygg" secondAttribute="centerX" id="JI8-i4-I5D"/>
-                            <constraint firstItem="5vl-aX-sng" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Oyt-Sf-6oe"/>
+                            <constraint firstItem="22F-Op-8jD" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" constant="66.666666666666686" id="4xu-UY-7Oh"/>
                             <constraint firstItem="xwd-LL-6xx" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" constant="-132" id="Pnd-ja-UCY"/>
-                            <constraint firstItem="5vl-aX-sng" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" constant="149.66666666666669" id="fLU-0Y-jMq"/>
-                            <constraint firstItem="Axg-do-Ygg" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" constant="117.66666666666669" id="kLe-AF-jeC"/>
+                            <constraint firstItem="LYH-KE-kLH" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" constant="39" id="Q5q-tB-gC2"/>
+                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="bottom" secondItem="22F-Op-8jD" secondAttribute="bottom" constant="305" id="Qa7-xX-1hU"/>
+                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="trailing" secondItem="73c-mj-0Xo" secondAttribute="trailing" constant="42" id="nhs-wx-ugk"/>
+                            <constraint firstItem="22F-Op-8jD" firstAttribute="top" secondItem="Bcu-3y-fUS" secondAttribute="top" constant="300" id="v0Y-7f-TsM"/>
+                            <constraint firstItem="73c-mj-0Xo" firstAttribute="centerY" secondItem="22F-Op-8jD" secondAttribute="centerY" id="yFi-ps-iBh"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -54,8 +64,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="background.png" width="375" height="667"/>
-        <image name="splash_bear.png" width="76" height="70"/>
-        <image name="splash_title.png" width="142" height="17"/>
+        <image name="background.png" width="414" height="896"/>
+        <image name="dailybear_left_img.png" width="62" height="45"/>
+        <image name="dailybear_right_img.png" width="37" height="39"/>
+        <image name="dailybear_text.png" width="160" height="30"/>
     </resources>
 </document>
