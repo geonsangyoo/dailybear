@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable radix */
 // Standard
 import React, {
@@ -128,19 +129,26 @@ const CalendarView = (props) => {
     ],
   };
 
-  useEffect(() => {
-    // Permission
-    PushNotificationIOS.requestPermissions().then(
-      (data) => {
-        console.log('PushNotificationIOS.requestPermissions', data);
-        setNotificationPermission(true);
-      },
-      (err) => {
-        console.log('PushNotificationIOS.requestPermissions failed', err);
-        setNotificationPermission(false);
-      },
-    );
-  }, []);
+  // useEffect(() => {
+  //   // Requesting permission method
+  //   const requestPermissionDialog = async () => {
+  //     await PushNotificationIOS.requestPermissions().then(
+  //       (data) => {
+  //         console.log('PushNotificationIOS.requestPermissions', data);
+  //         setNotificationPermission(true);
+  //       },
+  //       (err) => {
+  //         console.log('PushNotificationIOS.requestPermissions failed', err);
+  //         setNotificationPermission(false);
+  //       },
+  //     );
+  //   };
+
+  //   if (notificationSetting === 'true' && !notificationPermission) {
+  //     // Request relevant permissions for push notification
+  //     requestPermissionDialog();
+  //   }
+  // }, [notificationPermission, notificationSetting]);
 
   useEffect(() => {
     // Load Setting
@@ -179,65 +187,77 @@ const CalendarView = (props) => {
   }, [checkEmotionChanged, dispatch, isDate, isDiaryDetailed, maxDays]);
 
   useEffect(() => {
+    // Background execution method
+    const backgroundFetchConfig = async () => {
+      console.log('Start background fetching...');
+      // Configure BackgroundFetch as usual
+      await BackgroundFetch.configure(
+        {minimumFetchInterval: 15},
+        async (taskId) => {
+          setBackgroundTasks(backgroundTasks.push(taskId));
+          console.log('[BackgroundFetch] taskId > fetched >', taskId);
+          // Use a switch statement to route task-handling.
+          switch (taskId) {
+            case 'org.example.dailybear.notification':
+              console.log('custom task');
+              setPushNotification();
+              break;
+            default:
+              console.log('Default fetch task');
+          }
+          setPushNotification();
+          // setBackgroundTasks(backgroundTasks.pop());
+          BackgroundFetch.finish(taskId);
+        },
+        async (taskId) => {
+          console.log('[BackgroundFetch] timed out >', taskId);
+          setBackgroundTasks(backgroundTasks.pop());
+          BackgroundFetch.finish(taskId);
+        },
+      );
+
+      setTimeout(() => {
+        BackgroundFetch.scheduleTask({
+          taskId: 'org.example.dailybear.notification',
+          delay: 5000,
+          forceAlarmManager: true,
+          periodic: true,
+        })
+          .then((res) => {
+            if (res) {
+              console.log('Background job is scheduled!');
+            } else {
+              console.log('Background scheduling is failed');
+            }
+          })
+          .catch((err) => {
+            console.log('[error] Background job scheduling is failed', err);
+          });
+      }, 5000);
+    };
+
     if (notificationSetting === 'true') {
       // Notification Permission
       if (notificationPermission) {
-        // comment-out for refactoring 21/01/03
-        // backgroundFetchConfig();
-        /**
-         * BackgroundFetchConfig
-         */
         // Check if the schedule is still running
         PushNotificationIOS.getDeliveredNotifications((notifications) => {
           if (notifications.length > 0) {
+            console.log('[debug] The notification exists!');
             return;
           }
         });
-        // Configure BackgroundFetch as usual
-        BackgroundFetch.configure(
-          {minimumFetchInterval: 15},
-          async (taskId) => {
-            setBackgroundTasks(backgroundTasks.push(taskId));
-            console.log('[BackgroundFetch] fetched >', taskId);
-            setPushNotification();
-            setBackgroundTasks(backgroundTasks.pop());
-            BackgroundFetch.finish(taskId);
-          },
-          async (taskId) => {
-            console.log('[BackgroundFetch] timed out >', taskId);
-            setBackgroundTasks(backgroundTasks.pop());
-            BackgroundFetch.finish(taskId);
-          },
-        );
-        BackgroundFetch.scheduleTask({
-          stopOnTerminate: false,
-          enableHeadless: true,
-          taskId: 'org.example.dailybear.notification',
-          delay: 5000,
-          forceAlarmManager: false,
-          periodic: true,
-        });
-        //
+        // Start background job
+        console.log('[debug] The notification is requesting...');
+        backgroundFetchConfig();
       } else {
-        Alert.alert(
-          'Error',
-          'Notification is not permitted on your device!',
-          [
-            {
-              text: 'OK',
-              style: 'destructive',
-            },
-          ],
-          {
-            cancelable: false,
-          },
-        );
+        // Request relevant permissions for push notification
+        requestPermissionDialog();
       }
     } else {
       // TODO
       PushNotificationIOS.removeAllPendingNotificationRequests();
     }
-  }, [notificationSetting, notificationPermission, backgroundTasks]);
+  }, [backgroundTasks, notificationPermission, notificationSetting]);
 
   useEffect(() => {
     mode === sayingConsts.randomMode && saying === ''
@@ -270,6 +290,29 @@ const CalendarView = (props) => {
     });
   });
 
+  // Requesting permission method
+  const requestPermissionDialog = () => {
+    PushNotificationIOS.requestPermissions({
+      alert: true,
+      badge: true,
+      sound: true,
+      critical: true,
+    }).then(
+      (data) => {
+        console.log('PushNotificationIOS.requestPermissions', data);
+        if (data.alert && data.badge && data.sound) {
+          setNotificationPermission(true);
+        } else {
+          console.log('Some of permission requested is deficient!!');
+        }
+      },
+      (err) => {
+        console.log('PushNotificationIOS.requestPermissions failed', err);
+        setNotificationPermission(false);
+      },
+    );
+  };
+
   const setPushNotification = () => {
     let today = new Date();
     let tomorrow = new Date();
@@ -290,38 +333,11 @@ const CalendarView = (props) => {
             id: 'Proposal',
             title: 'From Daily Bear',
             body: 'How about writing your story for today? > <',
-            fireDate: new Date(tomorrow.valueOf()),
+            // fireDate: new Date(tomorrow.valueOf()),
           });
         }
       },
     );
-  };
-
-  const backgroundFetchConfig = () => {
-    // Configure BackgroundFetch as usual
-    BackgroundFetch.configure(
-      {minimumFetchInterval: 15},
-      async (taskId) => {
-        setBackgroundTasks(backgroundTasks.push(taskId));
-        console.log('[BackgroundFetch] fetched >', taskId);
-        setPushNotification();
-        setBackgroundTasks(backgroundTasks.pop());
-        BackgroundFetch.finish(taskId);
-      },
-      async (taskId) => {
-        console.log('[BackgroundFetch] timed out >', taskId);
-        setBackgroundTasks(backgroundTasks.pop());
-        BackgroundFetch.finish(taskId);
-      },
-    );
-    BackgroundFetch.scheduleTask({
-      stopOnTerminate: false,
-      enableHeadless: true,
-      taskId: 'org.example.dailybear.notification',
-      delay: 5000,
-      forceAlarmManager: false,
-      periodic: true,
-    });
   };
 
   const loadHandler = useCallback(
