@@ -1,25 +1,18 @@
 // Standard
 import React from 'react';
-import { StyleSheet, Image } from 'react-native';
+import {StyleSheet, Image} from 'react-native';
 
-const HeaderBackImage = props => {
-    return (
-        <Image 
-            source={
-                props.imagePath
-            }
-            style={ styles.HeaderImage }
-        />
-    )
+const HeaderBackImage = (props) => {
+  return <Image source={props.imagePath} style={styles.HeaderImage} />;
 };
 
 const styles = StyleSheet.create({
-    HeaderImage: {
-        width: 24,
-        height: 24,
-        marginLeft: 14.25,
-        resizeMode: 'contain'
-    }
+  HeaderImage: {
+    width: 24,
+    height: 24,
+    marginLeft: 14.25,
+    resizeMode: 'contain',
+  },
 });
 
 export default HeaderBackImage;

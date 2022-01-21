@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable radix */
 // Standard
@@ -84,7 +85,7 @@ const CalendarView = (props) => {
   const viewShot = useRef(null);
 
   // Notification Interval
-  const [notificationPermission, setNotificationPermission] = useState(false);
+  // const [notificationPermission, setNotificationPermission] = useState(false);
   const [backgroundTasks, setBackgroundTasks] = useState([]);
 
   // Animation (Swipe)

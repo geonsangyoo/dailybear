@@ -1,10 +1,10 @@
 // Standard
-import React, { useState } from 'react';
-import { StyleSheet, View, ActivityIndicator } from 'react-native';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
+import React, {useState} from 'react';
+import {StyleSheet, View, ActivityIndicator} from 'react-native';
+import {createStore, combineReducers, applyMiddleware} from 'redux';
+import {Provider} from 'react-redux';
 import ReduxThunk from 'redux-thunk';
-import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
+import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly';
 import SQLite from 'react-native-sqlite-storage';
 
 // Custom
@@ -15,14 +15,14 @@ import calendarReducer from './store/reducers/Calendar';
 import sayingReducer from './store/reducers/Saying';
 import diaryReducer from './store/reducers/Diary';
 import settingsReducer from './store/reducers/Settings';
-import { init } from './helpers/db';
+import {init} from './helpers/db';
 
 // Redux
 const rootReducer = combineReducers({
   calendar: calendarReducer,
   saying: sayingReducer,
   diary: diaryReducer,
-  settings: settingsReducer
+  settings: settingsReducer,
 });
 const middlewareEnhancer = applyMiddleware(ReduxThunk);
 const store = createStore(rootReducer, composeWithDevTools(middlewareEnhancer));
@@ -36,29 +36,29 @@ export default function App() {
     {
       name: 'dailybear.db',
       location: 'Library',
-      createFromLocation: '~SQLite.db'
+      createFromLocation: '~SQLite.db',
     },
     async () => {
-      console.log("DB is initialized");
+      console.log('DB is initialized');
       // Init schema
       await init();
       setInitDB(true);
     },
-    error => {
-      console.log("ERROR: " + error);
-    }
+    (error) => {
+      console.log('ERROR: ' + error);
+    },
   );
   if (!initDB) {
     content = (
-        <Background style={ styles.container }>
-            <View style={ styles.centered }>
-                <ActivityIndicator size='large' color={ Colors.HeaderTitle_gray } />
-            </View>
-        </Background>
+      <Background style={styles.container}>
+        <View style={styles.centered}>
+          <ActivityIndicator size="large" color={Colors.HeaderTitle_gray} />
+        </View>
+      </Background>
     );
   } else {
     content = (
-      <Provider store={ store }>
+      <Provider store={store}>
         <MainContainer />
       </Provider>
     );
@@ -68,11 +68,11 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   centered: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 });

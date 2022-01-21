@@ -1,22 +1,22 @@
 const Setting = {
-    notificationInterval: (1000 * 60 * 60) + 5,
-    fontSelect: "Select",
-    fontSelected: "Selected",
-    defaultFont: "SFProText-Regular",
-    defaultBoldFont: "SFProText-Bold",
-    defaultFontTitle: "Default Font",
-    tmoneyRoundWindFont: "TmoneyRoundWind-Regular",
-    tmoneyRoundWindFontTitle: "티머니 둥근바람",
-    mapoFlowerIslandFont: "MapoFlowerIsland",
-    mapoFlowerIslandFontTitle: "마포꽃섬",
-    bazziFont: "bazzi",
-    bazziFontTitle: "넥슨 배찌",
-    kyoboHandwriting2019Font: "Kyobo Handwriting 2019",
-    kyoboHandwriting2019FontTitle: "교보 손글씨",
-    mapoPeacefullFont: "MapoPeacefull",
-    mapoPeacefullFontTitle: "마포한아름체",
-    fontPreviewText: "This is a preview text.\nThank you for using Daily Bear.",
-    termsAndConditions: `
+  notificationInterval: 1000 * 60 * 60 + 5,
+  fontSelect: 'Select',
+  fontSelected: 'Selected',
+  defaultFont: 'SFProText-Regular',
+  defaultBoldFont: 'SFProText-Bold',
+  defaultFontTitle: 'Default Font',
+  tmoneyRoundWindFont: 'TmoneyRoundWind-Regular',
+  tmoneyRoundWindFontTitle: '티머니 둥근바람',
+  mapoFlowerIslandFont: 'MapoFlowerIsland',
+  mapoFlowerIslandFontTitle: '마포꽃섬',
+  bazziFont: 'bazzi',
+  bazziFontTitle: '넥슨 배찌',
+  kyoboHandwriting2019Font: 'Kyobo Handwriting 2019',
+  kyoboHandwriting2019FontTitle: '교보 손글씨',
+  mapoPeacefullFont: 'MapoPeacefull',
+  mapoPeacefullFontTitle: '마포한아름체',
+  fontPreviewText: 'This is a preview text.\nThank you for using Daily Bear.',
+  termsAndConditions: `
         Daily Bear is licensed to You (End-User) by Daily Bear (hereinafter: Licensor), for use only under the terms of this License Agreement.
 
         By downloading the Application from the Apple AppStore, and any update thereto (as permitted by this License Agreement), You indicate that You agree to be bound by all of the terms and conditions of this License Agreement, and that You accept this License Agreement.
@@ -180,7 +180,7 @@ const Setting = {
         17.1  If any of the terms of this agreement should be or become invalid, the validity of the remaining provisions shall not be affected. Invalid terms will be replaced by valid ones formulated in a way that will achieve the primary purpose.
                         
         17.2  Collateral agreements, changes and amendments are only valid if laid down in writing. The preceding clause can only be waived in writing.
-    `
+    `,
 };
 
 export default Setting;
